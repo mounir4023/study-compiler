@@ -6,7 +6,7 @@ int nbligne=1;
 
 %%
 
-S: BIBL mc_pgm id '{' '}' {printf("pgm correcte \n");}
+S: BIBL mc_pgm id '{' DEC INST '}' {printf("pgm correcte \n");}
 ;
 INST : INST_AFF
 ;
