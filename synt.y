@@ -16,9 +16,7 @@ EXP: id OP EXP
 	| id
 	;
 OP: '+'
-	| '*' 
-	| '/' 
-	| '-'
+	| '*' | '/' | '-'
 ;	
 BIBL :bib_calcul BIBL 
 	|	 bib_tab BIBL 
