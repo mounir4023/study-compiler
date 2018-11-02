@@ -2,5 +2,7 @@
 #TAB
 PROGRAMME SII
 {
-INTEGER S2ad1254dd458;
+INTEGER n;
+
+a := 5;
 }

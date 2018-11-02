@@ -5,54 +5,70 @@ int yylex();
 int yyerror(char *s);
 %}
 
-%token mc_pgm mc_integer mc_real
+%token mc_pgm mc_integer mc_real mc_const
        bib_calcul bib_tab bib_boucle
-       op_aff
-       taille_tab id
+       op_aff sp_var
+       id val_entiere val_reelle
        '{' '}' ',' ';' '+' '*' '/' '-' '[' ']'
 
 %%
 
-//////////////////////////////////// Axiome ////////////////////////////////////
-S:  BIBL mc_pgm id '{' NDEC INST '}' {printf("\nLe programme marche correctement\n");}
+//////////////////////////////////// Structure general ////////////////////////////////////
+S : BIBL mc_pgm id '{' NDEC NINST '}' {printf("\nLe programme marche correctement\n");}
+;
+
+BIBL : bib_calcul BIBL
+     | bib_tab BIBL
+     | bib_boucle BIBL
+     |
 ;
 
 //////////////////////////////////// Declaration part ////////////////////////////////////
-BIBL : bib_calcul BIBL
-      |bib_tab BIBL
-      |bib_boucle BIBL
+NDEC : DEC MOREDEC
+;
+
+MOREDEC : NDEC
+	| 
+;
+
+DEC : TYPE NVAR ';'
+;
+
+NVAR : VAR MOREVAR
+;
+
+MOREVAR : sp_var NVAR
+	| 
+;
+
+VAR : id INDEX 
+;
+
+INDEX : '[' val_entiere ']'
       |
-;
-
-NDEC : DEC NDEC
-	  | DEC	
-;
-
-DEC : TYPE LISTE_VARIABLES ';'
-	 | TYPE  TAB ';'
 ;
 
 TYPE: mc_integer
-	 | mc_real	
-;
-
-LISTE_VARIABLES: id ',' LISTE_VARIABLES
-                |id
-;
-
-TAB :id '[' taille_tab ']'
+    | mc_real	
 ;
 
 //////////////////////////////////// Instruction part ////////////////////////////////////
-INST : INST_AFF INST
-      |
+NINST: INST MOREINST
+;
+
+MOREINST : NINST
+	 |
+;
+
+INST : INST_AFF
+     |
 ;
 
 INST_AFF: id op_aff EXP ';'
 ;
 
 EXP: id OP EXP
-    |id
+   | id
 ;
 
 OP: '+'

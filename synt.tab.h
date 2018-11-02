@@ -46,14 +46,17 @@ extern int yydebug;
   enum yytokentype
   {
     mc_pgm = 258,
-    id = 259,
-    bib_calcul = 260,
-    bib_tab = 261,
-    bib_boucle = 262,
-    mc_integer = 263,
-    mc_real = 264,
-    aff = 265,
-    taille_tab = 266
+    mc_integer = 259,
+    mc_real = 260,
+    mc_const = 261,
+    bib_calcul = 262,
+    bib_tab = 263,
+    bib_boucle = 264,
+    op_aff = 265,
+    sp_var = 266,
+    id = 267,
+    val_entiere = 268,
+    val_reelle = 269
   };
 #endif
 
