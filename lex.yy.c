@@ -822,7 +822,7 @@ YY_RULE_SETUP
 { 
 	if ( yyleng <12 ) return id;
 	else printf("ERREUR LEXICALE: identificateur trop long !\n");
- }
+}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP

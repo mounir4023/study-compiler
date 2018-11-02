@@ -27,7 +27,7 @@ CONST return mc_const;
 {regex_idf}	{ 
 	if ( yyleng <12 ) return id;
 	else printf("ERREUR LEXICALE: identificateur trop long !\n");
- }
+}
 
 ":=" return op_aff;
 "||" return sp_var;

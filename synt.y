@@ -68,7 +68,7 @@ INST : INST_AFF
      |
 ;
 
-INST_AFF: id op_aff EXP1 ';'
+INST_AFF: VAR op_aff EXP1 ';'
 ;
 
 EXP1 : EXP2 '*' EXP1
