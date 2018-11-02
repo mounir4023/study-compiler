@@ -1,0 +1,84 @@
+ALGORITHME nomalgo
+%
+Var
+
+y|x[2]|z[20]:entier; w|t:reel; 
+h[0]:entier;
+e[-1]|y[1.2]|m[2.5]:reel; // -1 devient 1
+k:chaine;
+
+//x:entier;
+//aaaaaaaaaaaaaaaaa:reel;
+//y|x[2]|z[20]|t[30]:entier;
+//s|s[5]:chaine;
+
+Debut
+//<>
+
+// affectations
+x <-- x+x+x;
+x <-- (x+x)+x;
+x <-- x+(x+x);
+
+
+x <-- (x+2)-(x-3);
+x <-- -((x+2)-(x-3));
+x <-- 5 ;
+x <-- -5 ;
+//x <-- --5 ;
+//x <-- --(-5) ;
+x <-- (5) ;
+x <-- -(5) ;
+x <-- -(-5) ;
+x <-- (5 + 5)  ;
+x <-- - (5 + 5)  ;
+x <-- 5 + 5;
+x <-- x[6];
+x <-- 1/2;
+
+// boucle
+pour i<--5 jusque x+7/y 
+faire 
+i<--i; 
+x <-- x+((7+6)+8);
+fait
+
+// condition
+faire 
+x <-- x+((7+6)+8);
+si
+( x = 5)
+
+// imbrication
+faire 
+x <-- x+((7+6)+8);
+pour i<--5 jusque x+7/y 
+faire 
+i<--i; 
+x <-- x+((7+6)+8);
+fait
+si
+( x = 5)
+
+pour i<--5 jusque x+7/y 
+faire 
+i<--i; 
+x <-- x+((7+6)+8);
+faire 
+x <-- x+((7+6)+8);
+si
+( x = 5)
+fait
+
+
+faire 
+x <-- x+((7+6)+8);
+faire 
+x <-- x+((7+6)+8);
+si
+( x = 5)
+si
+( x = 5)
+
+Fin
+

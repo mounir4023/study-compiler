@@ -1,0 +1,916 @@
+Grammaire
+
+    0 $accept: PROJET $end
+
+    1 PROJET: BLOCK_ENTETE BLOCK_DEC BLOCK_CORPS
+
+    2 BLOCK_ENTETE: mc_algo idf
+
+    3 BLOCK_DEC: mc_var DEC
+    4          | /* vide */
+
+    5 BLOCK_CORPS: mc_debut INST mc_fin
+
+    6 DEC: LISTEIDF sb_dp TYPE sb_pvg DEC
+    7    | /* vide */
+
+    8 LISTEIDF: VARS sb_bar LISTEIDF
+    9         | VARS
+
+   10 VARS: idf INDEX
+
+   11 INDEX: sb_crochet_o OPERATION sb_crochet_f
+   12      | /* vide */
+
+   13 TYPE: mc_entier
+   14     | mc_reel
+   15     | mc_chaine
+
+   16 INST: AFFECTATION INST
+   17     | BOUCLE INST
+   18     | CONDITION INST
+   19     | /* vide */
+
+   20 AFFECTATION: VARS sb_fleche OPERATION sb_pvg
+
+   21 OPERATION: OPERATION OPAR TERM
+   22          | TERM
+
+   23 TERM: VARS
+   24     | CST
+   25     | sb_par_o OPERATION sb_par_f
+
+   26 CST: cst_int
+   27    | cst_float
+   28    | cst_string
+
+   29 OPAR: sb_plus
+   30     | sb_moins
+   31     | sb_fois
+   32     | sb_div
+
+   33 BOUCLE: mc_pour idf sb_fleche OPERATION mc_jusque OPERATION mc_faire INST mc_fait
+
+   34 CONDITION: mc_faire INST mc_si sb_par_o PREDICAT sb_par_f
+
+   35 PREDICAT: OPERATION OPC OPERATION
+
+   36 OPC: sb_eg
+   37    | sb_diff
+   38    | sb_sup
+   39    | sb_inf
+   40    | sb_supeg
+   41    | sb_infeg
+
+
+Terminaux, suivis des règles où ils apparaissent
+
+$end (0) 0
+error (256)
+idf (258) 2 10 33
+mc_algo (259) 2
+mc_debut (260) 5
+mc_fin (261) 5
+mc_var (262) 3
+mc_entier (263) 13
+mc_reel (264) 14
+mc_chaine (265) 15
+mc_pour (266) 33
+mc_jusque (267) 33
+mc_si (268) 34
+mc_faire (269) 33 34
+mc_fait (270) 33
+sb_pvg (271) 6 20
+sb_dp (272) 6
+sb_bar (273) 8
+sb_crochet_o (274) 11
+sb_crochet_f (275) 11
+sb_fleche (276) 20 33
+sb_par_o (277) 25 34
+sb_par_f (278) 25 34
+sb_moins (279) 30
+sb_plus (280) 29
+sb_fois (281) 31
+sb_div (282) 32
+sb_eg (283) 36
+sb_diff (284) 37
+sb_sup (285) 38
+sb_inf (286) 39
+sb_supeg (287) 40
+sb_infeg (288) 41
+cst_int (289) 26
+cst_float (290) 27
+cst_string (291) 28
+
+
+Non-terminaux, suivis des règles où ils apparaissent
+
+$accept (37)
+    à gauche: 0
+PROJET (38)
+    à gauche: 1, à droite: 0
+BLOCK_ENTETE (39)
+    à gauche: 2, à droite: 1
+BLOCK_DEC (40)
+    à gauche: 3 4, à droite: 1
+BLOCK_CORPS (41)
+    à gauche: 5, à droite: 1
+DEC (42)
+    à gauche: 6 7, à droite: 3 6
+LISTEIDF (43)
+    à gauche: 8 9, à droite: 6 8
+VARS (44)
+    à gauche: 10, à droite: 8 9 20 23
+INDEX (45)
+    à gauche: 11 12, à droite: 10
+TYPE (46)
+    à gauche: 13 14 15, à droite: 6
+INST (47)
+    à gauche: 16 17 18 19, à droite: 5 16 17 18 33 34
+AFFECTATION (48)
+    à gauche: 20, à droite: 16
+OPERATION (49)
+    à gauche: 21 22, à droite: 11 20 21 25 33 35
+TERM (50)
+    à gauche: 23 24 25, à droite: 21 22
+CST (51)
+    à gauche: 26 27 28, à droite: 24
+OPAR (52)
+    à gauche: 29 30 31 32, à droite: 21
+BOUCLE (53)
+    à gauche: 33, à droite: 17
+CONDITION (54)
+    à gauche: 34, à droite: 18
+PREDICAT (55)
+    à gauche: 35, à droite: 34
+OPC (56)
+    à gauche: 36 37 38 39 40 41, à droite: 35
+
+
+état 0
+
+    0 $accept: . PROJET $end
+
+    mc_algo  décalage et aller à l'état 1
+
+    PROJET        aller à l'état 2
+    BLOCK_ENTETE  aller à l'état 3
+
+
+état 1
+
+    2 BLOCK_ENTETE: mc_algo . idf
+
+    idf  décalage et aller à l'état 4
+
+
+état 2
+
+    0 $accept: PROJET . $end
+
+    $end  décalage et aller à l'état 5
+
+
+état 3
+
+    1 PROJET: BLOCK_ENTETE . BLOCK_DEC BLOCK_CORPS
+
+    mc_var  décalage et aller à l'état 6
+
+    $défaut  réduction par utilisation de la règle 4 (BLOCK_DEC)
+
+    BLOCK_DEC  aller à l'état 7
+
+
+état 4
+
+    2 BLOCK_ENTETE: mc_algo idf .
+
+    $défaut  réduction par utilisation de la règle 2 (BLOCK_ENTETE)
+
+
+état 5
+
+    0 $accept: PROJET $end .
+
+    $défaut  accepter
+
+
+état 6
+
+    3 BLOCK_DEC: mc_var . DEC
+
+    idf  décalage et aller à l'état 8
+
+    $défaut  réduction par utilisation de la règle 7 (DEC)
+
+    DEC       aller à l'état 9
+    LISTEIDF  aller à l'état 10
+    VARS      aller à l'état 11
+
+
+état 7
+
+    1 PROJET: BLOCK_ENTETE BLOCK_DEC . BLOCK_CORPS
+
+    mc_debut  décalage et aller à l'état 12
+
+    BLOCK_CORPS  aller à l'état 13
+
+
+état 8
+
+   10 VARS: idf . INDEX
+
+    sb_crochet_o  décalage et aller à l'état 14
+
+    $défaut  réduction par utilisation de la règle 12 (INDEX)
+
+    INDEX  aller à l'état 15
+
+
+état 9
+
+    3 BLOCK_DEC: mc_var DEC .
+
+    $défaut  réduction par utilisation de la règle 3 (BLOCK_DEC)
+
+
+état 10
+
+    6 DEC: LISTEIDF . sb_dp TYPE sb_pvg DEC
+
+    sb_dp  décalage et aller à l'état 16
+
+
+état 11
+
+    8 LISTEIDF: VARS . sb_bar LISTEIDF
+    9         | VARS .
+
+    sb_bar  décalage et aller à l'état 17
+
+    $défaut  réduction par utilisation de la règle 9 (LISTEIDF)
+
+
+état 12
+
+    5 BLOCK_CORPS: mc_debut . INST mc_fin
+
+    idf       décalage et aller à l'état 8
+    mc_pour   décalage et aller à l'état 18
+    mc_faire  décalage et aller à l'état 19
+
+    $défaut  réduction par utilisation de la règle 19 (INST)
+
+    VARS         aller à l'état 20
+    INST         aller à l'état 21
+    AFFECTATION  aller à l'état 22
+    BOUCLE       aller à l'état 23
+    CONDITION    aller à l'état 24
+
+
+état 13
+
+    1 PROJET: BLOCK_ENTETE BLOCK_DEC BLOCK_CORPS .
+
+    $défaut  réduction par utilisation de la règle 1 (PROJET)
+
+
+état 14
+
+   11 INDEX: sb_crochet_o . OPERATION sb_crochet_f
+
+    idf         décalage et aller à l'état 8
+    sb_par_o    décalage et aller à l'état 25
+    cst_int     décalage et aller à l'état 26
+    cst_float   décalage et aller à l'état 27
+    cst_string  décalage et aller à l'état 28
+
+    VARS       aller à l'état 29
+    OPERATION  aller à l'état 30
+    TERM       aller à l'état 31
+    CST        aller à l'état 32
+
+
+état 15
+
+   10 VARS: idf INDEX .
+
+    $défaut  réduction par utilisation de la règle 10 (VARS)
+
+
+état 16
+
+    6 DEC: LISTEIDF sb_dp . TYPE sb_pvg DEC
+
+    mc_entier  décalage et aller à l'état 33
+    mc_reel    décalage et aller à l'état 34
+    mc_chaine  décalage et aller à l'état 35
+
+    TYPE  aller à l'état 36
+
+
+état 17
+
+    8 LISTEIDF: VARS sb_bar . LISTEIDF
+
+    idf  décalage et aller à l'état 8
+
+    LISTEIDF  aller à l'état 37
+    VARS      aller à l'état 11
+
+
+état 18
+
+   33 BOUCLE: mc_pour . idf sb_fleche OPERATION mc_jusque OPERATION mc_faire INST mc_fait
+
+    idf  décalage et aller à l'état 38
+
+
+état 19
+
+   34 CONDITION: mc_faire . INST mc_si sb_par_o PREDICAT sb_par_f
+
+    idf       décalage et aller à l'état 8
+    mc_pour   décalage et aller à l'état 18
+    mc_faire  décalage et aller à l'état 19
+
+    $défaut  réduction par utilisation de la règle 19 (INST)
+
+    VARS         aller à l'état 20
+    INST         aller à l'état 39
+    AFFECTATION  aller à l'état 22
+    BOUCLE       aller à l'état 23
+    CONDITION    aller à l'état 24
+
+
+état 20
+
+   20 AFFECTATION: VARS . sb_fleche OPERATION sb_pvg
+
+    sb_fleche  décalage et aller à l'état 40
+
+
+état 21
+
+    5 BLOCK_CORPS: mc_debut INST . mc_fin
+
+    mc_fin  décalage et aller à l'état 41
+
+
+état 22
+
+   16 INST: AFFECTATION . INST
+
+    idf       décalage et aller à l'état 8
+    mc_pour   décalage et aller à l'état 18
+    mc_faire  décalage et aller à l'état 19
+
+    $défaut  réduction par utilisation de la règle 19 (INST)
+
+    VARS         aller à l'état 20
+    INST         aller à l'état 42
+    AFFECTATION  aller à l'état 22
+    BOUCLE       aller à l'état 23
+    CONDITION    aller à l'état 24
+
+
+état 23
+
+   17 INST: BOUCLE . INST
+
+    idf       décalage et aller à l'état 8
+    mc_pour   décalage et aller à l'état 18
+    mc_faire  décalage et aller à l'état 19
+
+    $défaut  réduction par utilisation de la règle 19 (INST)
+
+    VARS         aller à l'état 20
+    INST         aller à l'état 43
+    AFFECTATION  aller à l'état 22
+    BOUCLE       aller à l'état 23
+    CONDITION    aller à l'état 24
+
+
+état 24
+
+   18 INST: CONDITION . INST
+
+    idf       décalage et aller à l'état 8
+    mc_pour   décalage et aller à l'état 18
+    mc_faire  décalage et aller à l'état 19
+
+    $défaut  réduction par utilisation de la règle 19 (INST)
+
+    VARS         aller à l'état 20
+    INST         aller à l'état 44
+    AFFECTATION  aller à l'état 22
+    BOUCLE       aller à l'état 23
+    CONDITION    aller à l'état 24
+
+
+état 25
+
+   25 TERM: sb_par_o . OPERATION sb_par_f
+
+    idf         décalage et aller à l'état 8
+    sb_par_o    décalage et aller à l'état 25
+    cst_int     décalage et aller à l'état 26
+    cst_float   décalage et aller à l'état 27
+    cst_string  décalage et aller à l'état 28
+
+    VARS       aller à l'état 29
+    OPERATION  aller à l'état 45
+    TERM       aller à l'état 31
+    CST        aller à l'état 32
+
+
+état 26
+
+   26 CST: cst_int .
+
+    $défaut  réduction par utilisation de la règle 26 (CST)
+
+
+état 27
+
+   27 CST: cst_float .
+
+    $défaut  réduction par utilisation de la règle 27 (CST)
+
+
+état 28
+
+   28 CST: cst_string .
+
+    $défaut  réduction par utilisation de la règle 28 (CST)
+
+
+état 29
+
+   23 TERM: VARS .
+
+    $défaut  réduction par utilisation de la règle 23 (TERM)
+
+
+état 30
+
+   11 INDEX: sb_crochet_o OPERATION . sb_crochet_f
+   21 OPERATION: OPERATION . OPAR TERM
+
+    sb_crochet_f  décalage et aller à l'état 46
+    sb_moins      décalage et aller à l'état 47
+    sb_plus       décalage et aller à l'état 48
+    sb_fois       décalage et aller à l'état 49
+    sb_div        décalage et aller à l'état 50
+
+    OPAR  aller à l'état 51
+
+
+état 31
+
+   22 OPERATION: TERM .
+
+    $défaut  réduction par utilisation de la règle 22 (OPERATION)
+
+
+état 32
+
+   24 TERM: CST .
+
+    $défaut  réduction par utilisation de la règle 24 (TERM)
+
+
+état 33
+
+   13 TYPE: mc_entier .
+
+    $défaut  réduction par utilisation de la règle 13 (TYPE)
+
+
+état 34
+
+   14 TYPE: mc_reel .
+
+    $défaut  réduction par utilisation de la règle 14 (TYPE)
+
+
+état 35
+
+   15 TYPE: mc_chaine .
+
+    $défaut  réduction par utilisation de la règle 15 (TYPE)
+
+
+état 36
+
+    6 DEC: LISTEIDF sb_dp TYPE . sb_pvg DEC
+
+    sb_pvg  décalage et aller à l'état 52
+
+
+état 37
+
+    8 LISTEIDF: VARS sb_bar LISTEIDF .
+
+    $défaut  réduction par utilisation de la règle 8 (LISTEIDF)
+
+
+état 38
+
+   33 BOUCLE: mc_pour idf . sb_fleche OPERATION mc_jusque OPERATION mc_faire INST mc_fait
+
+    sb_fleche  décalage et aller à l'état 53
+
+
+état 39
+
+   34 CONDITION: mc_faire INST . mc_si sb_par_o PREDICAT sb_par_f
+
+    mc_si  décalage et aller à l'état 54
+
+
+état 40
+
+   20 AFFECTATION: VARS sb_fleche . OPERATION sb_pvg
+
+    idf         décalage et aller à l'état 8
+    sb_par_o    décalage et aller à l'état 25
+    cst_int     décalage et aller à l'état 26
+    cst_float   décalage et aller à l'état 27
+    cst_string  décalage et aller à l'état 28
+
+    VARS       aller à l'état 29
+    OPERATION  aller à l'état 55
+    TERM       aller à l'état 31
+    CST        aller à l'état 32
+
+
+état 41
+
+    5 BLOCK_CORPS: mc_debut INST mc_fin .
+
+    $défaut  réduction par utilisation de la règle 5 (BLOCK_CORPS)
+
+
+état 42
+
+   16 INST: AFFECTATION INST .
+
+    $défaut  réduction par utilisation de la règle 16 (INST)
+
+
+état 43
+
+   17 INST: BOUCLE INST .
+
+    $défaut  réduction par utilisation de la règle 17 (INST)
+
+
+état 44
+
+   18 INST: CONDITION INST .
+
+    $défaut  réduction par utilisation de la règle 18 (INST)
+
+
+état 45
+
+   21 OPERATION: OPERATION . OPAR TERM
+   25 TERM: sb_par_o OPERATION . sb_par_f
+
+    sb_par_f  décalage et aller à l'état 56
+    sb_moins  décalage et aller à l'état 47
+    sb_plus   décalage et aller à l'état 48
+    sb_fois   décalage et aller à l'état 49
+    sb_div    décalage et aller à l'état 50
+
+    OPAR  aller à l'état 51
+
+
+état 46
+
+   11 INDEX: sb_crochet_o OPERATION sb_crochet_f .
+
+    $défaut  réduction par utilisation de la règle 11 (INDEX)
+
+
+état 47
+
+   30 OPAR: sb_moins .
+
+    $défaut  réduction par utilisation de la règle 30 (OPAR)
+
+
+état 48
+
+   29 OPAR: sb_plus .
+
+    $défaut  réduction par utilisation de la règle 29 (OPAR)
+
+
+état 49
+
+   31 OPAR: sb_fois .
+
+    $défaut  réduction par utilisation de la règle 31 (OPAR)
+
+
+état 50
+
+   32 OPAR: sb_div .
+
+    $défaut  réduction par utilisation de la règle 32 (OPAR)
+
+
+état 51
+
+   21 OPERATION: OPERATION OPAR . TERM
+
+    idf         décalage et aller à l'état 8
+    sb_par_o    décalage et aller à l'état 25
+    cst_int     décalage et aller à l'état 26
+    cst_float   décalage et aller à l'état 27
+    cst_string  décalage et aller à l'état 28
+
+    VARS  aller à l'état 29
+    TERM  aller à l'état 57
+    CST   aller à l'état 32
+
+
+état 52
+
+    6 DEC: LISTEIDF sb_dp TYPE sb_pvg . DEC
+
+    idf  décalage et aller à l'état 8
+
+    $défaut  réduction par utilisation de la règle 7 (DEC)
+
+    DEC       aller à l'état 58
+    LISTEIDF  aller à l'état 10
+    VARS      aller à l'état 11
+
+
+état 53
+
+   33 BOUCLE: mc_pour idf sb_fleche . OPERATION mc_jusque OPERATION mc_faire INST mc_fait
+
+    idf         décalage et aller à l'état 8
+    sb_par_o    décalage et aller à l'état 25
+    cst_int     décalage et aller à l'état 26
+    cst_float   décalage et aller à l'état 27
+    cst_string  décalage et aller à l'état 28
+
+    VARS       aller à l'état 29
+    OPERATION  aller à l'état 59
+    TERM       aller à l'état 31
+    CST        aller à l'état 32
+
+
+état 54
+
+   34 CONDITION: mc_faire INST mc_si . sb_par_o PREDICAT sb_par_f
+
+    sb_par_o  décalage et aller à l'état 60
+
+
+état 55
+
+   20 AFFECTATION: VARS sb_fleche OPERATION . sb_pvg
+   21 OPERATION: OPERATION . OPAR TERM
+
+    sb_pvg    décalage et aller à l'état 61
+    sb_moins  décalage et aller à l'état 47
+    sb_plus   décalage et aller à l'état 48
+    sb_fois   décalage et aller à l'état 49
+    sb_div    décalage et aller à l'état 50
+
+    OPAR  aller à l'état 51
+
+
+état 56
+
+   25 TERM: sb_par_o OPERATION sb_par_f .
+
+    $défaut  réduction par utilisation de la règle 25 (TERM)
+
+
+état 57
+
+   21 OPERATION: OPERATION OPAR TERM .
+
+    $défaut  réduction par utilisation de la règle 21 (OPERATION)
+
+
+état 58
+
+    6 DEC: LISTEIDF sb_dp TYPE sb_pvg DEC .
+
+    $défaut  réduction par utilisation de la règle 6 (DEC)
+
+
+état 59
+
+   21 OPERATION: OPERATION . OPAR TERM
+   33 BOUCLE: mc_pour idf sb_fleche OPERATION . mc_jusque OPERATION mc_faire INST mc_fait
+
+    mc_jusque  décalage et aller à l'état 62
+    sb_moins   décalage et aller à l'état 47
+    sb_plus    décalage et aller à l'état 48
+    sb_fois    décalage et aller à l'état 49
+    sb_div     décalage et aller à l'état 50
+
+    OPAR  aller à l'état 51
+
+
+état 60
+
+   34 CONDITION: mc_faire INST mc_si sb_par_o . PREDICAT sb_par_f
+
+    idf         décalage et aller à l'état 8
+    sb_par_o    décalage et aller à l'état 25
+    cst_int     décalage et aller à l'état 26
+    cst_float   décalage et aller à l'état 27
+    cst_string  décalage et aller à l'état 28
+
+    VARS       aller à l'état 29
+    OPERATION  aller à l'état 63
+    TERM       aller à l'état 31
+    CST        aller à l'état 32
+    PREDICAT   aller à l'état 64
+
+
+état 61
+
+   20 AFFECTATION: VARS sb_fleche OPERATION sb_pvg .
+
+    $défaut  réduction par utilisation de la règle 20 (AFFECTATION)
+
+
+état 62
+
+   33 BOUCLE: mc_pour idf sb_fleche OPERATION mc_jusque . OPERATION mc_faire INST mc_fait
+
+    idf         décalage et aller à l'état 8
+    sb_par_o    décalage et aller à l'état 25
+    cst_int     décalage et aller à l'état 26
+    cst_float   décalage et aller à l'état 27
+    cst_string  décalage et aller à l'état 28
+
+    VARS       aller à l'état 29
+    OPERATION  aller à l'état 65
+    TERM       aller à l'état 31
+    CST        aller à l'état 32
+
+
+état 63
+
+   21 OPERATION: OPERATION . OPAR TERM
+   35 PREDICAT: OPERATION . OPC OPERATION
+
+    sb_moins  décalage et aller à l'état 47
+    sb_plus   décalage et aller à l'état 48
+    sb_fois   décalage et aller à l'état 49
+    sb_div    décalage et aller à l'état 50
+    sb_eg     décalage et aller à l'état 66
+    sb_diff   décalage et aller à l'état 67
+    sb_sup    décalage et aller à l'état 68
+    sb_inf    décalage et aller à l'état 69
+    sb_supeg  décalage et aller à l'état 70
+    sb_infeg  décalage et aller à l'état 71
+
+    OPAR  aller à l'état 51
+    OPC   aller à l'état 72
+
+
+état 64
+
+   34 CONDITION: mc_faire INST mc_si sb_par_o PREDICAT . sb_par_f
+
+    sb_par_f  décalage et aller à l'état 73
+
+
+état 65
+
+   21 OPERATION: OPERATION . OPAR TERM
+   33 BOUCLE: mc_pour idf sb_fleche OPERATION mc_jusque OPERATION . mc_faire INST mc_fait
+
+    mc_faire  décalage et aller à l'état 74
+    sb_moins  décalage et aller à l'état 47
+    sb_plus   décalage et aller à l'état 48
+    sb_fois   décalage et aller à l'état 49
+    sb_div    décalage et aller à l'état 50
+
+    OPAR  aller à l'état 51
+
+
+état 66
+
+   36 OPC: sb_eg .
+
+    $défaut  réduction par utilisation de la règle 36 (OPC)
+
+
+état 67
+
+   37 OPC: sb_diff .
+
+    $défaut  réduction par utilisation de la règle 37 (OPC)
+
+
+état 68
+
+   38 OPC: sb_sup .
+
+    $défaut  réduction par utilisation de la règle 38 (OPC)
+
+
+état 69
+
+   39 OPC: sb_inf .
+
+    $défaut  réduction par utilisation de la règle 39 (OPC)
+
+
+état 70
+
+   40 OPC: sb_supeg .
+
+    $défaut  réduction par utilisation de la règle 40 (OPC)
+
+
+état 71
+
+   41 OPC: sb_infeg .
+
+    $défaut  réduction par utilisation de la règle 41 (OPC)
+
+
+état 72
+
+   35 PREDICAT: OPERATION OPC . OPERATION
+
+    idf         décalage et aller à l'état 8
+    sb_par_o    décalage et aller à l'état 25
+    cst_int     décalage et aller à l'état 26
+    cst_float   décalage et aller à l'état 27
+    cst_string  décalage et aller à l'état 28
+
+    VARS       aller à l'état 29
+    OPERATION  aller à l'état 75
+    TERM       aller à l'état 31
+    CST        aller à l'état 32
+
+
+état 73
+
+   34 CONDITION: mc_faire INST mc_si sb_par_o PREDICAT sb_par_f .
+
+    $défaut  réduction par utilisation de la règle 34 (CONDITION)
+
+
+état 74
+
+   33 BOUCLE: mc_pour idf sb_fleche OPERATION mc_jusque OPERATION mc_faire . INST mc_fait
+
+    idf       décalage et aller à l'état 8
+    mc_pour   décalage et aller à l'état 18
+    mc_faire  décalage et aller à l'état 19
+
+    $défaut  réduction par utilisation de la règle 19 (INST)
+
+    VARS         aller à l'état 20
+    INST         aller à l'état 76
+    AFFECTATION  aller à l'état 22
+    BOUCLE       aller à l'état 23
+    CONDITION    aller à l'état 24
+
+
+état 75
+
+   21 OPERATION: OPERATION . OPAR TERM
+   35 PREDICAT: OPERATION OPC OPERATION .
+
+    sb_moins  décalage et aller à l'état 47
+    sb_plus   décalage et aller à l'état 48
+    sb_fois   décalage et aller à l'état 49
+    sb_div    décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 35 (PREDICAT)
+
+    OPAR  aller à l'état 51
+
+
+état 76
+
+   33 BOUCLE: mc_pour idf sb_fleche OPERATION mc_jusque OPERATION mc_faire INST . mc_fait
+
+    mc_fait  décalage et aller à l'état 77
+
+
+état 77
+
+   33 BOUCLE: mc_pour idf sb_fleche OPERATION mc_jusque OPERATION mc_faire INST mc_fait .
+
+    $défaut  réduction par utilisation de la règle 33 (BOUCLE)

@@ -1,0 +1,14 @@
+ALGORITHME IDF
+VAR declarations
+Debut
+    Instructions
+Fin
+
+declaration: declaration var simple ( var : type; || var|var|var : type; )
+             declaration tableau ( var[taille]:type; )
+
+Instruction: affectation ( idf balise--expression arithmerique; )
+             boucle ( pour affectation jusque valeur faire instructions fait)
+             condition ( faire instruction si condition )
+
+
