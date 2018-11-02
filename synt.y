@@ -9,7 +9,7 @@ int yyerror(char *s);
 mc_integer ',' ';' aff '+' '*' '/' '-'
 %%
 
-S:  BIBL mc_pgm id '{' DEC INST '}' {printf("Programme marche correctement\n");}
+S:  BIBL mc_pgm id '{' DEC INSTa '}' {printf("Programme marche correctement\n");}
 ;
 
 INST: INST_AFF
