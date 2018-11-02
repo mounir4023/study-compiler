@@ -6,10 +6,10 @@ int yyerror(char *s);
 %}
 
 %token mc_pgm id '{' '}' bib_calcul bib_tab bib_boucle
-mc_integer ',' ';' aff '+' '*' '/' '-'
+mc_integer mc_real ',' ';' aff '+' '*' '/' '-' '[' ']' taille_tab
 %%
 
-S:  BIBL mc_pgm id '{' DEC INST '}' {printf("Programme marche correctement\n");}
+S:  BIBL mc_pgm id '{' NDEC INST '}' {printf("Programme marche correctement\n");}
 ;
 
 INST: INST_AFF
@@ -32,13 +32,19 @@ BIBL : bib_calcul BIBL
       |bib_boucle BIBL
       |
 ;
-
+NDEC : DEC NDEC
+	  | DEC	
+;
 DEC : TYPE LISTE_VARIABLES ';'
+	 | TYPE  TAB ';'
 ;
 TYPE: mc_integer
+	 | mc_real	
 ;
 LISTE_VARIABLES: id ',' LISTE_VARIABLES
                 |id
+;
+TAB :id '[' taille_tab ']'
 ;
       
 %%

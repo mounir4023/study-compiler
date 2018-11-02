@@ -51,7 +51,9 @@ extern int yydebug;
     bib_tab = 261,
     bib_boucle = 262,
     mc_integer = 263,
-    aff = 264
+    mc_real = 264,
+    aff = 265,
+    taille_tab = 266
   };
 #endif
 
