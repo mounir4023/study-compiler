@@ -1,42 +1,51 @@
 %{
-#include <stdio.h>
-int nbligne=1;	
+int nbligne=1;
 %}
-%token mc_pgm id '{' '}' bib_calcul bib_tab bib_boucle mc_integer ',' ';' aff '+' '*' '/' '-' 
 
+%token mc_pgm id '{' '}' bib_calcul bib_tab bib_boucle
+mc_integer ',' ';' aff '+' '*' '/' '-'
 %%
 
-S: BIBL mc_pgm id '{' DEC INST '}' {printf("pgm correcte \n");}
+S:  BIBL mc_pgm id '{' DEC INST '}' {printf("pgm correcte\n");}
 ;
-INST : INST_AFF
+
+INST: INST_AFF
+      |
 ;
-INST_AFF : id aff EXP ';'
+INST_AFF: id aff EXP ';'
 ;
-EXP: id OP EXP 
-	| id
-	;
+EXP: id OP EXP
+    |id
+;
+
 OP: '+'
-	| '*' | '/' | '-'
-;	
-BIBL :bib_calcul BIBL 
-	|	 bib_tab BIBL 
-	| bib_boucle BIBL
-	|
+   |'-'
+   |'*'
+   |'/'
+; 
+
+BIBL : bib_calcul BIBL
+      |bib_tab BIBL
+      |bib_boucle BIBL
+      |
 ;
+
 DEC : TYPE LISTE_VARIABLES ';'
 ;
 TYPE: mc_integer
 ;
 LISTE_VARIABLES: id ',' LISTE_VARIABLES
-				| id
-;				
+                |id
+;
+      
 %%
 main()
-{
-	yyparse();}
-	yywrap()
+{yyparse();}
+
+yywrap()
 {}
-int yyerror(char *msg)
+
+int yyerror(char*msg)
 {
-	printf("Erreur syntaxique a la ligne %d",nbligne);
+printf("Erreur syntaxique : a la ligne %d\n",nbligne);
 }
