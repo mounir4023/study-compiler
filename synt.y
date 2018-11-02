@@ -48,8 +48,12 @@ INDEX : '[' val_entiere ']'
       |
 ;
 
-TYPE: mc_integer
-    | mc_real	
+TYPE : mc_integer
+     | mc_real	
+;
+
+CST : val_entiere
+    | val_reelle
 ;
 
 //////////////////////////////////// Instruction part ////////////////////////////////////
@@ -64,19 +68,22 @@ INST : INST_AFF
      |
 ;
 
-INST_AFF: id op_aff EXP ';'
+INST_AFF: id op_aff EXP1 ';'
 ;
 
-EXP: id OP EXP
-   | id
+EXP1 : EXP2 '*' EXP1
+     | EXP2 '/' EXP1
+     | EXP2
 ;
 
-OP: '+'
-   |'-'
-   |'*'
-   |'/'
-; 
+EXP2 : EXP3 '+' EXP2
+     : EXP3 '-' EXP2
+;
 
+EXP3 : VAR 
+     | CST
+     | EXP1
+;
       
 %%
 int main()
@@ -86,4 +93,4 @@ int yywrap()
 {return 1;}
 
 int yyerror(char *msg) 
-{printf("Erreur syntaxique : a la ligne %d\n",nbligne);	return 1;}
+{printf("ERREUR SYNTAXIQUE : a la ligne %d\n",nbligne);	return 1;}
