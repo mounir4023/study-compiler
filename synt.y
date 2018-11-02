@@ -44,11 +44,11 @@ TAB :id '[' taille_tab ']'
 ;
 
 //////////////////////////////////// Instruction part ////////////////////////////////////
-INST : INST_AFF
+INST : INST_AFF INST
       |
 ;
 
-INST_AFF: id aff EXP ';'
+INST_AFF: id op_aff EXP ';'
 ;
 
 EXP: id OP EXP
