@@ -1,12 +1,15 @@
 %{
+#include <stdio.h>
 int nbligne=1;
+int yylex();
+int yyerror(char *s);
 %}
 
 %token mc_pgm id '{' '}' bib_calcul bib_tab bib_boucle
 mc_integer ',' ';' aff '+' '*' '/' '-'
 %%
 
-S:  BIBL mc_pgm id '{' DEC INST '}' {printf("pgm correcte\n");}
+S:  BIBL mc_pgm id '{' DEC INST '}' {printf("Programme marche correctement\n");}
 ;
 
 INST: INST_AFF
@@ -39,13 +42,14 @@ LISTE_VARIABLES: id ',' LISTE_VARIABLES
 ;
       
 %%
-main()
+int main()
 {yyparse();}
 
-yywrap()
-{}
+int yywrap()
+{return 1;}
 
-int yyerror(char*msg)
+int yyerror(char *msg)
 {
 printf("Erreur syntaxique : a la ligne %d\n",nbligne);
+return 1;
 }

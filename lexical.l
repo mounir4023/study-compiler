@@ -1,7 +1,7 @@
 %{
 #include <stdio.h>
 #include "synt.tab.h"
-extern  nbligne;
+extern  int nbligne;
 %}
 idf [A-Z][A-Za-z]*
 %%

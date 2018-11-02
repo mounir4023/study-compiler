@@ -468,7 +468,7 @@ char *yytext;
 #line 2 "lexical.l"
 #include <stdio.h>
 #include "synt.tab.h"
-extern  nbligne;
+extern  int nbligne;
 #line 473 "lex.yy.c"
 #line 474 "lex.yy.c"
 
