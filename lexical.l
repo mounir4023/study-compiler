@@ -10,8 +10,14 @@ regex_idf [A-Z][A-Za-z0-9]*
 regex_decimal [0-9]*.[0-9]*
 regex_entier [0-9]*
 regex_commentaire "//".*"//"
+regex_aff ":="
+regex_sp "||"
 
 %%
+[{},;+*/-] return yytext[0];
+[ \t]
+\n {nbligne++;}
+
 #CALCUL return bib_calcul;
 #TAB return bib_tab;
 #BOUCLE return bib_boucle;
@@ -23,17 +29,13 @@ CONST return mc_const;
 
 {regex_entier} { return val_entiere; }
 {regex_decimal} { return val_reelle; }
+{regex_aff} { return op_aff; }
+{regex_sp} { return sp_var; }
 {regex_commentaire} 
 {regex_idf}	{ 
 	if ( yyleng <12 ) return id;
 	else printf("ERREUR LEXICALE: identificateur trop long !\n");
 }
-
-":=" return op_aff;
-"||" return sp_var;
-[{},;+*/-] return yytext[0];
-[ \t]
-\n {nbligne++;}
 . printf("ERREUR LEXICALE: caractere inconnu !\n");
 
 %%

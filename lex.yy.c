@@ -362,13 +362,13 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[66] =
     {   0,
-        8,    8,   19,    9,    9,   16,    9,    9,    9,    8,
-        9,    9,    9,    9,    9,    9,    9,    9,    0,    0,
-        0,    0,    9,    8,   12,    9,   11,   11,   11,   11,
-       11,   13,    0,    0,    0,    0,    0,   11,   11,   11,
-       11,    0,    0,    2,   10,   11,   11,   11,    6,    0,
-        0,    7,   11,   11,    0,    0,   11,   11,    3,    1,
-        5,   11,   11,    4,    0
+       11,   11,   19,   12,    2,    3,   12,    1,    1,   11,
+       12,   12,   12,   12,   12,   12,   12,   12,    0,    0,
+        0,    0,   12,   11,   13,   12,   16,   16,   16,   16,
+       16,   14,    0,    0,    0,    0,    0,   16,   16,   16,
+       16,    0,    0,    5,   15,   16,   16,   16,    9,    0,
+        0,   10,   16,   16,    0,    0,   16,   16,    6,    4,
+        8,   16,   16,    7,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -707,7 +707,7 @@ YY_DECL
 		}
 
 	{
-#line 14 "lexical.l"
+#line 16 "lexical.l"
 
 #line 712 "lex.yy.c"
 
@@ -768,96 +768,96 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 15 "lexical.l"
-return bib_calcul;
+#line 17 "lexical.l"
+return yytext[0];
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "lexical.l"
-return bib_tab;
+#line 18 "lexical.l"
+
 	YY_BREAK
 case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
-#line 17 "lexical.l"
-return bib_boucle;
+#line 19 "lexical.l"
+{nbligne++;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 19 "lexical.l"
-return mc_pgm;
+#line 21 "lexical.l"
+return bib_calcul;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "lexical.l"
-return mc_integer;
+#line 22 "lexical.l"
+return bib_tab;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 21 "lexical.l"
-return mc_real;
+#line 23 "lexical.l"
+return bib_boucle;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 "lexical.l"
-return mc_const;
+#line 25 "lexical.l"
+return mc_pgm;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 24 "lexical.l"
-{ return val_entiere; }
+#line 26 "lexical.l"
+return mc_integer;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 25 "lexical.l"
-{ return val_reelle; }
+#line 27 "lexical.l"
+return mc_real;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 26 "lexical.l"
-
+#line 28 "lexical.l"
+return mc_const;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 27 "lexical.l"
+#line 30 "lexical.l"
+{ return val_entiere; }
+	YY_BREAK
+case 12:
+YY_RULE_SETUP
+#line 31 "lexical.l"
+{ return val_reelle; }
+	YY_BREAK
+case 13:
+YY_RULE_SETUP
+#line 32 "lexical.l"
+{ return op_aff; }
+	YY_BREAK
+case 14:
+YY_RULE_SETUP
+#line 33 "lexical.l"
+{ return sp_var; }
+	YY_BREAK
+case 15:
+YY_RULE_SETUP
+#line 34 "lexical.l"
+
+	YY_BREAK
+case 16:
+YY_RULE_SETUP
+#line 35 "lexical.l"
 { 
 	if ( yyleng <12 ) return id;
 	else printf("ERREUR LEXICALE: identificateur trop long !\n");
 }
 	YY_BREAK
-case 12:
-YY_RULE_SETUP
-#line 32 "lexical.l"
-return op_aff;
-	YY_BREAK
-case 13:
-YY_RULE_SETUP
-#line 33 "lexical.l"
-return sp_var;
-	YY_BREAK
-case 14:
-YY_RULE_SETUP
-#line 34 "lexical.l"
-return yytext[0];
-	YY_BREAK
-case 15:
-YY_RULE_SETUP
-#line 35 "lexical.l"
-
-	YY_BREAK
-case 16:
-/* rule 16 can match eol */
-YY_RULE_SETUP
-#line 36 "lexical.l"
-{nbligne++;}
-	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 37 "lexical.l"
+#line 39 "lexical.l"
 printf("ERREUR LEXICALE: caractere inconnu !\n");
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 39 "lexical.l"
+#line 41 "lexical.l"
 ECHO;
 	YY_BREAK
 #line 863 "lex.yy.c"
@@ -1865,6 +1865,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 39 "lexical.l"
+#line 41 "lexical.l"
 
 

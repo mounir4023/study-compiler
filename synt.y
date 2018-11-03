@@ -82,7 +82,6 @@ EXP2 : EXP3 '+' EXP2
 
 EXP3 : VAR 
      | CST
-     | EXP1
 ;
       
 %%

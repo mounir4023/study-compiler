@@ -2,7 +2,8 @@
 #TAB
 PROGRAMME SII
 {
-INTEGER n;
 
+INTEGER n;
 a := 5;
+
 }
