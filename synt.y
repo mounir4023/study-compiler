@@ -14,7 +14,7 @@ int yyerror(char *s);
 %%
 
 //////////////////////////////////// Structure general ////////////////////////////////////
-S : BIBL mc_pgm id '{' NDEC INST '}' {printf("\nLe programme marche correctement\n");}
+S : BIBL mc_pgm id '{' DEC INST '}' {printf("\nLe programme marche correctement\n");}
 ;
 
 BIBL : bib_calcul BIBL {printf("\nbib calcul");}
@@ -24,14 +24,11 @@ BIBL : bib_calcul BIBL {printf("\nbib calcul");}
 ;
 
 //////////////////////////////////// Declaration part ////////////////////////////////////
-NDEC : DEC MOREDEC {printf("\nNDEC FOUND");}
+DEC : TYPE NVAR ';' MOREDEC {printf("\nDECLARATION LINE");}
 ;
 
-MOREDEC : NDEC {printf("\nMORE DECLARATIONS");}
+MOREDEC : DEC {printf("\nMORE DECLARATIONS");}
 	|  {printf("\nNO MORE DECLARATIONS");}
-;
-
-DEC : TYPE NVAR ';' {printf("\nDECLARATION LINE");}
 ;
 
 NVAR : VAR MOREVAR {printf("\nLIST OF VARS");}
