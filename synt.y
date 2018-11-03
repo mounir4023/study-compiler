@@ -17,73 +17,73 @@ int yyerror(char *s);
 S : BIBL mc_pgm id '{' NDEC INST '}' {printf("\nLe programme marche correctement\n");}
 ;
 
-BIBL : bib_calcul BIBL
-     | bib_tab BIBL
-     | bib_boucle BIBL
-     |
+BIBL : bib_calcul BIBL {printf("\nbib calcul");}
+     | bib_tab BIBL {printf("\nbib calcul");}
+     | bib_boucle BIBL {printf("\nbib calcul");}
+     | {printf("\nbib calcul");}
 ;
 
 //////////////////////////////////// Declaration part ////////////////////////////////////
-NDEC : DEC MOREDEC
+NDEC : DEC MOREDEC {printf("\nBLOCK DECLARATION END");}
 ;
 
-MOREDEC : NDEC
-	| 
+MOREDEC : NDEC {printf("\nMORE DECLARATIONS");}
+	|  {printf("\nEND OF DECLARATIONS");}
 ;
 
-DEC : TYPE NVAR ';'
+DEC : TYPE NVAR ';' {printf("\nDECLARATION LINE");}
 ;
 
-NVAR : VAR MOREVAR
+NVAR : VAR MOREVAR {printf("\nLIST OF VARS");}
 ;
 
-MOREVAR : sp_var NVAR
-	| 
+MOREVAR : sp_var NVAR {printf("\nMORE VARIABLES");}
+	|  {printf("\nEND OF LIST VAR DEC");}
 ;
 
-VAR : id INDEX 
+VAR : id INDEX  {printf("\nDECLARING A VAR");}
 ;
 
-INDEX : '[' val_entiere ']'
-      |
+INDEX : '[' val_entiere ']' {printf("\nINDEX");}
+      | {printf("\nNO INDEX");}
 ;
 
-TYPE : mc_integer
-     | mc_real	
+TYPE : mc_integer {printf("\nINTEGER DECLARE");}
+     | mc_real	 {printf("\nREEL DECLARE");}
 ;
 
-CST : val_entiere
-    | val_reelle
+CST : val_entiere {printf("\nVAL ENTIERE");}
+    | val_reelle {printf("\nVAL REELLE");}
 ;
 
 //////////////////////////////////// Instruction part ////////////////////////////////////
 
-INST : INST_AFF MOREINST
-     | INST_BCL MOREINST
+INST : INST_AFF MOREINST {printf("\nINST BOUCLE");}
+     | INST_BCL MOREINST {printf("\nINST BOUCLE");}
 ;
 
-MOREINST : INST
-	 |
+MOREINST : INST {printf("\nTHERE IS MORE INST");}
+	 | {printf("\nNO MORE INST");}
 ;
 
-INST_AFF: VAR op_aff EXP1 ';'
+INST_AFF: VAR op_aff EXP1 ';' {printf("\nAFFECTATION");}
 ;
 
-EXP1 : EXP2 '+' EXP1
-     | EXP2 '-' EXP1
-     | EXP2
+EXP1 : EXP2 '+' EXP1 {printf("\nTERM D AFFECTATION");}
+     | EXP2 '-' EXP1 {printf("\nTERM D AFFECTATION");}
+     | EXP2 {printf("\nTERM D AFFECTATION");}
 ;
 
-EXP2 : EXP3 '*' EXP2
-     | EXP3 '/' EXP2
-     | EXP3
+EXP2 : EXP3 '*' EXP2 {printf("\nTERM D ADDITION");}
+     | EXP3 '/' EXP2 {printf("\nTERM D ADDITION");}
+     | EXP3 {printf("\nTERM D ADDITION");}
 ;
 
-EXP3 : VAR 
-     | CST
+EXP3 : VAR  {printf("\nVAR IN AFFECTATION");}
+     | CST {printf("\nCST IN AFFECTATION");}
 ;
 
-INST_BCL : '{' '{'
+INST_BCL : '{' '{' {printf("\nINST BOUCLE");}
 ;
       
 %%
@@ -94,4 +94,4 @@ int yywrap()
 {return 1;}
 
 int yyerror(char *msg) 
-{printf("ERREUR SYNTAXIQUE : a la ligne %d\n",nbligne);	return 1;}
+{printf("\nERREUR SYNTAXIQUE : a la ligne %d\n",nbligne);	return 1;}

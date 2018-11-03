@@ -1245,8 +1245,200 @@ yyreduce:
 #line 1246 "synt.tab.c" /* yacc.c:1651  */
     break;
 
+  case 3:
+#line 20 "synt.y" /* yacc.c:1651  */
+    {printf("\nbib calcul");}
+#line 1252 "synt.tab.c" /* yacc.c:1651  */
+    break;
 
-#line 1250 "synt.tab.c" /* yacc.c:1651  */
+  case 4:
+#line 21 "synt.y" /* yacc.c:1651  */
+    {printf("\nbib calcul");}
+#line 1258 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 5:
+#line 22 "synt.y" /* yacc.c:1651  */
+    {printf("\nbib calcul");}
+#line 1264 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 6:
+#line 23 "synt.y" /* yacc.c:1651  */
+    {printf("\nbib calcul");}
+#line 1270 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 7:
+#line 27 "synt.y" /* yacc.c:1651  */
+    {printf("\nBLOCK DECLARATION END");}
+#line 1276 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 8:
+#line 30 "synt.y" /* yacc.c:1651  */
+    {printf("\nMORE DECLARATIONS");}
+#line 1282 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 9:
+#line 31 "synt.y" /* yacc.c:1651  */
+    {printf("\nEND OF DECLARATIONS");}
+#line 1288 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 10:
+#line 34 "synt.y" /* yacc.c:1651  */
+    {printf("\nDECLARATION LINE");}
+#line 1294 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 11:
+#line 37 "synt.y" /* yacc.c:1651  */
+    {printf("\nLIST OF VARS");}
+#line 1300 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 12:
+#line 40 "synt.y" /* yacc.c:1651  */
+    {printf("\nMORE VARIABLES");}
+#line 1306 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 13:
+#line 41 "synt.y" /* yacc.c:1651  */
+    {printf("\nEND OF LIST VAR DEC");}
+#line 1312 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 14:
+#line 44 "synt.y" /* yacc.c:1651  */
+    {printf("\nDECLARING A VAR");}
+#line 1318 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 15:
+#line 47 "synt.y" /* yacc.c:1651  */
+    {printf("\nINDEX");}
+#line 1324 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 16:
+#line 48 "synt.y" /* yacc.c:1651  */
+    {printf("\nNO INDEX");}
+#line 1330 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 17:
+#line 51 "synt.y" /* yacc.c:1651  */
+    {printf("\nINTEGER DECLARE");}
+#line 1336 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 18:
+#line 52 "synt.y" /* yacc.c:1651  */
+    {printf("\nREEL DECLARE");}
+#line 1342 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 19:
+#line 55 "synt.y" /* yacc.c:1651  */
+    {printf("\nVAL ENTIERE");}
+#line 1348 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 20:
+#line 56 "synt.y" /* yacc.c:1651  */
+    {printf("\nVAL REELLE");}
+#line 1354 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 21:
+#line 61 "synt.y" /* yacc.c:1651  */
+    {printf("\nINST BOUCLE");}
+#line 1360 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 22:
+#line 62 "synt.y" /* yacc.c:1651  */
+    {printf("\nINST BOUCLE");}
+#line 1366 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 23:
+#line 65 "synt.y" /* yacc.c:1651  */
+    {printf("\nTHERE IS MORE INST");}
+#line 1372 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 24:
+#line 66 "synt.y" /* yacc.c:1651  */
+    {printf("\nNO MORE INST");}
+#line 1378 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 25:
+#line 69 "synt.y" /* yacc.c:1651  */
+    {printf("\nAFFECTATION");}
+#line 1384 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 26:
+#line 72 "synt.y" /* yacc.c:1651  */
+    {printf("\nTERM D AFFECTATION");}
+#line 1390 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 27:
+#line 73 "synt.y" /* yacc.c:1651  */
+    {printf("\nTERM D AFFECTATION");}
+#line 1396 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 28:
+#line 74 "synt.y" /* yacc.c:1651  */
+    {printf("\nTERM D AFFECTATION");}
+#line 1402 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 29:
+#line 77 "synt.y" /* yacc.c:1651  */
+    {printf("\nTERM D ADDITION");}
+#line 1408 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 30:
+#line 78 "synt.y" /* yacc.c:1651  */
+    {printf("\nTERM D ADDITION");}
+#line 1414 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 31:
+#line 79 "synt.y" /* yacc.c:1651  */
+    {printf("\nTERM D ADDITION");}
+#line 1420 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 32:
+#line 82 "synt.y" /* yacc.c:1651  */
+    {printf("\nVAR IN AFFECTATION");}
+#line 1426 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 33:
+#line 83 "synt.y" /* yacc.c:1651  */
+    {printf("\nCST IN AFFECTATION");}
+#line 1432 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 34:
+#line 86 "synt.y" /* yacc.c:1651  */
+    {printf("\nINST BOUCLE");}
+#line 1438 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+
+#line 1442 "synt.tab.c" /* yacc.c:1651  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1483,4 +1675,4 @@ int yywrap()
 {return 1;}
 
 int yyerror(char *msg) 
-{printf("ERREUR SYNTAXIQUE : a la ligne %d\n",nbligne);	return 1;}
+{printf("\nERREUR SYNTAXIQUE : a la ligne %d\n",nbligne);	return 1;}
