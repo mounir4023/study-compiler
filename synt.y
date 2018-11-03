@@ -24,11 +24,11 @@ BIBL : bib_calcul BIBL {printf("\nbib calcul");}
 ;
 
 //////////////////////////////////// Declaration part ////////////////////////////////////
-NDEC : DEC MOREDEC {printf("\nBLOCK DECLARATION END");}
+NDEC : DEC MOREDEC {printf("\nNDEC FOUND");}
 ;
 
 MOREDEC : NDEC {printf("\nMORE DECLARATIONS");}
-	|  {printf("\nEND OF DECLARATIONS");}
+	|  {printf("\nNO MORE DECLARATIONS");}
 ;
 
 DEC : TYPE NVAR ';' {printf("\nDECLARATION LINE");}
@@ -41,7 +41,7 @@ MOREVAR : sp_var NVAR {printf("\nMORE VARIABLES");}
 	|  {printf("\nEND OF LIST VAR DEC");}
 ;
 
-VAR : id INDEX  {printf("\n VARIABLE");}
+VAR : id INDEX  {printf("\nVARIABLE");}
 ;
 
 INDEX : '[' val_entiere ']' {printf("\nINDEX");}

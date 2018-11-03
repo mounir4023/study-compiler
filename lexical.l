@@ -15,8 +15,10 @@ regex_sp "||"
 
 %%
 [{},;+*/-] return yytext[0];
+\[ return yytext[0];
+\] return yytext[0];
 [ \t]
-\n {nbligne++;}
+\n {nbligne++; printf("\n\n Line %d",nbligne);}
 
 #CALCUL return bib_calcul;
 #TAB return bib_tab;
@@ -27,12 +29,12 @@ INTEGER return mc_integer;
 REAL return mc_real;
 CONST return mc_const;
 
-{regex_entier} { printf("\n\nentier: %s\n\n",yytext); return val_entiere; }
-{regex_decimal} { printf("\n\nreel: %s\n\n",yytext); return val_reelle; }
+{regex_entier} { return val_entiere; }
+{regex_decimal} { return val_reelle; }
 {regex_aff} { return op_aff; }
 {regex_sp} { return sp_var; }
 {regex_commentaire} 
 {regex_idf}	{ return id; }
-. printf("ERREUR LEXICALE: caractere inconnu !\n");
+. printf("\nERREUR LEXICALE: caractere inconnu !\n");
 
 %%

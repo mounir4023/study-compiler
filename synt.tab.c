@@ -1271,7 +1271,7 @@ yyreduce:
 
   case 7:
 #line 27 "synt.y" /* yacc.c:1651  */
-    {printf("\nBLOCK DECLARATION END");}
+    {printf("\nNDEC FOUND");}
 #line 1276 "synt.tab.c" /* yacc.c:1651  */
     break;
 
@@ -1283,7 +1283,7 @@ yyreduce:
 
   case 9:
 #line 31 "synt.y" /* yacc.c:1651  */
-    {printf("\nEND OF DECLARATIONS");}
+    {printf("\nNO MORE DECLARATIONS");}
 #line 1288 "synt.tab.c" /* yacc.c:1651  */
     break;
 
@@ -1313,7 +1313,7 @@ yyreduce:
 
   case 14:
 #line 44 "synt.y" /* yacc.c:1651  */
-    {printf("\n VARIABLE");}
+    {printf("\nVARIABLE");}
 #line 1318 "synt.tab.c" /* yacc.c:1651  */
     break;
 

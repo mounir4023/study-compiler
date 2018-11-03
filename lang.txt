@@ -1,9 +1,13 @@
 #CALCUL
 #TAB
-PROGRAMME SII
-{
-// some comment //
-INTEGER Ab || Dc;
-Ab := 5;
+PROGRAMME SII {
+
+	// Declaration part //
+	INTEGER Ab || Dc || L || Tab[10] || Tab2[20];
+	// REEL K || L[10] || T[0];//
+
+	// instructions //
+	Ab := 5;
+	Ab := 5;
 
 }
