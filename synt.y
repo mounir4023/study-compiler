@@ -14,7 +14,7 @@ int yyerror(char *s);
 %%
 
 //////////////////////////////////// Structure general ////////////////////////////////////
-S : BIBL mc_pgm id '{' NDEC NINST '}' {printf("\nLe programme marche correctement\n");}
+S : BIBL mc_pgm id '{' NDEC INST '}' {printf("\nLe programme marche correctement\n");}
 ;
 
 BIBL : bib_calcul BIBL
@@ -57,31 +57,33 @@ CST : val_entiere
 ;
 
 //////////////////////////////////// Instruction part ////////////////////////////////////
-NINST: INST MOREINST
+
+INST : INST_AFF MOREINST
+     | INST_BCL MOREINST
 ;
 
-MOREINST : NINST
+MOREINST : INST
 	 |
-;
-
-INST : INST_AFF
-     |
 ;
 
 INST_AFF: VAR op_aff EXP1 ';'
 ;
 
-EXP1 : EXP2 '*' EXP1
-     | EXP2 '/' EXP1
+EXP1 : EXP2 '+' EXP1
+     | EXP2 '-' EXP1
      | EXP2
 ;
 
-EXP2 : EXP3 '+' EXP2
-     : EXP3 '-' EXP2
+EXP2 : EXP3 '*' EXP2
+     | EXP3 '/' EXP2
+     | EXP3
 ;
 
 EXP3 : VAR 
      | CST
+;
+
+INST_BCL : '{' '{'
 ;
       
 %%
