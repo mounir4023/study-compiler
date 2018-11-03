@@ -5,11 +5,12 @@ int yylex();
 int yyerror(char *s);
 %}
 
-%token mc_pgm mc_integer mc_real mc_const
+%token mc_pgm mc_integer mc_real mc_const mc_if mc_while mc_exec
        bib_calcul bib_tab bib_boucle
-       op_aff sp_var
+       sb_eg sb_diff sb_inf sb_infeg sb_sup sb_supeg
+       sb_aff sp_var
        id val_entiere val_reelle
-       '{' '}' ',' ';' '+' '*' '/' '-' '[' ']'
+       '{' '}' ',' ';' '+' '*' '/' '-' '[' ']' '(' ')'
 
 %%
 
@@ -56,14 +57,15 @@ CST : val_entiere {printf("\nVAL ENTIERE");}
 //////////////////////////////////// Instruction part ////////////////////////////////////
 
 INST : INST_AFF MOREINST {printf("\nINST AFFECTATION");}
-     | INST_BCL MOREINST {printf("\nINST BOUCLE");}
+     | INST_IF MOREINST {printf("\nINST BOUCLE");}
+     | INST_WHL MOREINST {printf("\nINST WHILE");}
 ;
 
 MOREINST : INST {printf("\nTHERE IS MORE INST");}
 	 | {printf("\nNO MORE INST");}
 ;
 
-INST_AFF: VAR op_aff EXP1 ';' {printf("\nAFFECTATION");}
+INST_AFF: VAR sb_aff EXP1 ';' {printf("\nAFFECTATION");}
 ;
 
 EXP1 : EXP2 '+' EXP1 {printf("\nTERM D AFFECTATION");}
@@ -80,7 +82,21 @@ EXP3 : VAR  {printf("\nVAR IN AFFECTATION");}
      | CST {printf("\nCST IN AFFECTATION");}
 ;
 
-INST_BCL : '{' '{' {printf("\nINST BOUCLE");}
+INST_IF : mc_exec INST mc_if '(' COND ')' {printf("\n\n\n === IF STATEMENT ====\n");}
+;
+
+INST_WHL : mc_while '(' COND ')' '{' INST '}' {printf("\n\n\n === WHILE LOOP ====\n");}
+;
+
+COND : EXP1 COMPARATEUR EXP1
+;
+
+COMPARATEUR : sb_eg
+	    | sb_diff
+	    | sb_inf
+	    | sb_infeg
+	    | sb_sup
+	    | sb_supeg
 ;
       
 %%

@@ -49,14 +49,23 @@ extern int yydebug;
     mc_integer = 259,
     mc_real = 260,
     mc_const = 261,
-    bib_calcul = 262,
-    bib_tab = 263,
-    bib_boucle = 264,
-    op_aff = 265,
-    sp_var = 266,
-    id = 267,
-    val_entiere = 268,
-    val_reelle = 269
+    mc_if = 262,
+    mc_while = 263,
+    mc_exec = 264,
+    bib_calcul = 265,
+    bib_tab = 266,
+    bib_boucle = 267,
+    sb_eg = 268,
+    sb_diff = 269,
+    sb_inf = 270,
+    sb_infeg = 271,
+    sb_sup = 272,
+    sb_supeg = 273,
+    sb_aff = 274,
+    sp_var = 275,
+    id = 276,
+    val_entiere = 277,
+    val_reelle = 278
   };
 #endif
 
