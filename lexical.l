@@ -7,8 +7,8 @@ extern  int nbmot;
 %}
 
 regex_idf [A-Z][A-Za-z0-9]*
-regex_decimal [0-9]*.[0-9]*
-regex_entier [0-9]*
+regex_entier [0-9]+
+regex_decimal [0-9]+.[0-9]+
 regex_commentaire "//".*"//"
 regex_aff ":="
 regex_sp "||"
@@ -27,15 +27,12 @@ INTEGER return mc_integer;
 REAL return mc_real;
 CONST return mc_const;
 
-{regex_entier} { return val_entiere; }
-{regex_decimal} { return val_reelle; }
+{regex_entier} { printf("\n\nentier: %s\n\n",yytext); return val_entiere; }
+{regex_decimal} { printf("\n\nreel: %s\n\n",yytext); return val_reelle; }
 {regex_aff} { return op_aff; }
 {regex_sp} { return sp_var; }
 {regex_commentaire} 
-{regex_idf}	{ 
-	if ( yyleng <12 ) return id;
-	else printf("ERREUR LEXICALE: identificateur trop long !\n");
-}
+{regex_idf}	{ return id; }
 . printf("ERREUR LEXICALE: caractere inconnu !\n");
 
 %%

@@ -2,8 +2,8 @@
 #TAB
 PROGRAMME SII
 {
-
-INTEGER n;
-a := 5;
+// some comment //
+INTEGER Ab || Dc;
+Ab := 5;
 
 }

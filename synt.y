@@ -18,8 +18,8 @@ S : BIBL mc_pgm id '{' NDEC INST '}' {printf("\nLe programme marche correctement
 ;
 
 BIBL : bib_calcul BIBL {printf("\nbib calcul");}
-     | bib_tab BIBL {printf("\nbib calcul");}
-     | bib_boucle BIBL {printf("\nbib calcul");}
+     | bib_tab BIBL {printf("\nbib tab");}
+     | bib_boucle BIBL {printf("\nbib tab");}
      | {printf("\nbib calcul");}
 ;
 
@@ -41,7 +41,7 @@ MOREVAR : sp_var NVAR {printf("\nMORE VARIABLES");}
 	|  {printf("\nEND OF LIST VAR DEC");}
 ;
 
-VAR : id INDEX  {printf("\nDECLARING A VAR");}
+VAR : id INDEX  {printf("\n VARIABLE");}
 ;
 
 INDEX : '[' val_entiere ']' {printf("\nINDEX");}
@@ -58,7 +58,7 @@ CST : val_entiere {printf("\nVAL ENTIERE");}
 
 //////////////////////////////////// Instruction part ////////////////////////////////////
 
-INST : INST_AFF MOREINST {printf("\nINST BOUCLE");}
+INST : INST_AFF MOREINST {printf("\nINST AFFECTATION");}
      | INST_BCL MOREINST {printf("\nINST BOUCLE");}
 ;
 

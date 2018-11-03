@@ -1253,13 +1253,13 @@ yyreduce:
 
   case 4:
 #line 21 "synt.y" /* yacc.c:1651  */
-    {printf("\nbib calcul");}
+    {printf("\nbib tab");}
 #line 1258 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 5:
 #line 22 "synt.y" /* yacc.c:1651  */
-    {printf("\nbib calcul");}
+    {printf("\nbib tab");}
 #line 1264 "synt.tab.c" /* yacc.c:1651  */
     break;
 
@@ -1313,7 +1313,7 @@ yyreduce:
 
   case 14:
 #line 44 "synt.y" /* yacc.c:1651  */
-    {printf("\nDECLARING A VAR");}
+    {printf("\n VARIABLE");}
 #line 1318 "synt.tab.c" /* yacc.c:1651  */
     break;
 
@@ -1355,7 +1355,7 @@ yyreduce:
 
   case 21:
 #line 61 "synt.y" /* yacc.c:1651  */
-    {printf("\nINST BOUCLE");}
+    {printf("\nINST AFFECTATION");}
 #line 1360 "synt.tab.c" /* yacc.c:1651  */
     break;
 
