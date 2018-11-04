@@ -1,46 +1,56 @@
 #include<stdio.h>
 #include<stdlib.h>
-typedef struct TS
+typedef struct Element_TS
 {
-	char nom[8];
-	int type;
-	int constOUvar;
-	int taille;
-	struct TS *svt;
-}TS;
+	char *nom;
+	char *code;
+	char* type;
+	int cst;
+	struct Element_TS * svt;
 
+}Element_TS;
 
-int Rechercher(TS**t,char* var)
+Element_TS* TS=NULL;
+
+Element_TS* Rechercher(char* nom)
 {
-	TS *p;
-	for(p= *t;p !=NULL;p=p->svt)
+	Element_TS* curseur=TS;
+	while(curseur !=NULL)
 	{
-		if(!strcmp(p->nom,var))	
-			return 1;
+		if ( strcmp(curseur->nom,nom)==1) return curseur;
 	}
-	return 0;
+	return NULL;
+} 
+
+int Inserer(char* nom,char* code)
+{
+	if  (Rechercher(nom)!=NULL)
+	{
+		if (strcmp(code,"idf")==1){
+			printf("\nDouble déclaration de la variable %s\n",nom );	
+		}
+	}
+	else
+	{
+		if ( TS==NULL)
+		{
+			TS=(Element_TS*)malloc(sizeof(Element_TS));
+			strcpy(nom,TS->nom);
+			strcpy(code,TS->code);
+			TS->svt=NULL;
+		}
+		else
+		{
+			Element_TS* tmp = (Element_TS*)malloc(sizeof(Element_TS));
+			strcpy(nom,tmp->nom);
+			strcpy(code,tmp->code);
+			tmp->svt=TS;
+			TS=tmp;
+		}
+
+	}
 }
 
-
-int inserer(TS** t,char* nomVariable,int type,int ConstVar, int taille)
-{
-	TS *p;
-	if(Rechercher(t,nomVariable))
-		return -1;
-	if(*t == NULL)
-	  { *t=(TS*)malloc(sizeof(TS));
-	    (*t)->svt=NULL;
-	  }
-	else
-	 {
-		for(p= *t;p->svt !=NULL;p=p->svt);
-			p=(TS*)malloc(sizeof(TS));
-			p->svt=*t;
-			*t=p;
-	}
-	strcpy((*t)->nom,nomVariable);
-	(*t)->type=type;
-	(*t)->constOUvar=ConstVar;
-	(*t)->taille = taille;
-	return 0;
+int nb_sauts_ligne(char * s) {
+	return strcpt(s,'\n');
 }

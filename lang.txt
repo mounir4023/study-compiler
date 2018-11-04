@@ -5,7 +5,9 @@ PROGRAMME SII {
 	// Declaration part //
 	INTEGER Ab || Dc || L || Tab[10] || Tab2[20];
 	REAL K || L[10] || T[0];
-	// INTEGER k[20.5] gives error //
+	// INTEGER k[20.5] gives error 
+		hhhh//
+	//
 
 	// instructions //
 	Ab := 5;
@@ -40,7 +42,7 @@ PROGRAMME SII {
 	WHILE ( 18 < Ab + 8 ) {
 		EXECUTE 
 			X := 5 * 5 / 5 + 5;
-			X := 5 * 5 -5 / 5 + 5;
+			X := 5 * 5 -5 / Ab + 5;
 			WHILE ( 15 == 20 ) {
 				X := 18 ;
 			}
