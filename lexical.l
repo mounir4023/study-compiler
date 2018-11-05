@@ -3,6 +3,7 @@
 #include "synt.tab.h"
 extern YYSTYPE yylval;
 extern  int nbligne;
+int nbcolonne=1;
 extern  int nbmot;
 %}
 
@@ -28,30 +29,30 @@ regex_infeg "=<"
 [ \t]
 \n {nbligne++; printf("\n\n Line %d",nbligne);}
 
-#CALCUL return bib_calcul;
-#TAB return bib_tab;
-#BOUCLE return bib_boucle;
+#CALCUL 	{ nbcolonne=nbcolonne+yyleng; return bib_calcul;}
+#TAB 		{ nbcolonne=nbcolonne+yyleng; return bib_tab;}
+#BOUCLE 	{ nbcolonne=nbcolonne+yyleng; return bib_boucle;}
 
-PROGRAMME return mc_pgm;
-INTEGER return mc_integer;
-REAL return mc_real;
-CONST return mc_const;
-EXECUTE return mc_exec;
-IF return mc_if;
-WHILE return mc_while;
+PROGRAMME 	{ nbcolonne=nbcolonne+yyleng; return mc_pgm;}
+INTEGER 	{ nbcolonne=nbcolonne+yyleng; return mc_integer;}
+REAL 		{ nbcolonne=nbcolonne+yyleng; return mc_real;}
+CONST 		{ nbcolonne=nbcolonne+yyleng; return mc_const;}
+EXECUTE 	{ nbcolonne=nbcolonne+yyleng; return mc_exec;}
+IF 			{ nbcolonne=nbcolonne+yyleng; return mc_if;}
+WHILE 		{ nbcolonne=nbcolonne+yyleng; return mc_while;}
 
-{regex_entier} { return val_entiere; }
-{regex_decimal} { return val_reelle; }
-{regex_aff} { return sb_aff; }
-{regex_eg} { return sb_eg; }
-{regex_diff} { return sb_diff; }
-{regex_sup} { return sb_sup; }
-{regex_supeg} { return sb_supeg; }
-{regex_inf} { return sb_inf; }
-{regex_infeg} { return sb_infeg; }
-{regex_sp} { return sp_var; }
-{regex_commentaire} 
-{regex_idf}	{ return id; }
-. printf("\nERREUR LEXICALE: caractere inconnu : %s !\n",yytext);
+{regex_entier} 	{ nbcolonne=nbcolonne+yyleng; return val_entiere; }
+{regex_decimal} { nbcolonne=nbcolonne+yyleng; return val_reelle; }
+{regex_aff} 	{ nbcolonne=nbcolonne+yyleng; return sb_aff; }
+{regex_eg} 		{ nbcolonne=nbcolonne+yyleng; return sb_eg; }
+{regex_diff} 	{ nbcolonne=nbcolonne+yyleng; return sb_diff; }
+{regex_sup} 	{ nbcolonne=nbcolonne+yyleng; return sb_sup; }
+{regex_supeg} 	{ nbcolonne=nbcolonne+yyleng; return sb_supeg; }
+{regex_inf} 	{ nbcolonne=nbcolonne+yyleng; return sb_inf; }
+{regex_infeg} 	{ nbcolonne=nbcolonne+yyleng; return sb_infeg; }
+{regex_sp} 		{ nbcolonne=nbcolonne+yyleng; return sp_var; }
+{regex_commentaire} {nbcolonne=nbcolonne+yyleng;}
+{regex_idf}		{ nbcolonne=nbcolonne+yyleng; return id; }
+. printf("\nERREUR LEXICALE: caractere inconnu : %s ! LIGNE : %d COLONNE : %d\n",yytext,nbligne,nbcolonne);
 
 %%

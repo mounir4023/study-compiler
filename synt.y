@@ -3,6 +3,7 @@
 int nbligne=1;
 int yylex();
 int yyerror(char *s);
+int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 %}
 
 %token mc_pgm mc_integer mc_real mc_const mc_if mc_while mc_exec
@@ -18,14 +19,26 @@ int yyerror(char *s);
 S : BIBL mc_pgm id '{' DEC INST '}' {printf("\nLe programme marche correctement\n");}
 ;
 
-BIBL : bib_calcul BIBL {printf("\nbib calcul");}
-     | bib_tab BIBL {printf("\nbib tab");}
-     | bib_boucle BIBL {printf("\nbib tab");}
-     | {printf("\nbib calcul");}
+BIBL : CALCUL BIBL     
+     | TAB BIBL        
+     | BBOUCLE BIBL 
+     | {printf("\nEND BIB DECLARATION ");}
+;
+
+//////////////////////////////// Règles bibliothèques  ///////////////////////////////////////
+
+CALCUL : bib_calcul { if ( Bib_Calcule==0){ printf("\nbib calcul");Bib_Calcule=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
+;
+
+TAB : bib_tab       { if ( Bib_tab==0){ printf("\nbib tab");Bib_tab=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
+;
+
+BBOUCLE : bib_boucle { if ( Bib_Boucle==0){ printf("\nbib tab"); Bib_Boucle=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
 ;
 
 //////////////////////////////////// Declaration part ////////////////////////////////////
 DEC : TYPE NVAR ';' MOREDEC {printf("\nDECLARATION LINE");}
+     | TYPE mc_const NVAR ';' MOREDEC 
 ;
 
 MOREDEC : DEC {printf("\nMORE DECLARATIONS");}
