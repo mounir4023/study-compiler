@@ -66,60 +66,60 @@ MOREDEC : DEC
 	|  
 ;
 
-NVAR : VAR MOREVAR {printf("\nLIST OF VARS");}
+NVAR : VAR MOREVAR 
 ;
 
-MOREVAR : sp_var NVAR {printf("\nMORE VARIABLES");}
-	|  {printf("\nEND OF LIST VAR DEC");}
+MOREVAR : sp_var NVAR 
+	|  
 ;
 
-VAR : id INDEX  {printf("\nVARIABLE");}
+VAR : id INDEX  
 ;
 
-INDEX : '[' val_entiere ']' {printf("\nINDEX");}
-      | {printf("\nNO INDEX");}
+INDEX : '[' val_entiere ']' 
+      | 
 ;
 
-TYPE : mc_integer {printf("\nINTEGER DECLARE");}
-     | mc_real	 {printf("\nREEL DECLARE");}
+TYPE : mc_integer 
+     | mc_real	 
 ;
 
-CST : val_entiere {printf("\nVAL ENTIERE");}
-    | val_reelle {printf("\nVAL REELLE");}
+CST : val_entiere 
+    | val_reelle 
 ;
 
 //////////////////////////////////// Instruction part ////////////////////////////////////
 
-INST : INST_AFF MOREINST {printf("\nINST AFFECTATION");}
-     | INST_IF MOREINST {printf("\nINST BOUCLE");}
-     | INST_WHL MOREINST {printf("\nINST WHILE");}
+INST : INST_AFF MOREINST 
+     | INST_IF MOREINST 
+     | INST_WHL MOREINST 
 ;
 
-MOREINST : INST {printf("\nTHERE IS MORE INST");}
-	 | {printf("\nNO MORE INST");}
+MOREINST : INST 
+	 | 
 ;
 
-INST_AFF: VAR sb_aff EXP1 ';' {printf("\nAFFECTATION");}
+INST_AFF: VAR sb_aff EXP1 ';' 
 ;
 
-EXP1 : EXP2 '+' EXP1 {printf("\nTERM D AFFECTATION");}
-     | EXP2 '-' EXP1 {printf("\nTERM D AFFECTATION");}
-     | EXP2 {printf("\nTERM D AFFECTATION");}
+EXP1 : EXP2 '+' EXP1 
+     | EXP2 '-' EXP1 
+     | EXP2 
 ;
 
-EXP2 : EXP3 '*' EXP2 {printf("\nTERM D ADDITION");}
-     | EXP3 '/' EXP2 {printf("\nTERM D ADDITION");}
-     | EXP3 {printf("\nTERM D ADDITION");}
+EXP2 : EXP3 '*' EXP2 
+     | EXP3 '/' EXP2 
+     | EXP3 
 ;
 
-EXP3 : VAR  {printf("\nVAR IN AFFECTATION");}
-     | CST {printf("\nCST IN AFFECTATION");}
+EXP3 : VAR  
+     | CST 
 ;
 
-INST_IF : mc_exec INST mc_if '(' COND ')' {printf("\n\n\n === IF STATEMENT ====\n");}
+INST_IF : mc_exec INST mc_if '(' COND ')' 
 ;
 
-INST_WHL : mc_while '(' COND ')' '{' INST '}' {printf("\n\n\n === WHILE LOOP ====\n");}
+INST_WHL : mc_while '(' COND ')' '{' INST '}'
 ;
 
 COND : EXP1 COMPARATEUR EXP1
