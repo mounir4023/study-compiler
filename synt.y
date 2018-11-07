@@ -17,33 +17,53 @@ int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 %%
 
 //////////////////////////////////// Structure general ////////////////////////////////////
-S : BIBL mc_pgm id '{' DEC INST '}' {printf("\nLe programme marche correctement\n");}
+S : BIBL mc_pgm id '{' DEC INST '}' { printf("\nLe programme marche correctement\n"); }
 ;
 
 BIBL : CALCUL BIBL     
      | TAB BIBL        
-     | BBOUCLE BIBL 
-     | {printf("\nEND BIB DECLARATION ");}
+     | BOUCLE BIBL 
+     | 
 ;
 
 //////////////////////////////// Règles bibliothèques  ///////////////////////////////////////
 
-CALCUL : bib_calcul { if ( Bib_Calcule==0){ /*Inserer("ihab","mc_cle");*/ printf("\nbib calcul");Bib_Calcule=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
+CALCUL : bib_calcul { 
+       		if (Bib_Calcule==0) { 
+			/*Inserer("ihab","mc_cle");*/
+			Bib_Calcule=1; 
+		} else {
+			 printf("\nBibliotheque deja déclarée");
+		} 
+	 }
 ;
 
-TAB : bib_tab       { if ( Bib_tab==0){ printf("\nbib tab");Bib_tab=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
+TAB : bib_tab { 
+    	if (Bib_tab==0) {
+		Bib_tab=1;
+		/*Inserer("ihab","mc_cle");*/
+	} else { 
+		printf("\nBibliotheque deja déclarée"
+	}
+      }
 ;
 
-BBOUCLE : bib_boucle { if ( Bib_Boucle==0){ printf("\nbib tab"); Bib_Boucle=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
+BOUCLE : bib_boucle { 
+       		if (Bib_Boucle==0) { 
+			Bib_Boucle=1;
+		} else {
+		printf("\nBibliotheque deja déclarée"
+	 	}
+      	 }
 ;
 
 //////////////////////////////////// Declaration part ////////////////////////////////////
-DEC : TYPE NVAR ';' MOREDEC {printf("\nDECLARATION LINE");}
+DEC : TYPE NVAR ';' MOREDEC 
      | TYPE mc_const NVAR ';' MOREDEC 
 ;
 
-MOREDEC : DEC {printf("\nMORE DECLARATIONS");}
-	|  {printf("\nNO MORE DECLARATIONS");}
+MOREDEC : DEC 
+	|  
 ;
 
 NVAR : VAR MOREVAR {printf("\nLIST OF VARS");}

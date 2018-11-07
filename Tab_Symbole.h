@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+
 typedef struct Element_TS
 {
 	char *nom;
@@ -24,17 +25,21 @@ void AfficherTS(Element_TS* TS)
 	}
 	else
 	{
+		int tmp = 1;
 		cursor=TS;
 		printf("\n==================== Table de Symbole ====================\n");
 		printf("|Nom Entitée  | Code Entitée | Type Entitée | CST | POSITION |\n");
 		while(TS!=NULL)
 		{
+			printf("\n iteration n° %d\n",tmp);
 			printf("|%s",cursor->nom);
 			printf("|%s",cursor->code);
 			if (cursor->type !=NULL) { printf("|%s",cursor->type);}
+			else { printf("|        "); }
 			printf("|%d\n",cursor->cst);
 			printf("|%d\n",cursor->position);
 			cursor=cursor->svt;
+			tmp++;
 		}
 	}
 }
