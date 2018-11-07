@@ -26,7 +26,7 @@ regex_infeg "=<"
 \] return yytext[0];
 \( return yytext[0];
 \) return yytext[0];
-[ \t]
+[ \t] 
 \n {nbligne++; printf("\n\n Line %d",nbligne);}
 
 #CALCUL 	{ nbcolonne=nbcolonne+yyleng; return bib_calcul;}

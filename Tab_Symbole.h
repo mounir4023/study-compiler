@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 typedef struct Element_TS
 {
 	char *nom;
@@ -26,11 +27,11 @@ void AfficherTS(Element_TS* TS)
 		cursor=TS;
 		printf("\n==================== Table de Symbole ====================\n");
 		printf("|Nom Entitée  | Code Entitée | Type Entitée | CST | POSITION |\n");
-		while(TS!NULL)
+		while(TS!=NULL)
 		{
 			printf("|%s",cursor->nom);
 			printf("|%s",cursor->code);
-			if ( ->type !=NULL) { printf("|%s",cursor->type);}
+			if (cursor->type !=NULL) { printf("|%s",cursor->type);}
 			printf("|%d\n",cursor->cst);
 			printf("|%d\n",cursor->position);
 			cursor=cursor->svt;
@@ -53,9 +54,11 @@ Element_TS* Rechercher(char* nom)
 
 int Inserer(char* nom,char* code)
 {
-	if  (Rechercher(nom)!=NULL)
+	Element_TS* found=Rechercher(nom);
+	printf("hahaahha\n");
+	if  (found!=NULL)
 	{
-		if (strcmp(code,"idf")==0){
+		if (strcmp(found->code,"idf")==0){
 			printf("\nDouble déclaration de la variable %s\n",nom );
 			//Erreur Double declared IDF
 			return -1;	
@@ -63,27 +66,35 @@ int Inserer(char* nom,char* code)
 	}
 	else
 	{
+		printf("hahaahha1\n");
 		if ( TS==NULL)
 		{
+			printf("hahaahha2\n");
 			TS=(Element_TS*)malloc(sizeof(Element_TS));
+			TS->nom="jijsffda";
+			printf("hahaahha3\n");
 			strcpy(nom,TS->nom);
+			printf("hahaahha4\n");
 			strcpy(code,TS->code);
 			TS->position=positionEntite;
+			printf("hahaahha5\n");
 			positionEntite++;
 			TS->svt=NULL;
+			
 		}
 		else
 		{
 			Element_TS* tmp = (Element_TS*)malloc(sizeof(Element_TS));
+			printf("hahaahha5\n");
 			strcpy(nom,tmp->nom);
 			strcpy(code,tmp->code);
-			TS->position=positionEntite;
+			tmp->position=positionEntite;
 			positionEntite++;
 			tmp->svt=TS;
 			TS=tmp;
 		}
 		//Insertion réussie
-		return 0
+		return 0;
 
 	}
 }
@@ -101,6 +112,6 @@ int idf_Declarer(char* nom)
 		return -1; }
 }
 
-int nb_sauts_ligne(char * s) {
+/*int nb_sauts_ligne(char * s) {
 	return strcpt(s,'\n');
-}
+}*/

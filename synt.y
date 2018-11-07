@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+#include "Tab_Symbole.h"
 int nbligne=1;
 int yylex();
 int yyerror(char *s);
@@ -27,7 +28,7 @@ BIBL : CALCUL BIBL
 
 //////////////////////////////// Règles bibliothèques  ///////////////////////////////////////
 
-CALCUL : bib_calcul { if ( Bib_Calcule==0){ printf("\nbib calcul");Bib_Calcule=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
+CALCUL : bib_calcul { if ( Bib_Calcule==0){ /*Inserer("ihab","mc_cle");*/ printf("\nbib calcul");Bib_Calcule=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
 ;
 
 TAB : bib_tab       { if ( Bib_tab==0){ printf("\nbib tab");Bib_tab=1;}else{ printf("\nBibliotheque déjà déclarée");}  }
@@ -114,7 +115,10 @@ COMPARATEUR : sb_eg
       
 %%
 int main()
-{yyparse();}
+{yyparse();
+ Inserer("ihab","idf"); 
+ AfficherTS(TS);
+}
 
 int yywrap()
 {return 1;}
