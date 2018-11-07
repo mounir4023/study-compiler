@@ -43,7 +43,7 @@ TAB : bib_tab {
 		Bib_tab=1;
 		/*Inserer("ihab","mc_cle");*/
 	} else { 
-		printf("\nBibliotheque deja de©clae√");
+		printf("\nBibliotheque deja d√©cla√©e");
 	}
       }
 ;
@@ -136,7 +136,8 @@ COMPARATEUR : sb_eg
 %%
 int main()
 {yyparse();
- Inserer("ihab","idf"); 
+ Inserer("ihab","idf");
+ Inserer("Said","idf");  
  AfficherTS(TS);
 }
 

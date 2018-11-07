@@ -29,7 +29,7 @@ void AfficherTS(Element_TS* TS)
 		cursor=TS;
 		printf("\n==================== Table de Symbole ====================\n");
 		printf("|Nom Entitée  | Code Entitée | Type Entitée | CST | POSITION |\n");
-		while(TS!=NULL)
+		while(cursor!=NULL)
 		{
 			printf("\n iteration n° %d\n",tmp);
 			printf("|%s",cursor->nom);
@@ -51,6 +51,7 @@ Element_TS* Rechercher(char* nom)
 	while(curseur !=NULL)
 	{
 		if ( strcmp(curseur->nom,nom)==0) return curseur;
+		curseur=curseur->svt;
 	}
 	return NULL;
 } 
@@ -75,7 +76,7 @@ int Inserer(char* nom,char* code)
 		{
 			printf("\nTS is empty: have to malloc\n");
 			TS=(Element_TS*)malloc(sizeof(Element_TS));
-			printf("malloc %d\n",TS);
+			//printf("malloc %d\n",TS);
 			TS->nom=(char*) malloc(sizeof(char)*strlen(nom));
 			strcpy(TS->nom,nom);
 			printf("name copied: %s\n",TS->nom);
@@ -88,13 +89,17 @@ int Inserer(char* nom,char* code)
 		else
 		{
 			Element_TS* tmp = (Element_TS*)malloc(sizeof(Element_TS));
+			tmp->nom=(char*) malloc(sizeof(char)*strlen(nom));
+			
 			printf("hahaahha5\n");
-			strcpy(nom,tmp->nom);
-			strcpy(code,tmp->code);
+			strcpy(tmp->nom,nom);
+			tmp->code=(char*) malloc(sizeof(char)*strlen(code));
+			strcpy(tmp->code,code);
 			tmp->position=positionEntite;
 			positionEntite++;
 			tmp->svt=TS;
 			TS=tmp;
+			printf("%p %p\n",tmp,TS );
 		}
 		//Insertion réussie
 		return 0;
