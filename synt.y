@@ -43,7 +43,7 @@ TAB : bib_tab {
 		Bib_tab=1;
 		/*Inserer("ihab","mc_cle");*/
 	} else { 
-		printf("\nBibliotheque deja déclarée"
+		printf("\nBibliotheque deja de�clae�");
 	}
       }
 ;
@@ -52,7 +52,7 @@ BOUCLE : bib_boucle {
        		if (Bib_Boucle==0) { 
 			Bib_Boucle=1;
 		} else {
-		printf("\nBibliotheque deja déclarée"
+			printf("\nBibliotheque deja declare");
 	 	}
       	 }
 ;

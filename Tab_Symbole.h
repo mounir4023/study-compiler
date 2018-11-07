@@ -36,15 +36,13 @@ void AfficherTS(Element_TS* TS)
 			printf("|%s",cursor->code);
 			if (cursor->type !=NULL) { printf("|%s",cursor->type);}
 			else { printf("|        "); }
-			printf("|%d\n",cursor->cst);
-			printf("|%d\n",cursor->position);
+			printf("|%d",cursor->cst);
+			printf("|%d",cursor->position);
 			cursor=cursor->svt;
 			tmp++;
 		}
 	}
 }
-
-
 
 
 Element_TS* Rechercher(char* nom)
@@ -59,10 +57,11 @@ Element_TS* Rechercher(char* nom)
 
 int Inserer(char* nom,char* code)
 {
+	printf("\nDebut insertion: nom= %s code= %s\n",nom,code);
 	Element_TS* found=Rechercher(nom);
-	printf("hahaahha\n");
 	if  (found!=NULL)
 	{
+		printf("\nSearch results: %s\n",found->nom);
 		if (strcmp(found->code,"idf")==0){
 			printf("\nDouble déclaration de la variable %s\n",nom );
 			//Erreur Double declared IDF
@@ -71,21 +70,20 @@ int Inserer(char* nom,char* code)
 	}
 	else
 	{
-		printf("hahaahha1\n");
+		printf("\nSearch results: NULL\n");
 		if ( TS==NULL)
 		{
-			printf("hahaahha2\n");
+			printf("\nTS is empty: have to malloc\n");
 			TS=(Element_TS*)malloc(sizeof(Element_TS));
-			TS->nom="jijsffda";
-			printf("hahaahha3\n");
-			strcpy(nom,TS->nom);
-			printf("hahaahha4\n");
-			strcpy(code,TS->code);
+			printf("malloc %d\n",TS);
+			TS->nom=(char*) malloc(sizeof(char)*strlen(nom));
+			strcpy(TS->nom,nom);
+			printf("name copied: %s\n",TS->nom);
+			TS->code=(char*) malloc(sizeof(char)*strlen(code));
+			strcpy(TS->code,code);
 			TS->position=positionEntite;
-			printf("hahaahha5\n");
 			positionEntite++;
 			TS->svt=NULL;
-			
 		}
 		else
 		{
