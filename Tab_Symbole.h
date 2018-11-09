@@ -31,13 +31,13 @@ void AfficherTS(Element_TS* TS)
 		printf("|Nom Entitée  | Code Entitée | Type Entitée | CST | POSITION |\n");
 		while(cursor!=NULL)
 		{
-			printf("\n iteration n° %d\n",tmp);
+			printf("\n Iteration N° %d\n",tmp);
 			printf("|%s",cursor->nom);
 			printf("|%s",cursor->code);
 			if (cursor->type !=NULL) { printf("|%s",cursor->type);}
 			else { printf("|        "); }
 			printf("|%d",cursor->cst);
-			printf("|%d",cursor->position);
+			printf("|%d\n",cursor->position);
 			cursor=cursor->svt;
 			tmp++;
 		}
@@ -90,8 +90,6 @@ int Inserer(char* nom,char* code)
 		{
 			Element_TS* tmp = (Element_TS*)malloc(sizeof(Element_TS));
 			tmp->nom=(char*) malloc(sizeof(char)*strlen(nom));
-			
-			printf("hahaahha5\n");
 			strcpy(tmp->nom,nom);
 			tmp->code=(char*) malloc(sizeof(char)*strlen(code));
 			strcpy(tmp->code,code);

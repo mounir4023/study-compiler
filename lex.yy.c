@@ -505,8 +505,9 @@ extern YYSTYPE yylval;
 extern  int nbligne;
 int nbcolonne=1;
 extern  int nbmot;
-#line 509 "lex.yy.c"
+extern YYSTYPE yylval;
 #line 510 "lex.yy.c"
+#line 511 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -723,9 +724,9 @@ YY_DECL
 		}
 
 	{
-#line 23 "lexical.l"
+#line 24 "lexical.l"
 
-#line 729 "lex.yy.c"
+#line 730 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -784,161 +785,161 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 24 "lexical.l"
+#line 25 "lexical.l"
 return yytext[0];
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 25 "lexical.l"
+#line 26 "lexical.l"
 return yytext[0];
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 26 "lexical.l"
+#line 27 "lexical.l"
 return yytext[0];
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 27 "lexical.l"
+#line 28 "lexical.l"
 return yytext[0];
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 28 "lexical.l"
+#line 29 "lexical.l"
 return yytext[0];
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 29 "lexical.l"
+#line 30 "lexical.l"
 
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 30 "lexical.l"
+#line 31 "lexical.l"
 {nbligne++; printf("\n\n Line %d",nbligne);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 32 "lexical.l"
+#line 33 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return bib_calcul;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 33 "lexical.l"
+#line 34 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return bib_tab;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 34 "lexical.l"
+#line 35 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return bib_boucle;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 36 "lexical.l"
+#line 37 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return mc_pgm;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 37 "lexical.l"
+#line 38 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return mc_integer;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 38 "lexical.l"
+#line 39 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return mc_real;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 39 "lexical.l"
+#line 40 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return mc_const;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 40 "lexical.l"
+#line 41 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return mc_exec;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 41 "lexical.l"
+#line 42 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return mc_if;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 42 "lexical.l"
+#line 43 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return mc_while;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 44 "lexical.l"
+#line 45 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return val_entiere; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 45 "lexical.l"
+#line 46 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return val_reelle; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 46 "lexical.l"
+#line 47 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return sb_aff; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 47 "lexical.l"
+#line 48 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return sb_eg; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 48 "lexical.l"
+#line 49 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return sb_diff; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 49 "lexical.l"
+#line 50 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return sb_sup; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 50 "lexical.l"
+#line 51 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return sb_supeg; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 51 "lexical.l"
+#line 52 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return sb_inf; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 52 "lexical.l"
+#line 53 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return sb_infeg; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 53 "lexical.l"
+#line 54 "lexical.l"
 { nbcolonne=nbcolonne+yyleng; return sp_var; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 54 "lexical.l"
+#line 55 "lexical.l"
 {nbcolonne=nbcolonne+yyleng;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 55 "lexical.l"
-{ nbcolonne=nbcolonne+yyleng; return id; }
+#line 56 "lexical.l"
+{ nbcolonne=nbcolonne+yyleng; yylval.chaine=strdup(yytext); return id; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 56 "lexical.l"
+#line 57 "lexical.l"
 printf("\nERREUR LEXICALE: caractere inconnu : %s ! LIGNE : %d COLONNE : %d\n",yytext,nbligne,nbcolonne);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 58 "lexical.l"
+#line 59 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 942 "lex.yy.c"
+#line 943 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1943,6 +1944,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 58 "lexical.l"
+#line 59 "lexical.l"
 
 

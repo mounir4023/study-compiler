@@ -67,11 +67,13 @@
 #include <stdio.h>
 #include "Tab_Symbole.h"
 int nbligne=1;
+extern int nbcolonne;
+int typeIdf;
+int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 int yylex();
 int yyerror(char *s);
-int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 
-#line 75 "synt.tab.c" /* yacc.c:339  */
+#line 77 "synt.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -146,7 +148,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 150 "synt.tab.c" /* yacc.c:358  */
+#line 152 "synt.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -445,11 +447,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    20,    20,    23,    24,    25,    26,    31,    41,    51,
-      61,    62,    65,    66,    69,    72,    73,    76,    79,    80,
-      83,    84,    87,    88,    93,    94,    95,    98,    99,   102,
-     105,   106,   107,   110,   111,   112,   115,   116,   119,   122,
-     125,   128,   129,   130,   131,   132,   133
+       0,    22,    22,    25,    26,    27,    28,    33,    43,    53,
+      64,    65,    68,    69,    72,    75,    76,    79,    82,    83,
+      86,    87,    90,    91,    96,    97,    98,   101,   102,   105,
+     108,   109,   110,   113,   114,   115,   118,   119,   122,   125,
+     128,   131,   132,   133,   134,   135,   136
 };
 #endif
 
@@ -1275,51 +1277,64 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 20 "synt.y" /* yacc.c:1646  */
+#line 22 "synt.y" /* yacc.c:1646  */
     { printf("\nLe programme marche correctement\n"); }
-#line 1281 "synt.tab.c" /* yacc.c:1646  */
+#line 1283 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 31 "synt.y" /* yacc.c:1646  */
+#line 33 "synt.y" /* yacc.c:1646  */
     { 
-       		if (Bib_Calcule==0) { 
-			/*Inserer("ihab","mc_cle");*/
-			Bib_Calcule=1; 
-		} else {
-			 printf("\nBibliotheque deja déclarée");
-		} 
-	 }
-#line 1294 "synt.tab.c" /* yacc.c:1646  */
+       		                   if (Bib_Calcule==0) { 
+                                                			Inserer("bib_calcul","mc_cle");
+                                                			Bib_Calcule=1; 
+                                              		} else {
+                                              			 printf("\nBibliotheque deja déclarée");
+                                              		} 
+	                   }
+#line 1296 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 41 "synt.y" /* yacc.c:1646  */
+#line 43 "synt.y" /* yacc.c:1646  */
     { 
-    	if (Bib_tab==0) {
-		Bib_tab=1;
-		/*Inserer("ihab","mc_cle");*/
-	} else { 
-		printf("\nBibliotheque deja déclaée");
-	}
-      }
-#line 1307 "synt.tab.c" /* yacc.c:1646  */
+    	                 if (Bib_tab==0) {
+		                                        Bib_tab=1;
+		                                        Inserer("bib_tab","mc_cle");
+	                                     } else { 
+		                                                printf("\nBibliotheque deja déclaée");
+	                                     }
+               }
+#line 1309 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 51 "synt.y" /* yacc.c:1646  */
+#line 53 "synt.y" /* yacc.c:1646  */
     { 
-       		if (Bib_Boucle==0) { 
-			Bib_Boucle=1;
-		} else {
-			printf("\nBibliotheque deja declare");
-	 	}
-      	 }
-#line 1319 "synt.tab.c" /* yacc.c:1646  */
+       		             if (Bib_Boucle==0) { 
+			                                       Bib_Boucle=1;
+                                             Inserer("bib_boulce","mc_cle");
+		                                      } else {
+			                                               printf("\nBibliotheque deja declare");
+	 	                                             }
+      	            }
+#line 1322 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 20:
+#line 86 "synt.y" /* yacc.c:1646  */
+    { typeIdf=0; /* 0 for integer */ }
+#line 1328 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 21:
+#line 87 "synt.y" /* yacc.c:1646  */
+    { typeIdf=1; /*0 for real*/ }
+#line 1334 "synt.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1323 "synt.tab.c" /* yacc.c:1646  */
+#line 1338 "synt.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1547,12 +1562,10 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 136 "synt.y" /* yacc.c:1906  */
+#line 139 "synt.y" /* yacc.c:1906  */
 
 int main()
-{yyparse();
- Inserer("ihab","idf");
- Inserer("Said","idf");  
+{yyparse(); 
  AfficherTS(TS);
 }
 

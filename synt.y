@@ -2,10 +2,16 @@
 #include <stdio.h>
 #include "Tab_Symbole.h"
 int nbligne=1;
+extern int nbcolonne;
+int typeIdf;
+int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 int yylex();
 int yyerror(char *s);
-int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 %}
+
+%union{
+char*  chaine;
+}
 
 %token mc_pgm mc_integer mc_real mc_const mc_if mc_while mc_exec
        bib_calcul bib_tab bib_boucle
@@ -29,32 +35,33 @@ BIBL : CALCUL BIBL
 //////////////////////////////// Règles bibliothèques  ///////////////////////////////////////
 
 CALCUL : bib_calcul { 
-       		if (Bib_Calcule==0) { 
-			/*Inserer("ihab","mc_cle");*/
-			Bib_Calcule=1; 
-		} else {
-			 printf("\nBibliotheque deja déclarée");
-		} 
-	 }
+       		                   if (Bib_Calcule==0) { 
+                                                			Inserer("bib_calcul","mc_cle");
+                                                			Bib_Calcule=1; 
+                                              		} else {
+                                              			 printf("\nBibliotheque deja déclarée");
+                                              		} 
+	                   }
 ;
 
 TAB : bib_tab { 
-    	if (Bib_tab==0) {
-		Bib_tab=1;
-		/*Inserer("ihab","mc_cle");*/
-	} else { 
-		printf("\nBibliotheque deja déclaée");
-	}
-      }
+    	                 if (Bib_tab==0) {
+		                                        Bib_tab=1;
+		                                        Inserer("bib_tab","mc_cle");
+	                                     } else { 
+		                                                printf("\nBibliotheque deja déclaée");
+	                                     }
+               }
 ;
 
 BOUCLE : bib_boucle { 
-       		if (Bib_Boucle==0) { 
-			Bib_Boucle=1;
-		} else {
-			printf("\nBibliotheque deja declare");
-	 	}
-      	 }
+       		             if (Bib_Boucle==0) { 
+			                                       Bib_Boucle=1;
+                                             Inserer("bib_boulce","mc_cle");
+		                                      } else {
+			                                               printf("\nBibliotheque deja declare");
+	 	                                             }
+      	            }
 ;
 
 //////////////////////////////////// Declaration part ////////////////////////////////////
@@ -73,15 +80,15 @@ MOREVAR : sp_var NVAR
 	|  
 ;
 
-VAR : id INDEX  
+VAR : id INDEX  { Inserer(TS,$1);}
 ;
 
 INDEX : '[' val_entiere ']' 
       | 
 ;
 
-TYPE : mc_integer 
-     | mc_real	 
+TYPE : mc_integer   { typeIdf=0; /* 0 for integer */ }
+     | mc_real	    { typeIdf=1; /*0 for real*/ }
 ;
 
 CST : val_entiere 
@@ -135,9 +142,7 @@ COMPARATEUR : sb_eg
       
 %%
 int main()
-{yyparse();
- Inserer("ihab","idf");
- Inserer("Said","idf");  
+{yyparse(); 
  AfficherTS(TS);
 }
 
