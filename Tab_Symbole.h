@@ -4,24 +4,31 @@
 
 typedef struct Element_TS
 {
-	char *nom;
-	char *code;
-	char* type;
+	char * nom;
+	char * code;
+	char * type;
 	int cst;
 	int position;
 	struct Element_TS * svt;
 
 }Element_TS;
 
+typedef struct Element_List_Dec {
+	char* nom;
+	struct Element_List_Dec * svt;
+}Element_List_Dec;
+
 Element_TS* TS=NULL;
 int positionEntite=1;
+Element_List_Dec* LD=NULL;
 
 void AfficherTS(Element_TS* TS)
 {
 	Element_TS* cursor;
 	if ( TS==NULL)
 	{
-		printf("\n========== Table de symbole vide ==========\n");
+		printf("\n==================== Table de Symbole ====================\n");
+		printf("==================== ///// Vide ///// ====================\n");
 	}
 	else
 	{
@@ -58,20 +65,20 @@ Element_TS* Rechercher(char* nom)
 
 int Inserer(char* nom,char* code)
 {
-	printf("\nDebut insertion: nom= %s code= %s\n",nom,code);
+	//printf("\nDebut insertion: nom= %s code= %s\n",nom,code);
 	Element_TS* found=Rechercher(nom);
 	if  (found!=NULL)
 	{
 		printf("\nSearch results: %s\n",found->nom);
-		if (strcmp(found->code,"idf")==0){
-			printf("\nDouble déclaration de la variable %s\n",nom );
+		if (strcmp(found->type,"idf")==0){
 			//Erreur Double declared IDF
+			printf("\nDouble déclaration de la variable s\n",nom);
 			return -1;	
 		}
 	}
 	else
 	{
-		printf("\nSearch results: NULL\n");
+		//printf("\nSearch results: NULL\n");
 		if ( TS==NULL)
 		{
 			printf("\nTS is empty: have to malloc\n");
@@ -97,7 +104,7 @@ int Inserer(char* nom,char* code)
 			positionEntite++;
 			tmp->svt=TS;
 			TS=tmp;
-			printf("%p %p\n",tmp,TS );
+			//printf("%p %p\n",tmp,TS );
 		}
 		//Insertion réussie
 		return 0;
@@ -105,6 +112,23 @@ int Inserer(char* nom,char* code)
 	}
 }
 
+void Inserer_LD( char * nom ) {
+	if ( LD == NULL ) {
+		LD = (Element_List_Dec *) malloc(sizeof(Element_List_Dec));
+		LD->nom=strdup(nom);
+	} else {
+		Element_List_Dec* tmp = (Element_List_Dec*)malloc(sizeof(Element_List_Dec));
+		tmp->nom=strdup(nom);
+		tmp->svt=LD;
+		LD=tmp;
+	}
+}
+
+void Vider_LD() {
+	LD=NULL;
+}
+
+/*
 int idf_Declarer(char* nom)
 {
 	Element_TS* current_idf=Rechercher(nom);
@@ -118,6 +142,6 @@ int idf_Declarer(char* nom)
 		return -1; }
 }
 
-/*int nb_sauts_ligne(char * s) {
+int nb_sauts_ligne(char * s) {
 	return strcpt(s,'\n');
 }*/

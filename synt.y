@@ -4,6 +4,7 @@
 int nbligne=1;
 extern int nbcolonne;
 int typeIdf;
+int fin_dec=0;
 int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 int yylex();
 int yyerror(char *s);
@@ -36,10 +37,10 @@ BIBL : CALCUL BIBL
 
 CALCUL : bib_calcul { 
        		                   if (Bib_Calcule==0) { 
-                                                			Inserer("bib_calcul","mc_cle");
+                                                			Inserer("CALCUL","mc");
                                                 			Bib_Calcule=1; 
                                               		} else {
-                                              			 printf("\nBibliotheque deja déclarée");
+                                              			 printf("\nBibliotheque CALCUL deja déclarée");
                                               		} 
 	                   }
 ;
@@ -47,9 +48,9 @@ CALCUL : bib_calcul {
 TAB : bib_tab { 
     	                 if (Bib_tab==0) {
 		                                        Bib_tab=1;
-		                                        Inserer("bib_tab","mc_cle");
+		                                        Inserer("TAB","mc");
 	                                     } else { 
-		                                                printf("\nBibliotheque deja déclaée");
+		                                                printf("\nBibliotheque TAB deja déclaée");
 	                                     }
                }
 ;
@@ -57,9 +58,9 @@ TAB : bib_tab {
 BOUCLE : bib_boucle { 
        		             if (Bib_Boucle==0) { 
 			                                       Bib_Boucle=1;
-                                             Inserer("bib_boulce","mc_cle");
+                                             Inserer("BOUCLE","mc");
 		                                      } else {
-			                                               printf("\nBibliotheque deja declare");
+			                                               printf("\nBibliotheque BOUCLE deja declare");
 	 	                                             }
       	            }
 ;
@@ -78,9 +79,23 @@ NVAR : VAR MOREVAR
 
 MOREVAR : sp_var NVAR 
 	|  
+	{
+		printf("\n\n Fin de la liste de declarations");
+		while(LD!=NULL) {
+			printf("\n%s",LD->nom);
+			LD=LD->svt;
+		} 
+	}
 ;
 
-VAR : id INDEX  { Inserer($1,"idf");}
+VAR : id INDEX  
+    	{ 
+		if( fin_dec == 0 ) {
+			Inserer_LD($1);
+		} else {
+			
+		}
+	}
 ;
 
 INDEX : '[' val_entiere ']' 
