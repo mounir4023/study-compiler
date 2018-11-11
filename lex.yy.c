@@ -817,7 +817,7 @@ case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
 #line 31 "lexical.l"
-{nbligne++; printf("\n\n Line %d",nbligne);}
+{nbligne++; return yytext[0];}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP

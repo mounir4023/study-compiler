@@ -35,16 +35,15 @@ void AfficherTS(Element_TS* TS)
 		int tmp = 1;
 		cursor=TS;
 		printf("\n==================== Table de Symbole ====================\n");
-		printf("|Nom Entitée  | Code Entitée | Type Entitée | CST | POSITION |\n");
+		printf("| Nom Entité | Code Entitée | Type Entitée | CST | POSITION |\n");
 		while(cursor!=NULL)
 		{
-			printf("\n Iteration N° %d\n",tmp);
-			printf("|%s",cursor->nom);
-			printf("|%s",cursor->code);
-			if (cursor->type !=NULL) { printf("|%s",cursor->type);}
-			else { printf("|        "); }
-			printf("|%d",cursor->cst);
-			printf("|%d\n",cursor->position);
+			printf("|%12s",cursor->nom);
+			printf("|%14s",cursor->code);
+			if (cursor->type !=NULL) { printf("|%14s",cursor->type);}
+			else { printf("|%14s"," "); }
+			printf("|%5d",cursor->cst);
+			printf("|%10d|\n",cursor->position);
 			cursor=cursor->svt;
 			tmp++;
 		}

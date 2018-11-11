@@ -459,10 +459,10 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    27,    27,    30,    31,    32,    33,    38,    48,    58,
-      69,    70,    73,    74,    77,    80,    82,    91,   101,   102,
-     105,   106,   109,   110,   115,   116,   117,   120,   121,   124,
-     127,   128,   129,   132,   133,   134,   137,   138,   141,   144,
-     147,   150,   151,   152,   153,   154,   155
+      69,    70,    73,    75,    82,    85,    87,    96,   106,   107,
+     110,   111,   114,   115,   120,   121,   122,   125,   126,   129,
+     132,   133,   134,   137,   138,   139,   142,   143,   146,   149,
+     152,   155,   156,   157,   158,   159,   160
 };
 #endif
 
@@ -1333,8 +1333,18 @@ yyreduce:
 #line 1334 "synt.tab.c" /* yacc.c:1651  */
     break;
 
+  case 13:
+#line 75 "synt.y" /* yacc.c:1651  */
+    {
+		Vider_LD();
+		fin_dec=1;
+		printf("\n\n Fin declaration! %d",fin_dec);
+	}
+#line 1344 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
   case 16:
-#line 82 "synt.y" /* yacc.c:1651  */
+#line 87 "synt.y" /* yacc.c:1651  */
     {
 		printf("\n\n Fin de la liste de declarations");
 		while(LD!=NULL) {
@@ -1342,11 +1352,11 @@ yyreduce:
 			LD=LD->svt;
 		} 
 	}
-#line 1346 "synt.tab.c" /* yacc.c:1651  */
+#line 1356 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 17:
-#line 92 "synt.y" /* yacc.c:1651  */
+#line 97 "synt.y" /* yacc.c:1651  */
     { 
 		if( fin_dec == 0 ) {
 			Inserer_LD((yyvsp[-1].chaine));
@@ -1354,23 +1364,23 @@ yyreduce:
 			
 		}
 	}
-#line 1358 "synt.tab.c" /* yacc.c:1651  */
+#line 1368 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 20:
-#line 105 "synt.y" /* yacc.c:1651  */
+#line 110 "synt.y" /* yacc.c:1651  */
     { typeIdf=0; /* 0 for integer */ }
-#line 1364 "synt.tab.c" /* yacc.c:1651  */
+#line 1374 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 21:
-#line 106 "synt.y" /* yacc.c:1651  */
+#line 111 "synt.y" /* yacc.c:1651  */
     { typeIdf=1; /*0 for real*/ }
-#line 1370 "synt.tab.c" /* yacc.c:1651  */
+#line 1380 "synt.tab.c" /* yacc.c:1651  */
     break;
 
 
-#line 1374 "synt.tab.c" /* yacc.c:1651  */
+#line 1384 "synt.tab.c" /* yacc.c:1651  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1598,7 +1608,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 158 "synt.y" /* yacc.c:1910  */
+#line 163 "synt.y" /* yacc.c:1910  */
 
 int main()
 {yyparse(); 

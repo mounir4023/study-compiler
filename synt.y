@@ -72,6 +72,11 @@ DEC : TYPE NVAR ';' MOREDEC
 
 MOREDEC : DEC 
 	|  
+	{
+		Vider_LD();
+		fin_dec=1;
+		printf("\n\n Fin declaration! %d",fin_dec);
+	}
 ;
 
 NVAR : VAR MOREVAR 
