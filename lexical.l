@@ -28,7 +28,7 @@ regex_infeg "=<"
 \( return yytext[0];
 \) return yytext[0];
 [ \t] 
-\n {nbligne++; return yytext[0];}
+\n {nbligne++;}
 
 #CALCUL 	{ nbcolonne=nbcolonne+yyleng; return bib_calcul;}
 #TAB 		{ nbcolonne=nbcolonne+yyleng; return bib_tab;}

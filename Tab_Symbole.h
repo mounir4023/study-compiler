@@ -21,6 +21,7 @@ typedef struct Element_List_Dec {
 Element_TS* TS=NULL;
 int positionEntite=1;
 Element_List_Dec* LD=NULL;
+char * type_courant;
 
 void AfficherTS(Element_TS* TS)
 {
@@ -65,10 +66,11 @@ Element_TS* Rechercher(char* nom)
 int Inserer(char* nom,char* code)
 {
 	//printf("\nDebut insertion: nom= %s code= %s\n",nom,code);
+	printf("\nInserer: %s %s",nom,code);
 	Element_TS* found=Rechercher(nom);
 	if  (found!=NULL)
 	{
-		printf("\nSearch results: %s\n",found->nom);
+		//printf("\nSearch results: %s\n",found->nom);
 		if (strcmp(found->type,"idf")==0){
 			//Erreur Double declared IDF
 			printf("\nDouble déclaration de la variable s\n",nom);
@@ -80,12 +82,12 @@ int Inserer(char* nom,char* code)
 		//printf("\nSearch results: NULL\n");
 		if ( TS==NULL)
 		{
-			printf("\nTS is empty: have to malloc\n");
+			//printf("\nTS is empty: have to malloc\n");
 			TS=(Element_TS*)malloc(sizeof(Element_TS));
 			//printf("malloc %d\n",TS);
 			TS->nom=(char*) malloc(sizeof(char)*strlen(nom));
 			strcpy(TS->nom,nom);
-			printf("name copied: %s\n",TS->nom);
+			//printf("name copied: %s\n",TS->nom);
 			TS->code=(char*) malloc(sizeof(char)*strlen(code));
 			strcpy(TS->code,code);
 			TS->position=positionEntite;
@@ -124,6 +126,11 @@ void Inserer_LD( char * nom ) {
 }
 
 void Vider_LD() {
+	while (LD!=NULL) {
+		//printf("\n Inserer: %s %s",LD->nom,type_courant);
+		Inserer(LD->nom,type_courant);
+		LD=LD->svt;
+	}
 	LD=NULL;
 }
 

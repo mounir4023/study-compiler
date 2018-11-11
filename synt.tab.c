@@ -459,10 +459,10 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    27,    27,    30,    31,    32,    33,    38,    48,    58,
-      69,    70,    73,    75,    82,    85,    87,    96,   106,   107,
-     110,   111,   114,   115,   120,   121,   122,   125,   126,   129,
-     132,   133,   134,   137,   138,   139,   142,   143,   146,   149,
-     152,   155,   156,   157,   158,   159,   160
+      69,    70,    73,    75,    81,    84,    86,    92,   102,   103,
+     106,   107,   110,   111,   116,   117,   118,   121,   122,   125,
+     128,   129,   130,   133,   134,   135,   138,   139,   142,   145,
+     148,   151,   152,   153,   154,   155,   156
 };
 #endif
 
@@ -1336,27 +1336,23 @@ yyreduce:
   case 13:
 #line 75 "synt.y" /* yacc.c:1651  */
     {
-		Vider_LD();
 		fin_dec=1;
-		printf("\n\n Fin declaration! %d",fin_dec);
+		printf("\n\n\n Fin de la partie declarations ! %d",fin_dec);
 	}
-#line 1344 "synt.tab.c" /* yacc.c:1651  */
+#line 1343 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 16:
-#line 87 "synt.y" /* yacc.c:1651  */
+#line 86 "synt.y" /* yacc.c:1651  */
     {
 		printf("\n\n Fin de la liste de declarations");
-		while(LD!=NULL) {
-			printf("\n%s",LD->nom);
-			LD=LD->svt;
-		} 
+		Vider_LD();
 	}
-#line 1356 "synt.tab.c" /* yacc.c:1651  */
+#line 1352 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 17:
-#line 97 "synt.y" /* yacc.c:1651  */
+#line 93 "synt.y" /* yacc.c:1651  */
     { 
 		if( fin_dec == 0 ) {
 			Inserer_LD((yyvsp[-1].chaine));
@@ -1364,23 +1360,23 @@ yyreduce:
 			
 		}
 	}
-#line 1368 "synt.tab.c" /* yacc.c:1651  */
+#line 1364 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 20:
-#line 110 "synt.y" /* yacc.c:1651  */
-    { typeIdf=0; /* 0 for integer */ }
-#line 1374 "synt.tab.c" /* yacc.c:1651  */
+#line 106 "synt.y" /* yacc.c:1651  */
+    { typeIdf=0; /* 0 for integer */ type_courant = strdup("REAL");}
+#line 1370 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 21:
-#line 111 "synt.y" /* yacc.c:1651  */
-    { typeIdf=1; /*0 for real*/ }
-#line 1380 "synt.tab.c" /* yacc.c:1651  */
+#line 107 "synt.y" /* yacc.c:1651  */
+    { typeIdf=1; /*0 for real*/  type_courant = strdup("INTEGER");}
+#line 1376 "synt.tab.c" /* yacc.c:1651  */
     break;
 
 
-#line 1384 "synt.tab.c" /* yacc.c:1651  */
+#line 1380 "synt.tab.c" /* yacc.c:1651  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1608,7 +1604,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 163 "synt.y" /* yacc.c:1910  */
+#line 159 "synt.y" /* yacc.c:1910  */
 
 int main()
 {yyparse(); 
