@@ -17,7 +17,7 @@ char*  chaine;
        bib_calcul bib_tab bib_boucle
        sb_eg sb_diff sb_inf sb_infeg sb_sup sb_supeg
        sb_aff sp_var
-       id val_entiere val_reelle
+       <chaine>id val_entiere val_reelle
        '{' '}' ',' ';' '+' '*' '/' '-' '[' ']' '(' ')'
 
 %%
@@ -80,7 +80,7 @@ MOREVAR : sp_var NVAR
 	|  
 ;
 
-VAR : id INDEX  { Inserer(TS,$1);}
+VAR : id INDEX  { Inserer($1,"idf");}
 ;
 
 INDEX : '[' val_entiere ']' 

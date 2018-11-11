@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.1.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "3.0.4"
+#define YYBISON_VERSION "3.1"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -134,7 +134,17 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 12 "synt.y" /* yacc.c:355  */
+
+char*  chaine;
+
+#line 145 "synt.tab.c" /* yacc.c:355  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -148,7 +158,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 152 "synt.tab.c" /* yacc.c:358  */
+#line 162 "synt.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -169,13 +179,13 @@ typedef signed char yytype_int8;
 #ifdef YYTYPE_UINT16
 typedef YYTYPE_UINT16 yytype_uint16;
 #else
-typedef unsigned short int yytype_uint16;
+typedef unsigned short yytype_uint16;
 #endif
 
 #ifdef YYTYPE_INT16
 typedef YYTYPE_INT16 yytype_int16;
 #else
-typedef short int yytype_int16;
+typedef short yytype_int16;
 #endif
 
 #ifndef YYSIZE_T
@@ -187,7 +197,7 @@ typedef short int yytype_int16;
 #  include <stddef.h> /* INFRINGES ON USER NAME SPACE */
 #  define YYSIZE_T size_t
 # else
-#  define YYSIZE_T unsigned int
+#  define YYSIZE_T unsigned
 # endif
 #endif
 
@@ -239,7 +249,7 @@ typedef short int yytype_int16;
 # define YYUSE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
+#if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
 # define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN \
     _Pragma ("GCC diagnostic push") \
@@ -407,7 +417,7 @@ union yyalloc
 #define YYMAXUTOK   278
 
 #define YYTRANSLATE(YYX)                                                \
-  ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
+  ((unsigned) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
 
 /* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
    as returned by yylex, without out-of-bounds checking.  */
@@ -447,11 +457,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    22,    22,    25,    26,    27,    28,    33,    43,    53,
-      64,    65,    68,    69,    72,    75,    76,    79,    82,    83,
-      86,    87,    90,    91,    96,    97,    98,   101,   102,   105,
-     108,   109,   110,   113,   114,   115,   118,   119,   122,   125,
-     128,   131,   132,   133,   134,   135,   136
+       0,    26,    26,    29,    30,    31,    32,    37,    47,    57,
+      68,    69,    72,    73,    76,    79,    80,    83,    86,    87,
+      90,    91,    94,    95,   100,   101,   102,   105,   106,   109,
+     112,   113,   114,   117,   118,   119,   122,   123,   126,   129,
+     132,   135,   136,   137,   138,   139,   140
 };
 #endif
 
@@ -735,7 +745,7 @@ do {                                                            \
 static void
 yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule)
 {
-  unsigned long int yylno = yyrline[yyrule];
+  unsigned long yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
   int yyi;
   YYFPRINTF (stderr, "Reducing stack by rule %d (line %lu):\n",
@@ -961,6 +971,7 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
       case N:                               \
         yyformat = S;                       \
       break
+    default: /* Avoid compiler warnings. */
       YYCASE_(0, YY_("syntax error"));
       YYCASE_(1, YY_("syntax error, unexpected %s"));
       YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
@@ -1166,7 +1177,7 @@ yyparse (void)
       yyvsp = yyvs + yysize - 1;
 
       YYDPRINTF ((stderr, "Stack size increased to %lu\n",
-                  (unsigned long int) yystacksize));
+                  (unsigned long) yystacksize));
 
       if (yyss + yystacksize - 1 <= yyssp)
         YYABORT;
@@ -1277,13 +1288,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 22 "synt.y" /* yacc.c:1646  */
+#line 26 "synt.y" /* yacc.c:1651  */
     { printf("\nLe programme marche correctement\n"); }
-#line 1283 "synt.tab.c" /* yacc.c:1646  */
+#line 1294 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 7:
-#line 33 "synt.y" /* yacc.c:1646  */
+#line 37 "synt.y" /* yacc.c:1651  */
     { 
        		                   if (Bib_Calcule==0) { 
                                                 			Inserer("bib_calcul","mc_cle");
@@ -1292,11 +1303,11 @@ yyreduce:
                                               			 printf("\nBibliotheque deja déclarée");
                                               		} 
 	                   }
-#line 1296 "synt.tab.c" /* yacc.c:1646  */
+#line 1307 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 8:
-#line 43 "synt.y" /* yacc.c:1646  */
+#line 47 "synt.y" /* yacc.c:1651  */
     { 
     	                 if (Bib_tab==0) {
 		                                        Bib_tab=1;
@@ -1305,11 +1316,11 @@ yyreduce:
 		                                                printf("\nBibliotheque deja déclaée");
 	                                     }
                }
-#line 1309 "synt.tab.c" /* yacc.c:1646  */
+#line 1320 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 9:
-#line 53 "synt.y" /* yacc.c:1646  */
+#line 57 "synt.y" /* yacc.c:1651  */
     { 
        		             if (Bib_Boucle==0) { 
 			                                       Bib_Boucle=1;
@@ -1318,23 +1329,29 @@ yyreduce:
 			                                               printf("\nBibliotheque deja declare");
 	 	                                             }
       	            }
-#line 1322 "synt.tab.c" /* yacc.c:1646  */
+#line 1333 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 17:
+#line 83 "synt.y" /* yacc.c:1651  */
+    { Inserer((yyvsp[-1].chaine),"idf");}
+#line 1339 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 20:
-#line 86 "synt.y" /* yacc.c:1646  */
+#line 90 "synt.y" /* yacc.c:1651  */
     { typeIdf=0; /* 0 for integer */ }
-#line 1328 "synt.tab.c" /* yacc.c:1646  */
+#line 1345 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 21:
-#line 87 "synt.y" /* yacc.c:1646  */
+#line 91 "synt.y" /* yacc.c:1651  */
     { typeIdf=1; /*0 for real*/ }
-#line 1334 "synt.tab.c" /* yacc.c:1646  */
+#line 1351 "synt.tab.c" /* yacc.c:1651  */
     break;
 
 
-#line 1338 "synt.tab.c" /* yacc.c:1646  */
+#line 1355 "synt.tab.c" /* yacc.c:1651  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1562,7 +1579,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 139 "synt.y" /* yacc.c:1906  */
+#line 143 "synt.y" /* yacc.c:1910  */
 
 int main()
 {yyparse(); 
