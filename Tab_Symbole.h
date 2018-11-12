@@ -134,6 +134,16 @@ void Vider_LD() {
 	LD=NULL;
 }
 
+int nb_LD() {
+	Element_List_Dec * tmp = LD;
+	int nb=0;
+	while (tmp!=NULL) {
+		nb++;
+		tmp=tmp->svt;
+	}
+	return nb;
+}
+
 /*
 int idf_Declarer(char* nom)
 {

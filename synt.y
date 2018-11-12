@@ -6,6 +6,7 @@ extern int nbcolonne;
 int typeIdf;
 int fin_dec=0;
 int type_changes=0;
+int type_const=0;
 int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 int yylex();
 int yyerror(char *s);
@@ -67,8 +68,11 @@ BOUCLE : bib_boucle {
 ;
 
 //////////////////////////////////// Declaration part ////////////////////////////////////
-DEC : TYPE NVAR ';' MOREDEC 
-     | TYPE mc_const NVAR ';' MOREDEC 
+DEC : TYPE CONST NVAR ';' MOREDEC 
+;
+
+CONST: mc_const { type_const=1;  }
+     | { type_const=0; }
 ;
 
 MOREDEC : DEC 
@@ -85,8 +89,9 @@ NVAR : VAR MOREVAR
 MOREVAR : sp_var NVAR 
 	|  
 	{
-		printf("\n==== Fin de la liste de declarations type: %s , nb dec lists %d\n", type_courant,type_changes);
+		printf("\n==== Fin de la liste de declarations [type: %s , is const %d, vars: %d]", type_courant,type_const,nb_LD());
 		Vider_LD();
+		printf(" LD cleaned, nb = %d",nb_LD()); 
 	}
 ;
 
@@ -104,8 +109,8 @@ INDEX : '[' val_entiere ']'
       | 
 ;
 
-TYPE : mc_integer   { type_changes++; type_courant = strdup("INTEGER"); printf("\n==== New dec list type is:  %s",type_courant);}
-     | mc_real	    { type_changes++; type_courant = strdup("REAL"); printf("\n==== New dec list type is:  %s",type_courant);}
+TYPE : mc_integer   { type_courant = strdup("INTEGER"); printf("\n==== New dec list type is:  %s",type_courant);}
+     | mc_real	    { type_courant = strdup("REAL"); printf("\n==== New dec list type is:  %s",type_courant);}
 ;
 
 CST : val_entiere 
