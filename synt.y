@@ -74,7 +74,7 @@ MOREDEC : DEC
 	|  
 	{
 		fin_dec=1;
-		printf("\n\n\n Fin de la partie declarations ! %d",fin_dec);
+		printf("\n\n\n =================== Fin de la partie declarations ==================");
 	}
 ;
 
@@ -84,7 +84,7 @@ NVAR : VAR MOREVAR
 MOREVAR : sp_var NVAR 
 	|  
 	{
-		printf("\n\n Fin de la liste de declarations");
+		printf("\n==== Fin de la liste de declarations type: %s\n", type_courant);
 		Vider_LD();
 	}
 ;
@@ -103,8 +103,8 @@ INDEX : '[' val_entiere ']'
       | 
 ;
 
-TYPE : mc_integer   { typeIdf=0; /* 0 for integer */ type_courant = strdup("REAL");}
-     | mc_real	    { typeIdf=1; /*0 for real*/  type_courant = strdup("INTEGER");}
+TYPE : mc_integer   { type_courant=NULL; type_courant = strdup("REAL"); printf("\n\n\n==== New dec list type is:  %s",type_courant);}
+     | mc_real	    { type_courant=NULL; type_courant = strdup("INTEGER"); printf("\n\n\n==== New dec list type is:  %s",type_courant);}
 ;
 
 CST : val_entiere 

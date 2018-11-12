@@ -4,6 +4,7 @@ PROGRAMME SII {
 
 	// Declaration part //
 	INTEGER Ab || Dc || L || Tab[10] || Tab2[20];
+	REAL S;
 	REAL K || L[10] || T[0];
 	// INTEGER k[20.5] gives error //
 

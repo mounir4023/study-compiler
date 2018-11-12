@@ -1337,7 +1337,7 @@ yyreduce:
 #line 75 "synt.y" /* yacc.c:1651  */
     {
 		fin_dec=1;
-		printf("\n\n\n Fin de la partie declarations ! %d",fin_dec);
+		printf("\n\n\n =================== Fin de la partie declarations ==================");
 	}
 #line 1343 "synt.tab.c" /* yacc.c:1651  */
     break;
@@ -1345,7 +1345,7 @@ yyreduce:
   case 16:
 #line 86 "synt.y" /* yacc.c:1651  */
     {
-		printf("\n\n Fin de la liste de declarations");
+		printf("\n==== Fin de la liste de declarations type: %s\n", type_courant);
 		Vider_LD();
 	}
 #line 1352 "synt.tab.c" /* yacc.c:1651  */
@@ -1365,13 +1365,13 @@ yyreduce:
 
   case 20:
 #line 106 "synt.y" /* yacc.c:1651  */
-    { typeIdf=0; /* 0 for integer */ type_courant = strdup("REAL");}
+    { type_courant=NULL; type_courant = strdup("REAL"); printf("\n\n\n==== New dec list type is:  %s",type_courant);}
 #line 1370 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 21:
 #line 107 "synt.y" /* yacc.c:1651  */
-    { typeIdf=1; /*0 for real*/  type_courant = strdup("INTEGER");}
+    { type_courant=NULL; type_courant = strdup("INTEGER"); printf("\n\n\n==== New dec list type is:  %s",type_courant);}
 #line 1376 "synt.tab.c" /* yacc.c:1651  */
     break;
 

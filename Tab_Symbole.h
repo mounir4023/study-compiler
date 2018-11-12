@@ -54,6 +54,7 @@ void AfficherTS(Element_TS* TS)
 
 Element_TS* Rechercher(char* nom)
 {
+	printf("\nRechercher: %s",nom);
 	Element_TS* curseur=TS;
 	while(curseur !=NULL)
 	{
@@ -63,10 +64,10 @@ Element_TS* Rechercher(char* nom)
 	return NULL;
 } 
 
-int Inserer(char* nom,char* code)
+int Inserer(char* nom, char* code)
 {
 	//printf("\nDebut insertion: nom= %s code= %s\n",nom,code);
-	printf("\nInserer: %s %s",nom,code);
+	printf("\nInserrer TS: %s %s",nom,code);
 	Element_TS* found=Rechercher(nom);
 	if  (found!=NULL)
 	{
@@ -109,11 +110,11 @@ int Inserer(char* nom,char* code)
 		}
 		//Insertion réussie
 		return 0;
-
 	}
 }
 
 void Inserer_LD( char * nom ) {
+	printf("\nLD: %s",nom);
 	if ( LD == NULL ) {
 		LD = (Element_List_Dec *) malloc(sizeof(Element_List_Dec));
 		LD->nom=strdup(nom);
@@ -127,7 +128,7 @@ void Inserer_LD( char * nom ) {
 
 void Vider_LD() {
 	while (LD!=NULL) {
-		//printf("\n Inserer: %s %s",LD->nom,type_courant);
+		printf("\nVider: %s %s",LD->nom,type_courant);
 		Inserer(LD->nom,type_courant);
 		LD=LD->svt;
 	}
