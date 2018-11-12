@@ -5,6 +5,7 @@ int nbligne=1;
 extern int nbcolonne;
 int typeIdf;
 int fin_dec=0;
+int type_changes=0;
 int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 int yylex();
 int yyerror(char *s);
@@ -84,7 +85,7 @@ NVAR : VAR MOREVAR
 MOREVAR : sp_var NVAR 
 	|  
 	{
-		printf("\n==== Fin de la liste de declarations type: %s\n", type_courant);
+		printf("\n==== Fin de la liste de declarations type: %s , nb dec lists %d\n", type_courant,type_changes);
 		Vider_LD();
 	}
 ;
@@ -103,8 +104,8 @@ INDEX : '[' val_entiere ']'
       | 
 ;
 
-TYPE : mc_integer   { type_courant=NULL; type_courant = strdup("REAL"); printf("\n\n\n==== New dec list type is:  %s",type_courant);}
-     | mc_real	    { type_courant=NULL; type_courant = strdup("INTEGER"); printf("\n\n\n==== New dec list type is:  %s",type_courant);}
+TYPE : mc_integer   { type_changes++; type_courant = strdup("INTEGER"); printf("\n==== New dec list type is:  %s",type_courant);}
+     | mc_real	    { type_changes++; type_courant = strdup("REAL"); printf("\n==== New dec list type is:  %s",type_courant);}
 ;
 
 CST : val_entiere 

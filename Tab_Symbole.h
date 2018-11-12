@@ -54,7 +54,7 @@ void AfficherTS(Element_TS* TS)
 
 Element_TS* Rechercher(char* nom)
 {
-	printf("\nRechercher: %s",nom);
+	//printf("\nRechercher: %s",nom);
 	Element_TS* curseur=TS;
 	while(curseur !=NULL)
 	{
@@ -66,8 +66,7 @@ Element_TS* Rechercher(char* nom)
 
 int Inserer(char* nom, char* code)
 {
-	//printf("\nDebut insertion: nom= %s code= %s\n",nom,code);
-	printf("\nInserrer TS: %s %s",nom,code);
+	//printf("\nInserrer TS: %s %s",nom,code);
 	Element_TS* found=Rechercher(nom);
 	if  (found!=NULL)
 	{
@@ -128,7 +127,7 @@ void Inserer_LD( char * nom ) {
 
 void Vider_LD() {
 	while (LD!=NULL) {
-		printf("\nVider: %s %s",LD->nom,type_courant);
+		//printf("\nVider: %s %s",LD->nom,type_courant);
 		Inserer(LD->nom,type_courant);
 		LD=LD->svt;
 	}

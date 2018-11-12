@@ -70,11 +70,12 @@ int nbligne=1;
 extern int nbcolonne;
 int typeIdf;
 int fin_dec=0;
+int type_changes=0;
 int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
 int yylex();
 int yyerror(char *s);
 
-#line 78 "synt.tab.c" /* yacc.c:339  */
+#line 79 "synt.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -138,11 +139,11 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 13 "synt.y" /* yacc.c:355  */
+#line 14 "synt.y" /* yacc.c:355  */
 
 char*  chaine;
 
-#line 146 "synt.tab.c" /* yacc.c:355  */
+#line 147 "synt.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -159,7 +160,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 163 "synt.tab.c" /* yacc.c:358  */
+#line 164 "synt.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -458,11 +459,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    27,    27,    30,    31,    32,    33,    38,    48,    58,
-      69,    70,    73,    75,    81,    84,    86,    92,   102,   103,
-     106,   107,   110,   111,   116,   117,   118,   121,   122,   125,
-     128,   129,   130,   133,   134,   135,   138,   139,   142,   145,
-     148,   151,   152,   153,   154,   155,   156
+       0,    28,    28,    31,    32,    33,    34,    39,    49,    59,
+      70,    71,    74,    76,    82,    85,    87,    93,   103,   104,
+     107,   108,   111,   112,   117,   118,   119,   122,   123,   126,
+     129,   130,   131,   134,   135,   136,   139,   140,   143,   146,
+     149,   152,   153,   154,   155,   156,   157
 };
 #endif
 
@@ -1289,13 +1290,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 27 "synt.y" /* yacc.c:1651  */
+#line 28 "synt.y" /* yacc.c:1651  */
     { printf("\nLe programme marche correctement\n"); }
-#line 1295 "synt.tab.c" /* yacc.c:1651  */
+#line 1296 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 7:
-#line 38 "synt.y" /* yacc.c:1651  */
+#line 39 "synt.y" /* yacc.c:1651  */
     { 
        		                   if (Bib_Calcule==0) { 
                                                 			Inserer("CALCUL","mc");
@@ -1304,11 +1305,11 @@ yyreduce:
                                               			 printf("\nBibliotheque CALCUL deja déclarée");
                                               		} 
 	                   }
-#line 1308 "synt.tab.c" /* yacc.c:1651  */
+#line 1309 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 8:
-#line 48 "synt.y" /* yacc.c:1651  */
+#line 49 "synt.y" /* yacc.c:1651  */
     { 
     	                 if (Bib_tab==0) {
 		                                        Bib_tab=1;
@@ -1317,11 +1318,11 @@ yyreduce:
 		                                                printf("\nBibliotheque TAB deja déclaée");
 	                                     }
                }
-#line 1321 "synt.tab.c" /* yacc.c:1651  */
+#line 1322 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 9:
-#line 58 "synt.y" /* yacc.c:1651  */
+#line 59 "synt.y" /* yacc.c:1651  */
     { 
        		             if (Bib_Boucle==0) { 
 			                                       Bib_Boucle=1;
@@ -1330,29 +1331,29 @@ yyreduce:
 			                                               printf("\nBibliotheque BOUCLE deja declare");
 	 	                                             }
       	            }
-#line 1334 "synt.tab.c" /* yacc.c:1651  */
+#line 1335 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 13:
-#line 75 "synt.y" /* yacc.c:1651  */
+#line 76 "synt.y" /* yacc.c:1651  */
     {
 		fin_dec=1;
 		printf("\n\n\n =================== Fin de la partie declarations ==================");
 	}
-#line 1343 "synt.tab.c" /* yacc.c:1651  */
+#line 1344 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 16:
-#line 86 "synt.y" /* yacc.c:1651  */
+#line 87 "synt.y" /* yacc.c:1651  */
     {
-		printf("\n==== Fin de la liste de declarations type: %s\n", type_courant);
+		printf("\n==== Fin de la liste de declarations type: %s , nb dec lists %d\n", type_courant,type_changes);
 		Vider_LD();
 	}
-#line 1352 "synt.tab.c" /* yacc.c:1651  */
+#line 1353 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 17:
-#line 93 "synt.y" /* yacc.c:1651  */
+#line 94 "synt.y" /* yacc.c:1651  */
     { 
 		if( fin_dec == 0 ) {
 			Inserer_LD((yyvsp[-1].chaine));
@@ -1360,23 +1361,23 @@ yyreduce:
 			
 		}
 	}
-#line 1364 "synt.tab.c" /* yacc.c:1651  */
+#line 1365 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 20:
-#line 106 "synt.y" /* yacc.c:1651  */
-    { type_courant=NULL; type_courant = strdup("REAL"); printf("\n\n\n==== New dec list type is:  %s",type_courant);}
-#line 1370 "synt.tab.c" /* yacc.c:1651  */
+#line 107 "synt.y" /* yacc.c:1651  */
+    { type_changes++; type_courant = strdup("INTEGER"); printf("\n==== New dec list type is:  %s",type_courant);}
+#line 1371 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 21:
-#line 107 "synt.y" /* yacc.c:1651  */
-    { type_courant=NULL; type_courant = strdup("INTEGER"); printf("\n\n\n==== New dec list type is:  %s",type_courant);}
-#line 1376 "synt.tab.c" /* yacc.c:1651  */
+#line 108 "synt.y" /* yacc.c:1651  */
+    { type_changes++; type_courant = strdup("REAL"); printf("\n==== New dec list type is:  %s",type_courant);}
+#line 1377 "synt.tab.c" /* yacc.c:1651  */
     break;
 
 
-#line 1380 "synt.tab.c" /* yacc.c:1651  */
+#line 1381 "synt.tab.c" /* yacc.c:1651  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1604,7 +1605,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 159 "synt.y" /* yacc.c:1910  */
+#line 160 "synt.y" /* yacc.c:1910  */
 
 int main()
 {yyparse(); 
