@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #include<string.h>
 
+int nb_LD();
+
 typedef struct Element_TS
 {
 	char * nom;
@@ -113,7 +115,7 @@ int Inserer(char* nom, char* code)
 }
 
 void Inserer_LD( char * nom ) {
-	printf("\nLD: %s",nom);
+	printf("\nvar: %s ",nom);
 	if ( LD == NULL ) {
 		LD = (Element_List_Dec *) malloc(sizeof(Element_List_Dec));
 		LD->nom=strdup(nom);
@@ -127,11 +129,10 @@ void Inserer_LD( char * nom ) {
 
 void Vider_LD() {
 	while (LD!=NULL) {
-		//printf("\nVider: %s %s",LD->nom,type_courant);
+		printf("\nDeplacer de LD(%d) vers TS: %s %s",LD,LD->nom,type_courant);
 		Inserer(LD->nom,type_courant);
 		LD=LD->svt;
 	}
-	LD=NULL;
 }
 
 int nb_LD() {

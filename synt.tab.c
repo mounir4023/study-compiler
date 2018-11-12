@@ -1361,7 +1361,7 @@ yyreduce:
     {
 		printf("\n==== Fin de la liste de declarations [type: %s , is const %d, vars: %d]", type_courant,type_const,nb_LD());
 		Vider_LD();
-		printf(" LD cleaned, nb = %d",nb_LD()); 
+		printf("\n==== Fin deplacement LD= %d , elements= %d\n",LD,nb_LD()); 
 	}
 #line 1367 "synt.tab.c" /* yacc.c:1651  */
     break;
