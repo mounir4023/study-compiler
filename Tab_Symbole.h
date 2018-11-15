@@ -41,7 +41,8 @@ void AfficherTS(Element_TS* TS)
 	{
 		int tmp = 1;
 		cursor=TS;
-		printf("\n ===================== Table de Symbole =====================\n\n");
+		printf("\n====================== Table de Symbole =====================\n");
+		printf("-------------------------------------------------------------\n");
 		printf("| Nom Entité | Code Entitée | Type Eitee | EST CST | TAILLE |\n");
 		printf("-------------------------------------------------------------\n");
 		while(cursor!=NULL)
@@ -112,8 +113,14 @@ int Inserer(char* nom, char* code, char* type, int taille)
 	return 0;
 }
 
-void Inserer_LD( char * nom , int taille) {
-	//printf("\nvar: %s ",nom);
+int get_taille(char* nom) {
+	Element_TS * var = Rechercher(nom);
+	if ( var == NULL ) return 0;
+	return var->taille;
+}
+
+void Inserer_LD(char * nom , int taille) {
+	//printf("\nvar: %s %d",nom,taille);
 	if ( LD == NULL ) {
 		LD = (Element_List_Dec *) malloc(sizeof(Element_List_Dec));
 		LD->nom=strdup(nom);
@@ -122,7 +129,7 @@ void Inserer_LD( char * nom , int taille) {
 	} else {
 		Element_List_Dec* tmp = (Element_List_Dec*)malloc(sizeof(Element_List_Dec));
 		tmp->nom=strdup(nom);
-		LD->taille=taille;
+		tmp->taille=taille;
 		tmp->svt=LD;
 		LD=tmp;
 	}
@@ -151,7 +158,7 @@ void afficher_LD() {
 	printf("( ");
 	Element_List_Dec * tmp = LD;
 	while (tmp!=NULL) {
-		printf("\t%s",tmp->nom);
+		printf("\t%s[%d]",tmp->nom,tmp->taille);
 		tmp=tmp->svt;
 	}
 	printf(" )");

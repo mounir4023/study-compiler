@@ -100,10 +100,17 @@ VAR : id INDEX
     	{ 
 		if( fin_dec == 0 ) {
 			Inserer_LD($1,index_val);
-			printf("\nVar declaree: %s/%s taille: %d/%d",$1,LD->nom,index_val,LD->taille);
+			//printf("\nVar declaree: %s/%s taille: %d/%d",$1,LD->nom,index_val,LD->taille);
 		} else {
 			if ( Rechercher($1) == NULL ) {
 				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable %s non declaree !",nbligne,nbcolonne,$1);	
+			}
+			if (index_val ==-1 && get_taille($1) > 1) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Acces a un tableau sans preciser d indice !",nbligne,nbcolonne);
+			} else if (index_val>get_taille($1)) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Depassement de la taille de tableau !",nbligne,nbcolonne);
+			} else if (get_taille($1)==1 && index_val != -1 ) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable simple utilisee comme un tableau !",nbligne,nbcolonne);
 			}
 		}
 	}
@@ -112,6 +119,10 @@ VAR : id INDEX
 INDEX : '[' val_entiere ']' 
 	{ 
 		if(!Bib_Tab) printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de tableau sans import de la biblioteque !",nbligne,nbcolonne);
+		if (!fin_dec) {
+			if($2==0) printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Declaration de tableau de taille egale a zero  !",nbligne,nbcolonne);
+			if($2==1) printf("\nL%2d C%2d | AVERTISSEMENT: Le tableau de taille 1 a ete transforme en variable simple  !",nbligne,nbcolonne);
+		}
 		index_val = $2;
 	}
       | 

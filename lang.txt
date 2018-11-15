@@ -1,31 +1,28 @@
+// comment these #bib to check errors //
+//#CALCUL//
 #CALCUL
 #TAB
+#BOUCLE
+
 PROGRAMME SII {
 
 	// Declaration part //
-	INTEGER Ab || Dc || L || Tab[210] || Tab2[20];
-	REAL CONST S || LOL || M5;
-	REAL K;
-	INTEGER K;
+	INTEGER Ab || Tab[210] || Z || X ||  Tab2[20];
+	REAL CONST K;
+	//INTEGER K;//
+	//INTEGER Y[1];//
 
 	// instructions //
 	X := 5 * 5 -5 / 5 + 5;
 	EXECUTE 
-		Dc := 5 * 5 / 5 + 5;
-		Dc := 5 * 5 -5 / 5 + 5;
+		Tab[1] := 5 * 5 / 5 + 5;
+		//Tab2[21] := 5 * 5 / 5 + 5;//
+		//Z[0] := 5 * 5 -5 / 5 + 5;//
 		EXECUTE 
 			Ab := 5 * 5 / 5 + 5;
 			Ab := 5 * 5 -5 / 5 + 5;
-		IF ( A < Ab )
-	IF ( Ac < Ab )
-
-	WHILE ( 18 < Ab + 8 ) {
-		EXECUTE 
-			X := 5 * 5 / 5 + 5;
-			X := 5 * 5 -5 / Ab + 5;
-			WHILE ( 15 == 20 ) {
-				L := 18 ;
-			}
+			// A := Tab[4]; //
 		IF ( Ab < Ab )
-	}	
+	IF ( Ab < Ab )
+
 }

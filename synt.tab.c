@@ -462,10 +462,10 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    30,    30,    33,    34,    35,    36,    41,    51,    61,
-      72,    75,    76,    79,    81,    87,    90,    92,    99,   112,
-     118,   123,   124,   127,   128,   133,   134,   135,   138,   139,
-     142,   150,   151,   152,   155,   156,   157,   160,   161,   164,
-     167,   173,   176,   177,   178,   179,   180,   181
+      72,    75,    76,    79,    81,    87,    90,    92,    99,   119,
+     129,   134,   135,   138,   139,   144,   145,   146,   149,   150,
+     153,   161,   162,   163,   166,   167,   168,   171,   172,   175,
+     178,   184,   187,   188,   189,   190,   191,   192
 };
 #endif
 
@@ -1372,65 +1372,76 @@ yyreduce:
     { 
 		if( fin_dec == 0 ) {
 			Inserer_LD((yyvsp[-1].chaine),index_val);
-			printf("\nVar declaree: %s/%s taille: %d/%d",(yyvsp[-1].chaine),LD->nom,index_val,LD->taille);
+			//printf("\nVar declaree: %s/%s taille: %d/%d",$1,LD->nom,index_val,LD->taille);
 		} else {
 			if ( Rechercher((yyvsp[-1].chaine)) == NULL ) {
 				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable %s non declaree !",nbligne,nbcolonne,(yyvsp[-1].chaine));	
 			}
+			if (index_val ==-1 && get_taille((yyvsp[-1].chaine)) > 1) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Acces a un tableau sans preciser d indice !",nbligne,nbcolonne);
+			} else if (index_val>get_taille((yyvsp[-1].chaine))) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Depassement de la taille de tableau !",nbligne,nbcolonne);
+			} else if (get_taille((yyvsp[-1].chaine))==1 && index_val != -1 ) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable simple utilisee comme un tableau !",nbligne,nbcolonne);
+			}
 		}
 	}
-#line 1383 "synt.tab.c" /* yacc.c:1651  */
+#line 1390 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 19:
-#line 113 "synt.y" /* yacc.c:1651  */
+#line 120 "synt.y" /* yacc.c:1651  */
     { 
 		if(!Bib_Tab) printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de tableau sans import de la biblioteque !",nbligne,nbcolonne);
+		if (!fin_dec) {
+			if((yyvsp[-1].entier)==0) printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Declaration de tableau de taille egale a zero  !",nbligne,nbcolonne);
+			if((yyvsp[-1].entier)==1) printf("\nL%2d C%2d | AVERTISSEMENT: Le tableau de taille 1 a ete transforme en variable simple  !",nbligne,nbcolonne);
+		}
 		index_val = (yyvsp[-1].entier);
 	}
-#line 1392 "synt.tab.c" /* yacc.c:1651  */
+#line 1403 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 20:
-#line 118 "synt.y" /* yacc.c:1651  */
+#line 129 "synt.y" /* yacc.c:1651  */
     {
 		index_val = -1;
 	}
-#line 1400 "synt.tab.c" /* yacc.c:1651  */
+#line 1411 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 21:
-#line 123 "synt.y" /* yacc.c:1651  */
+#line 134 "synt.y" /* yacc.c:1651  */
     { type_courant = strdup("INTEGER"); }
-#line 1406 "synt.tab.c" /* yacc.c:1651  */
+#line 1417 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 22:
-#line 124 "synt.y" /* yacc.c:1651  */
+#line 135 "synt.y" /* yacc.c:1651  */
     { type_courant = strdup("REAL"); }
-#line 1412 "synt.tab.c" /* yacc.c:1651  */
+#line 1423 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 30:
-#line 143 "synt.y" /* yacc.c:1651  */
+#line 154 "synt.y" /* yacc.c:1651  */
     {
 			if ( ! Bib_Calcule ) {
 				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation d'operations arithmetiques sans import de biblioteque !",nbligne,nbcolonne); 
 			}
 	}
-#line 1422 "synt.tab.c" /* yacc.c:1651  */
+#line 1433 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 40:
-#line 168 "synt.y" /* yacc.c:1651  */
+#line 179 "synt.y" /* yacc.c:1651  */
     {
 		if(!Bib_Boucle)  printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de boucle sans import de la biblioteque !",nbligne,nbcolonne);
 	}
-#line 1430 "synt.tab.c" /* yacc.c:1651  */
+#line 1441 "synt.tab.c" /* yacc.c:1651  */
     break;
 
 
-#line 1434 "synt.tab.c" /* yacc.c:1651  */
+#line 1445 "synt.tab.c" /* yacc.c:1651  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1658,7 +1669,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 184 "synt.y" /* yacc.c:1910  */
+#line 195 "synt.y" /* yacc.c:1910  */
 
 int main()
 {yyparse(); 
