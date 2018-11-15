@@ -3,50 +3,29 @@
 PROGRAMME SII {
 
 	// Declaration part //
-	INTEGER Ab || Dc || L || Tab[10] || Tab2[20];
+	INTEGER Ab || Dc || L || Tab[210] || Tab2[20];
 	REAL CONST S || LOL || M5;
-	REAL K ;
-	INTEGER K ;
-	// INTEGER k[20.5] gives error //
+	REAL K;
+	INTEGER K;
 
 	// instructions //
-	Ab := 5;
-	Ab := 5.8;
-	X := 5 + 6;
-	X := 5.5 +6;
-	X := 5 + 6.5;
-	X := 5.5 + 6.5;
-	X := 5 * 6;
-	X := 5.5 * 6;
-	X := 5 * 6.5;
-	X := 5.5 * 6.6;
-
-	X := 5 + 5 + 5;
-	X := 5 + 5 - 5 + 5;
-	X := 5 * 5 * 5;
-	X := 5 + 5 / 5 * 5;
-	X := 5 + 5 * 5;
-	X := 5 * 5 + 5;
-	X := 5 * 5 / 5 + 5;
 	X := 5 * 5 -5 / 5 + 5;
-
 	EXECUTE 
-		X := 5 * 5 / 5 + 5;
-		X := 5 * 5 -5 / 5 + 5;
+		Dc := 5 * 5 / 5 + 5;
+		Dc := 5 * 5 -5 / 5 + 5;
 		EXECUTE 
-			X := 5 * 5 / 5 + 5;
-			X := 5 * 5 -5 / 5 + 5;
+			Ab := 5 * 5 / 5 + 5;
+			Ab := 5 * 5 -5 / 5 + 5;
 		IF ( A < Ab )
-	IF ( A < Ab )
+	IF ( Ac < Ab )
 
 	WHILE ( 18 < Ab + 8 ) {
 		EXECUTE 
 			X := 5 * 5 / 5 + 5;
 			X := 5 * 5 -5 / Ab + 5;
 			WHILE ( 15 == 20 ) {
-				X := 18 ;
+				L := 18 ;
 			}
-		IF ( A < Ab )
+		IF ( Ab < Ab )
 	}	
-	
 }

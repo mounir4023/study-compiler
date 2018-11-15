@@ -28,7 +28,7 @@ regex_infeg "=<"
 \( return yytext[0];
 \) return yytext[0];
 [ \t] 
-\n {nbligne++;}
+\n {nbligne++; nbcolonne=1; }
 
 #CALCUL 	{ nbcolonne=nbcolonne+yyleng; return bib_calcul;}
 #TAB 		{ nbcolonne=nbcolonne+yyleng; return bib_tab;}
@@ -39,21 +39,21 @@ INTEGER 	{ nbcolonne=nbcolonne+yyleng; return mc_integer;}
 REAL 		{ nbcolonne=nbcolonne+yyleng; return mc_real;}
 CONST 		{ nbcolonne=nbcolonne+yyleng; return mc_const;}
 EXECUTE 	{ nbcolonne=nbcolonne+yyleng; return mc_exec;}
-IF 			{ nbcolonne=nbcolonne+yyleng; return mc_if;}
+IF 		{ nbcolonne=nbcolonne+yyleng; return mc_if;}
 WHILE 		{ nbcolonne=nbcolonne+yyleng; return mc_while;}
 
-{regex_entier} 	{ nbcolonne=nbcolonne+yyleng; return val_entiere; }
-{regex_decimal} { nbcolonne=nbcolonne+yyleng; return val_reelle; }
+{regex_entier} 	{ nbcolonne=nbcolonne+yyleng; yylval.entier=atoi(yytext); return val_entiere; }
+{regex_decimal} { nbcolonne=nbcolonne+yyleng; yylval.real=atof(yytext); return val_reelle; }
 {regex_aff} 	{ nbcolonne=nbcolonne+yyleng; return sb_aff; }
-{regex_eg} 		{ nbcolonne=nbcolonne+yyleng; return sb_eg; }
+{regex_eg} 	{ nbcolonne=nbcolonne+yyleng; return sb_eg; }
 {regex_diff} 	{ nbcolonne=nbcolonne+yyleng; return sb_diff; }
 {regex_sup} 	{ nbcolonne=nbcolonne+yyleng; return sb_sup; }
 {regex_supeg} 	{ nbcolonne=nbcolonne+yyleng; return sb_supeg; }
 {regex_inf} 	{ nbcolonne=nbcolonne+yyleng; return sb_inf; }
 {regex_infeg} 	{ nbcolonne=nbcolonne+yyleng; return sb_infeg; }
-{regex_sp} 		{ nbcolonne=nbcolonne+yyleng; return sp_var; }
+{regex_sp} 	{ nbcolonne=nbcolonne+yyleng; return sp_var; }
 {regex_commentaire} {nbcolonne=nbcolonne+yyleng;}
-{regex_idf}		{ nbcolonne=nbcolonne+yyleng; yylval.chaine=strdup(yytext); return id; }
+{regex_idf}	{ nbcolonne=nbcolonne+yyleng; yylval.chaine=strdup(yytext); return id; }
 . printf("\nERREUR LEXICALE: caractere inconnu : %s ! LIGNE : %d COLONNE : %d\n",yytext,nbligne,nbcolonne);
 
 %%

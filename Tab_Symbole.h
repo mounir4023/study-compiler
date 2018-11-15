@@ -4,26 +4,29 @@
 
 int nb_LD();
 int fin_dec=0;
+int type_changes;
+int type_const;
+int index_val=-1;
+int nbligne=1;
+int nbcolonne;
 
-typedef struct Element_TS
-{
+typedef struct Element_TS {
 	char * nom;
 	char * code;
 	char * type;
 	int cst;
-	int position;
+	int taille;
 	struct Element_TS * svt;
-
-}Element_TS;
+} Element_TS;
 
 typedef struct Element_List_Dec {
 	char* nom;
+	int taille;
 	struct Element_List_Dec * svt;
-}Element_List_Dec;
+} Element_List_Dec;
 
-Element_TS* TS=NULL;
-int positionEntite=1;
-Element_List_Dec* LD=NULL;
+Element_TS* TS = NULL;
+Element_List_Dec* LD = NULL;
 char * type_courant;
 
 void AfficherTS(Element_TS* TS)
@@ -38,20 +41,22 @@ void AfficherTS(Element_TS* TS)
 	{
 		int tmp = 1;
 		cursor=TS;
-		printf("\n==================== Table de Symbole ====================\n");
-		printf("| Nom Entité | Code Entitée | Type Entitée | CST | POSITION |\n");
+		printf("\n ===================== Table de Symbole =====================\n\n");
+		printf("| Nom Entité | Code Entitée | Type Eitee | EST CST | TAILLE |\n");
+		printf("-------------------------------------------------------------\n");
 		while(cursor!=NULL)
 		{
 			printf("|%12s",cursor->nom);
 			printf("|%14s",cursor->code);
-			if (cursor->type !=NULL) { printf("|%14s",cursor->type);}
+			if (cursor->type !=NULL) { printf("|%12s",cursor->type);}
 			else { printf("|%14s"," "); }
-			printf("|%5d",cursor->cst);
-			printf("|%10d|\n",cursor->position);
+			printf("|%9d",cursor->cst);
+			printf("|%8d|\n",cursor->taille);
 			cursor=cursor->svt;
 			tmp++;
 		}
 	}
+	printf("\n\n");
 }
 
 
@@ -66,13 +71,13 @@ Element_TS* Rechercher(char* nom)
 	return NULL;
 } 
 
-int Inserer(char* nom, char* code, char* type)
+int Inserer(char* nom, char* code, char* type, int taille)
 {
 	if ( fin_dec ) return 0;
 	Element_TS* found = Rechercher(nom);
 	if  (found!=NULL)
 	{
-		printf("\nERREUR SEMANTIQUE: Variable %s doublement declaree!",nom);
+		printf("\nL%2d C2%d | ERREUR SEMANTIQUE: Variable %s doublement declaree!",nbligne,nbcolonne,nom);
 	}
 	else
 	{
@@ -85,8 +90,8 @@ int Inserer(char* nom, char* code, char* type)
 			strcpy(TS->code,code);
 			TS->type=(char*) malloc(sizeof(char)*strlen(type));
 			strcpy(TS->type,type);
-			TS->position=positionEntite;
-			positionEntite++;
+			TS->cst=type_const;
+			TS->taille=taille;
 			TS->svt=NULL;
 		}
 		else
@@ -98,8 +103,8 @@ int Inserer(char* nom, char* code, char* type)
 			strcpy(tmp->code,code);
 			tmp->type=(char*) malloc(sizeof(char)*strlen(type));
 			strcpy(tmp->type,type);
-			tmp->position=positionEntite;
-			positionEntite++;
+			tmp->cst=type_const;
+			tmp->taille=taille;
 			tmp->svt=TS;
 			TS=tmp;
 		}
@@ -107,15 +112,17 @@ int Inserer(char* nom, char* code, char* type)
 	return 0;
 }
 
-void Inserer_LD( char * nom ) {
-	printf("\nvar: %s ",nom);
+void Inserer_LD( char * nom , int taille) {
+	//printf("\nvar: %s ",nom);
 	if ( LD == NULL ) {
 		LD = (Element_List_Dec *) malloc(sizeof(Element_List_Dec));
 		LD->nom=strdup(nom);
+		LD->taille=taille;
 		LD->svt=NULL;
 	} else {
 		Element_List_Dec* tmp = (Element_List_Dec*)malloc(sizeof(Element_List_Dec));
 		tmp->nom=strdup(nom);
+		LD->taille=taille;
 		tmp->svt=LD;
 		LD=tmp;
 	}
@@ -123,8 +130,9 @@ void Inserer_LD( char * nom ) {
 
 void Vider_LD() {
 	while (LD!=NULL) {
-		printf("\nDeplacer de LD(%d) vers TS: %s %s",LD,LD->nom,type_courant);
-		Inserer(LD->nom,"idf",type_courant);
+		int taille=1;
+		if (LD->taille!=-1) taille=LD->taille;
+		Inserer(LD->nom,"idf",type_courant,taille);
 		LD=LD->svt;
 	}
 }

@@ -817,7 +817,7 @@ case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
 #line 31 "lexical.l"
-{nbligne++;}
+{nbligne++; nbcolonne=1; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
@@ -872,12 +872,12 @@ YY_RULE_SETUP
 case 18:
 YY_RULE_SETUP
 #line 45 "lexical.l"
-{ nbcolonne=nbcolonne+yyleng; return val_entiere; }
+{ nbcolonne=nbcolonne+yyleng; yylval.entier=atoi(yytext); return val_entiere; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 46 "lexical.l"
-{ nbcolonne=nbcolonne+yyleng; return val_reelle; }
+{ nbcolonne=nbcolonne+yyleng; yylval.real=atof(yytext); return val_reelle; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP

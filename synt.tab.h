@@ -74,11 +74,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 15 "synt.y" /* yacc.c:1913  */
+#line 14 "synt.y" /* yacc.c:1913  */
 
 char*  chaine;
+int entier;
+float real;
 
-#line 82 "synt.tab.h" /* yacc.c:1913  */
+#line 84 "synt.tab.h" /* yacc.c:1913  */
 };
 
 typedef union YYSTYPE YYSTYPE;

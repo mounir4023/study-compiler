@@ -66,17 +66,16 @@
 
 #include <stdio.h>
 #include "Tab_Symbole.h"
-int nbligne=1;
-extern int nbcolonne;
-int typeIdf;
+//int nbligne=1;
+//extern int nbcolonne;
 //int fin_dec=0;
-int type_changes=0;
-int type_const=0;
-int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
+//int type_changes=0;
+//int type_const=0;
+int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
 int yylex();
 int yyerror(char *s);
 
-#line 80 "synt.tab.c" /* yacc.c:339  */
+#line 79 "synt.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -140,11 +139,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 15 "synt.y" /* yacc.c:355  */
+#line 14 "synt.y" /* yacc.c:355  */
 
 char*  chaine;
+int entier;
+float real;
 
-#line 148 "synt.tab.c" /* yacc.c:355  */
+#line 149 "synt.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -161,7 +162,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 165 "synt.tab.c" /* yacc.c:358  */
+#line 166 "synt.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -460,11 +461,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    32,    33,    34,    35,    40,    50,    60,
-      71,    74,    75,    78,    80,    86,    89,    91,    99,   109,
-     110,   113,   114,   117,   118,   123,   124,   125,   128,   129,
-     132,   135,   136,   137,   140,   141,   142,   145,   146,   149,
-     152,   155,   158,   159,   160,   161,   162,   163
+       0,    30,    30,    33,    34,    35,    36,    41,    51,    61,
+      72,    75,    76,    79,    81,    87,    90,    92,    99,   112,
+     118,   123,   124,   127,   128,   133,   134,   135,   138,   139,
+     142,   150,   151,   152,   155,   156,   157,   160,   161,   164,
+     167,   173,   176,   177,   178,   179,   180,   181
 };
 #endif
 
@@ -1291,78 +1292,77 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 29 "synt.y" /* yacc.c:1651  */
-    { printf("\nLe programme marche correctement\n"); }
-#line 1297 "synt.tab.c" /* yacc.c:1651  */
+#line 30 "synt.y" /* yacc.c:1651  */
+    { printf("\n\nLe programme est syntaxiquement correct !\n"); }
+#line 1298 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 7:
-#line 40 "synt.y" /* yacc.c:1651  */
+#line 41 "synt.y" /* yacc.c:1651  */
     { 
        		                   if (Bib_Calcule==0) { 
-                                                			Inserer("CALCUL","mc","/");
+                                                			Inserer("CALCUL","mc","/",0);
                                                 			Bib_Calcule=1; 
                                               		} else {
-                                              			 printf("\nBibliotheque CALCUL deja déclarée");
+									printf("\nBibliotheque CALCUL deja déclarée");
                                               		} 
 	                   }
-#line 1310 "synt.tab.c" /* yacc.c:1651  */
+#line 1311 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 8:
-#line 50 "synt.y" /* yacc.c:1651  */
+#line 51 "synt.y" /* yacc.c:1651  */
     { 
-    	                 if (Bib_tab==0) {
-		                                        Bib_tab=1;
-		                                        Inserer("TAB","mc","/");
-	                                     } else { 
+    	                 if (Bib_Tab==0) {
+		                                        	Bib_Tab=1;
+			                                        Inserer("TAB","mc","/",0);
+	                 } else { 
 		                                                printf("\nBibliotheque TAB deja déclaée");
-	                                     }
+	                 }
                }
-#line 1323 "synt.tab.c" /* yacc.c:1651  */
+#line 1324 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 9:
-#line 60 "synt.y" /* yacc.c:1651  */
+#line 61 "synt.y" /* yacc.c:1651  */
     { 
        		             if (Bib_Boucle==0) { 
-			                                       Bib_Boucle=1;
-                                             Inserer("BOUCLE","mc","/");
-		                                      } else {
-			                                               printf("\nBibliotheque BOUCLE deja declare");
+								Bib_Boucle=1;
+                                             			Inserer("BOUCLE","mc","/",0);
+		              } else {
+			                                        printf("\nBibliotheque BOUCLE deja declare");
 	 	                                             }
       	            }
-#line 1336 "synt.tab.c" /* yacc.c:1651  */
+#line 1337 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 11:
-#line 74 "synt.y" /* yacc.c:1651  */
+#line 75 "synt.y" /* yacc.c:1651  */
     { type_const=1;  }
-#line 1342 "synt.tab.c" /* yacc.c:1651  */
+#line 1343 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 12:
-#line 75 "synt.y" /* yacc.c:1651  */
+#line 76 "synt.y" /* yacc.c:1651  */
     { type_const=0; }
-#line 1348 "synt.tab.c" /* yacc.c:1651  */
+#line 1349 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 14:
-#line 80 "synt.y" /* yacc.c:1651  */
+#line 81 "synt.y" /* yacc.c:1651  */
     {
 		fin_dec=1;
-		printf("\n\n\n =================== Fin de la partie declarations ==================");
+		//printf("\n\n\n =================== Fin de la partie declarations ==================");
 	}
-#line 1357 "synt.tab.c" /* yacc.c:1651  */
+#line 1358 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 17:
-#line 91 "synt.y" /* yacc.c:1651  */
+#line 92 "synt.y" /* yacc.c:1651  */
     {
-		printf("\n==== Fin de la liste de declarations [type: %s , is const %d, vars: %d]", type_courant,type_const,nb_LD());
-		afficher_LD();
+		//printf("\n==== Fin de la liste de declarations [type: %s , is const %d, vars: %d]", type_courant,type_const,nb_LD());
 		Vider_LD();
-		printf("\n==== Fin deplacement LD= %d , elements= %d\n",LD,nb_LD()); 
+		//printf("\n==== Fin deplacement LD= %d , elements= %d\n",LD,nb_LD()); 
 	}
 #line 1368 "synt.tab.c" /* yacc.c:1651  */
     break;
@@ -1371,28 +1371,66 @@ yyreduce:
 #line 100 "synt.y" /* yacc.c:1651  */
     { 
 		if( fin_dec == 0 ) {
-			Inserer_LD((yyvsp[-1].chaine));
+			Inserer_LD((yyvsp[-1].chaine),index_val);
+			printf("\nVar declaree: %s/%s taille: %d/%d",(yyvsp[-1].chaine),LD->nom,index_val,LD->taille);
 		} else {
-			
+			if ( Rechercher((yyvsp[-1].chaine)) == NULL ) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable %s non declaree !",nbligne,nbcolonne,(yyvsp[-1].chaine));	
+			}
 		}
 	}
-#line 1380 "synt.tab.c" /* yacc.c:1651  */
+#line 1383 "synt.tab.c" /* yacc.c:1651  */
     break;
 
-  case 21:
+  case 19:
 #line 113 "synt.y" /* yacc.c:1651  */
-    { type_courant = strdup("INTEGER"); printf("\n==== New dec list type is:  %s",type_courant);}
-#line 1386 "synt.tab.c" /* yacc.c:1651  */
-    break;
-
-  case 22:
-#line 114 "synt.y" /* yacc.c:1651  */
-    { type_courant = strdup("REAL"); printf("\n==== New dec list type is:  %s",type_courant);}
+    { 
+		if(!Bib_Tab) printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de tableau sans import de la biblioteque !",nbligne,nbcolonne);
+		index_val = (yyvsp[-1].entier);
+	}
 #line 1392 "synt.tab.c" /* yacc.c:1651  */
     break;
 
+  case 20:
+#line 118 "synt.y" /* yacc.c:1651  */
+    {
+		index_val = -1;
+	}
+#line 1400 "synt.tab.c" /* yacc.c:1651  */
+    break;
 
-#line 1396 "synt.tab.c" /* yacc.c:1651  */
+  case 21:
+#line 123 "synt.y" /* yacc.c:1651  */
+    { type_courant = strdup("INTEGER"); }
+#line 1406 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 22:
+#line 124 "synt.y" /* yacc.c:1651  */
+    { type_courant = strdup("REAL"); }
+#line 1412 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 30:
+#line 143 "synt.y" /* yacc.c:1651  */
+    {
+			if ( ! Bib_Calcule ) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation d'operations arithmetiques sans import de biblioteque !",nbligne,nbcolonne); 
+			}
+	}
+#line 1422 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+  case 40:
+#line 168 "synt.y" /* yacc.c:1651  */
+    {
+		if(!Bib_Boucle)  printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de boucle sans import de la biblioteque !",nbligne,nbcolonne);
+	}
+#line 1430 "synt.tab.c" /* yacc.c:1651  */
+    break;
+
+
+#line 1434 "synt.tab.c" /* yacc.c:1651  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1620,7 +1658,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 166 "synt.y" /* yacc.c:1910  */
+#line 184 "synt.y" /* yacc.c:1910  */
 
 int main()
 {yyparse(); 
@@ -1631,4 +1669,4 @@ int yywrap()
 {return 1;}
 
 int yyerror(char *msg) 
-{printf("\nERREUR SYNTAXIQUE : a la ligne %d\n",nbligne);	return 1;}
+{printf("\nL%2d C%2d | ERREUR SYNTAXIQUE",nbligne,nbcolonne);	return 1;}

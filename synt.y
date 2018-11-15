@@ -1,32 +1,33 @@
 %{
 #include <stdio.h>
 #include "Tab_Symbole.h"
-int nbligne=1;
-extern int nbcolonne;
-int typeIdf;
+//int nbligne=1;
+//extern int nbcolonne;
 //int fin_dec=0;
-int type_changes=0;
-int type_const=0;
-int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
+//int type_changes=0;
+//int type_const=0;
+int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
 int yylex();
 int yyerror(char *s);
 %}
 
 %union{
 char*  chaine;
+int entier;
+float real;
 }
 
 %token mc_pgm mc_integer mc_real mc_const mc_if mc_while mc_exec
        bib_calcul bib_tab bib_boucle
        sb_eg sb_diff sb_inf sb_infeg sb_sup sb_supeg
        sb_aff sp_var
-       <chaine>id val_entiere val_reelle
+       <chaine>id <entier>val_entiere <real>val_reelle
        '{' '}' ',' ';' '+' '*' '/' '-' '[' ']' '(' ')'
 
 %%
 
 //////////////////////////////////// Structure general ////////////////////////////////////
-S : BIBL mc_pgm id '{' DEC INST '}' { printf("\nLe programme marche correctement\n"); }
+S : BIBL mc_pgm id '{' DEC INST '}' { printf("\n\nLe programme est syntaxiquement correct !\n"); }
 ;
 
 BIBL : CALCUL BIBL     
@@ -39,30 +40,30 @@ BIBL : CALCUL BIBL
 
 CALCUL : bib_calcul { 
        		                   if (Bib_Calcule==0) { 
-                                                			Inserer("CALCUL","mc","/");
+                                                			Inserer("CALCUL","mc","/",0);
                                                 			Bib_Calcule=1; 
                                               		} else {
-                                              			 printf("\nBibliotheque CALCUL deja déclarée");
+									printf("\nBibliotheque CALCUL deja déclarée");
                                               		} 
 	                   }
 ;
 
 TAB : bib_tab { 
-    	                 if (Bib_tab==0) {
-		                                        Bib_tab=1;
-		                                        Inserer("TAB","mc","/");
-	                                     } else { 
+    	                 if (Bib_Tab==0) {
+		                                        	Bib_Tab=1;
+			                                        Inserer("TAB","mc","/",0);
+	                 } else { 
 		                                                printf("\nBibliotheque TAB deja déclaée");
-	                                     }
+	                 }
                }
 ;
 
 BOUCLE : bib_boucle { 
        		             if (Bib_Boucle==0) { 
-			                                       Bib_Boucle=1;
-                                             Inserer("BOUCLE","mc","/");
-		                                      } else {
-			                                               printf("\nBibliotheque BOUCLE deja declare");
+								Bib_Boucle=1;
+                                             			Inserer("BOUCLE","mc","/",0);
+		              } else {
+			                                        printf("\nBibliotheque BOUCLE deja declare");
 	 	                                             }
       	            }
 ;
@@ -79,7 +80,7 @@ MOREDEC : DEC
 	|  
 	{
 		fin_dec=1;
-		printf("\n\n\n =================== Fin de la partie declarations ==================");
+		//printf("\n\n\n =================== Fin de la partie declarations ==================");
 	}
 ;
 
@@ -89,29 +90,38 @@ NVAR : VAR MOREVAR
 MOREVAR : sp_var NVAR 
 	|  
 	{
-		printf("\n==== Fin de la liste de declarations [type: %s , is const %d, vars: %d]", type_courant,type_const,nb_LD());
-		afficher_LD();
+		//printf("\n==== Fin de la liste de declarations [type: %s , is const %d, vars: %d]", type_courant,type_const,nb_LD());
 		Vider_LD();
-		printf("\n==== Fin deplacement LD= %d , elements= %d\n",LD,nb_LD()); 
+		//printf("\n==== Fin deplacement LD= %d , elements= %d\n",LD,nb_LD()); 
 	}
 ;
 
 VAR : id INDEX  
     	{ 
 		if( fin_dec == 0 ) {
-			Inserer_LD($1);
+			Inserer_LD($1,index_val);
+			printf("\nVar declaree: %s/%s taille: %d/%d",$1,LD->nom,index_val,LD->taille);
 		} else {
-			
+			if ( Rechercher($1) == NULL ) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable %s non declaree !",nbligne,nbcolonne,$1);	
+			}
 		}
 	}
 ;
 
 INDEX : '[' val_entiere ']' 
+	{ 
+		if(!Bib_Tab) printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de tableau sans import de la biblioteque !",nbligne,nbcolonne);
+		index_val = $2;
+	}
       | 
+	{
+		index_val = -1;
+	}
 ;
 
-TYPE : mc_integer   { type_courant = strdup("INTEGER"); printf("\n==== New dec list type is:  %s",type_courant);}
-     | mc_real	    { type_courant = strdup("REAL"); printf("\n==== New dec list type is:  %s",type_courant);}
+TYPE : mc_integer   { type_courant = strdup("INTEGER"); } 
+     | mc_real	    { type_courant = strdup("REAL"); } 
 ;
 
 CST : val_entiere 
@@ -130,6 +140,11 @@ MOREINST : INST
 ;
 
 INST_AFF: VAR sb_aff EXP1 ';' 
+	{
+			if ( ! Bib_Calcule ) {
+				printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation d'operations arithmetiques sans import de biblioteque !",nbligne,nbcolonne); 
+			}
+	}
 ;
 
 EXP1 : EXP2 '+' EXP1 
@@ -150,6 +165,9 @@ INST_IF : mc_exec INST mc_if '(' COND ')'
 ;
 
 INST_WHL : mc_while '(' COND ')' '{' INST '}'
+	{
+		if(!Bib_Boucle)  printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de boucle sans import de la biblioteque !",nbligne,nbcolonne);
+	}
 ;
 
 COND : EXP1 COMPARATEUR EXP1
@@ -173,4 +191,4 @@ int yywrap()
 {return 1;}
 
 int yyerror(char *msg) 
-{printf("\nERREUR SYNTAXIQUE : a la ligne %d\n",nbligne);	return 1;}
+{printf("\nL%2d C%2d | ERREUR SYNTAXIQUE",nbligne,nbcolonne);	return 1;}
