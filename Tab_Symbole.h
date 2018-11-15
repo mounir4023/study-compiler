@@ -41,17 +41,17 @@ void AfficherTS(Element_TS* TS)
 	{
 		int tmp = 1;
 		cursor=TS;
-		printf("\n====================== Table de Symbole =====================\n");
-		printf("-------------------------------------------------------------\n");
-		printf("| Nom Entité | Code Entitée | Type Eitee | EST CST | TAILLE |\n");
-		printf("-------------------------------------------------------------\n");
+		printf("\n================ Table de Symbole =================\n");
+		printf("---------------------------------------------------\n");
+		printf("|     Nom    |   Code   |   Type   | CST | TAILLE |\n");
+		printf("---------------------------------------------------\n");
 		while(cursor!=NULL)
 		{
 			printf("|%12s",cursor->nom);
-			printf("|%14s",cursor->code);
-			if (cursor->type !=NULL) { printf("|%12s",cursor->type);}
-			else { printf("|%14s"," "); }
-			printf("|%9d",cursor->cst);
+			printf("|%10s",cursor->code);
+			if (cursor->type !=NULL) { printf("|%10s",cursor->type);}
+			else { printf("|%12s"," "); }
+			printf("|%5d",cursor->cst);
 			printf("|%8d|\n",cursor->taille);
 			cursor=cursor->svt;
 			tmp++;
