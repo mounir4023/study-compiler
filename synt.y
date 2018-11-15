@@ -4,7 +4,7 @@
 int nbligne=1;
 extern int nbcolonne;
 int typeIdf;
-int fin_dec=0;
+//int fin_dec=0;
 int type_changes=0;
 int type_const=0;
 int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
@@ -39,7 +39,7 @@ BIBL : CALCUL BIBL
 
 CALCUL : bib_calcul { 
        		                   if (Bib_Calcule==0) { 
-                                                			Inserer("CALCUL","mc");
+                                                			Inserer("CALCUL","mc","/");
                                                 			Bib_Calcule=1; 
                                               		} else {
                                               			 printf("\nBibliotheque CALCUL deja déclarée");
@@ -50,7 +50,7 @@ CALCUL : bib_calcul {
 TAB : bib_tab { 
     	                 if (Bib_tab==0) {
 		                                        Bib_tab=1;
-		                                        Inserer("TAB","mc");
+		                                        Inserer("TAB","mc","/");
 	                                     } else { 
 		                                                printf("\nBibliotheque TAB deja déclaée");
 	                                     }
@@ -60,7 +60,7 @@ TAB : bib_tab {
 BOUCLE : bib_boucle { 
        		             if (Bib_Boucle==0) { 
 			                                       Bib_Boucle=1;
-                                             Inserer("BOUCLE","mc");
+                                             Inserer("BOUCLE","mc","/");
 		                                      } else {
 			                                               printf("\nBibliotheque BOUCLE deja declare");
 	 	                                             }
@@ -90,6 +90,7 @@ MOREVAR : sp_var NVAR
 	|  
 	{
 		printf("\n==== Fin de la liste de declarations [type: %s , is const %d, vars: %d]", type_courant,type_const,nb_LD());
+		afficher_LD();
 		Vider_LD();
 		printf("\n==== Fin deplacement LD= %d , elements= %d\n",LD,nb_LD()); 
 	}

@@ -6,7 +6,7 @@ PROGRAMME SII {
 	INTEGER Ab || Dc || L || Tab[10] || Tab2[20];
 	REAL CONST S || LOL || M5;
 	REAL K ;
-	REAL K ;
+	INTEGER K ;
 	// INTEGER k[20.5] gives error //
 
 	// instructions //

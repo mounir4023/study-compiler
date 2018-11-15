@@ -69,7 +69,7 @@
 int nbligne=1;
 extern int nbcolonne;
 int typeIdf;
-int fin_dec=0;
+//int fin_dec=0;
 int type_changes=0;
 int type_const=0;
 int Bib_Calcule=0,Bib_Boucle=0,Bib_tab=0;
@@ -461,10 +461,10 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    29,    29,    32,    33,    34,    35,    40,    50,    60,
-      71,    74,    75,    78,    80,    86,    89,    91,    98,   108,
-     109,   112,   113,   116,   117,   122,   123,   124,   127,   128,
-     131,   134,   135,   136,   139,   140,   141,   144,   145,   148,
-     151,   154,   157,   158,   159,   160,   161,   162
+      71,    74,    75,    78,    80,    86,    89,    91,    99,   109,
+     110,   113,   114,   117,   118,   123,   124,   125,   128,   129,
+     132,   135,   136,   137,   140,   141,   142,   145,   146,   149,
+     152,   155,   158,   159,   160,   161,   162,   163
 };
 #endif
 
@@ -1300,7 +1300,7 @@ yyreduce:
 #line 40 "synt.y" /* yacc.c:1651  */
     { 
        		                   if (Bib_Calcule==0) { 
-                                                			Inserer("CALCUL","mc");
+                                                			Inserer("CALCUL","mc","/");
                                                 			Bib_Calcule=1; 
                                               		} else {
                                               			 printf("\nBibliotheque CALCUL deja déclarée");
@@ -1314,7 +1314,7 @@ yyreduce:
     { 
     	                 if (Bib_tab==0) {
 		                                        Bib_tab=1;
-		                                        Inserer("TAB","mc");
+		                                        Inserer("TAB","mc","/");
 	                                     } else { 
 		                                                printf("\nBibliotheque TAB deja déclaée");
 	                                     }
@@ -1327,7 +1327,7 @@ yyreduce:
     { 
        		             if (Bib_Boucle==0) { 
 			                                       Bib_Boucle=1;
-                                             Inserer("BOUCLE","mc");
+                                             Inserer("BOUCLE","mc","/");
 		                                      } else {
 			                                               printf("\nBibliotheque BOUCLE deja declare");
 	 	                                             }
@@ -1360,14 +1360,15 @@ yyreduce:
 #line 91 "synt.y" /* yacc.c:1651  */
     {
 		printf("\n==== Fin de la liste de declarations [type: %s , is const %d, vars: %d]", type_courant,type_const,nb_LD());
+		afficher_LD();
 		Vider_LD();
 		printf("\n==== Fin deplacement LD= %d , elements= %d\n",LD,nb_LD()); 
 	}
-#line 1367 "synt.tab.c" /* yacc.c:1651  */
+#line 1368 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 18:
-#line 99 "synt.y" /* yacc.c:1651  */
+#line 100 "synt.y" /* yacc.c:1651  */
     { 
 		if( fin_dec == 0 ) {
 			Inserer_LD((yyvsp[-1].chaine));
@@ -1375,23 +1376,23 @@ yyreduce:
 			
 		}
 	}
-#line 1379 "synt.tab.c" /* yacc.c:1651  */
+#line 1380 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 21:
-#line 112 "synt.y" /* yacc.c:1651  */
+#line 113 "synt.y" /* yacc.c:1651  */
     { type_courant = strdup("INTEGER"); printf("\n==== New dec list type is:  %s",type_courant);}
-#line 1385 "synt.tab.c" /* yacc.c:1651  */
+#line 1386 "synt.tab.c" /* yacc.c:1651  */
     break;
 
   case 22:
-#line 113 "synt.y" /* yacc.c:1651  */
+#line 114 "synt.y" /* yacc.c:1651  */
     { type_courant = strdup("REAL"); printf("\n==== New dec list type is:  %s",type_courant);}
-#line 1391 "synt.tab.c" /* yacc.c:1651  */
+#line 1392 "synt.tab.c" /* yacc.c:1651  */
     break;
 
 
-#line 1395 "synt.tab.c" /* yacc.c:1651  */
+#line 1396 "synt.tab.c" /* yacc.c:1651  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1619,7 +1620,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 165 "synt.y" /* yacc.c:1910  */
+#line 166 "synt.y" /* yacc.c:1910  */
 
 int main()
 {yyparse(); 
