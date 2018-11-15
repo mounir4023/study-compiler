@@ -120,7 +120,6 @@ int get_taille(char* nom) {
 }
 
 void Inserer_LD(char * nom , int taille) {
-	//printf("\nvar: %s %d",nom,taille);
 	if ( LD == NULL ) {
 		LD = (Element_List_Dec *) malloc(sizeof(Element_List_Dec));
 		LD->nom=strdup(nom);
@@ -164,20 +163,3 @@ void afficher_LD() {
 	printf(" )");
 }
 
-/*
-int idf_Declarer(char* nom)
-{
-	Element_TS* current_idf=Rechercher(nom);
-	if ( current_idf !=NULL)
-	{
-		if ( current_idf->type!=NULL) return 1;
-		//non Déclaré false == 0
-		return 0;
-	}
-	else {  //idf non inserer dans la TS 
-		return -1; }
-}
-
-int nb_sauts_ligne(char * s) {
-	return strcpt(s,'\n');
-}*/
