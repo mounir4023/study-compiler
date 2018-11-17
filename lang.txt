@@ -8,21 +8,11 @@ PROGRAMME SII {
 
 	// Declaration part //
 	INTEGER Ab || Tab[210] || Z || X ||  Tab2[20];
-	REAL CONST K;
-	//INTEGER K;//
-	//INTEGER Y[1];//
-
-	// instructions //
-	X := 5 * 5 -5 / 5 + 5;
-	EXECUTE 
-		Tab[1] := 5 * 5 / 5 + 5;
-		//Tab2[21] := 5 * 5 / 5 + 5;//
-		//Z[0] := 5 * 5 -5 / 5 + 5;//
-		EXECUTE 
-			Ab := 5 * 5 / 5 + 5;
-			Ab := 5 * 5 -5 / 5 + 5;
-			// A := Tab[4]; //
-		IF ( Ab < Ab )
-	IF ( Ab < Ab )
+	REAL K||S;
+	REAL CONST L;
+	Z:=K+S;
+	Z:=K-Ab;
+	M:=K+Z;
+	
 
 }

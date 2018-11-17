@@ -163,3 +163,24 @@ void afficher_LD() {
 	printf(" )");
 }
 
+int getNature(char* nom){
+	//Si l'IDF est une var ou CST
+	Element_TS* cursor = Rechercher(nom);
+	int nature;
+	if ( cursor != NULL)
+	{
+		nature=cursor->cst;
+		return nature;
+	}
+	return -1;
+}
+
+char* getType(char* nom){
+	Element_TS* cursor = Rechercher(nom);
+	char* type;
+	if ( cursor != NULL){
+		type=cursor->type;
+		return type;
+	}
+	return NULL;
+}

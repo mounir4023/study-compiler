@@ -3,6 +3,7 @@
 #include "Tab_Symbole.h"
 
 int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
+int Ind_Operand=0,Ind_Declaration=0;
 int yylex();
 int yyerror(char *s);
 %}
@@ -11,6 +12,7 @@ int yyerror(char *s);
 char*  chaine;
 int entier;
 float real;
+struct Str{char *val;char* type;}Str;
 }
 
 %token mc_pgm mc_integer mc_real mc_const mc_if mc_while mc_exec
@@ -19,6 +21,12 @@ float real;
        sb_aff sp_var
        <chaine>id <entier>val_entiere <real>val_reelle
        '{' '}' ',' ';' '+' '*' '/' '-' '[' ']' '(' ')'
+
+%type <Str> EXP1
+%type <Str> EXP2
+%type <Str> EXP3        
+%type <Str> VAR
+%type <Str> CST
 
 %%
 
@@ -93,6 +101,7 @@ VAR : id INDEX
         } else { // partie instructions
             if ( Rechercher($1) == NULL ) {
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable %s non declaree !",nbligne,nbcolonne,$1);	
+                Ind_Declaration=1; //faut sortir sinon yrouh ychercher 3la null donc lazem n7absso
             }
             if (index_val ==-1 && get_taille($1) > 1) {
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Acces a un tableau sans preciser d indice !",nbligne,nbcolonne);
@@ -101,6 +110,12 @@ VAR : id INDEX
             } else if (get_taille($1)==1 && index_val != -1 ) {
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable simple utilisee comme un tableau !",nbligne,nbcolonne);
             }
+            if ( Rechercher($1)!=NULL)
+            {
+                $$.val=strdup($1);
+                $$.type=getType($1);
+            }
+            //printf("wach kayen %s\n",$$.type);
         }
     }
 ;
@@ -121,8 +136,8 @@ TYPE : mc_integer   { type_courant = strdup("INTEGER"); }
      | mc_real	    { type_courant = strdup("REAL"); } 
 ;
 
-CST : val_entiere 
-    | val_reelle 
+CST : val_entiere   {$$.type=strdup("INTEGER");  char t[10]; sprintf(t,"%d",$1); $$.val=strdup(t);}
+    | val_reelle    {$$.type=strdup("REAL");     char t[10]; sprintf(t,"%f",$1); $$.val=strdup(t);}
 ;
 
 //////////////////////////////////// Instruction part ////////////////////////////////////
@@ -136,26 +151,81 @@ MOREINST : INST
 	 | 
 ;
 
-INST_AFF: VAR sb_aff EXP1 ';' 
-    {
-        if ( ! Bib_Calcule ) {
-            printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation d'operations arithmetiques sans import de biblioteque !",nbligne,nbcolonne); 
-        }
-    }
+INST_AFF: VAR {
+                    if ( getNature($1.val)==1){ 
+                    printf ("\nL%2d C%2d | ERREUR SEMANTIQUE: %s est une constante\n",nbligne,nbcolonne,$1.val);
+                    }
+                }
+
+          sb_aff EXP1 ';' 
+                {
+                    if ( ! Bib_Calcule ) {
+                        printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation d'operations arithmetiques sans import de biblioteque !",nbligne,nbcolonne); 
+                    }
+                    if ( Ind_Declaration==0 && Ind_Operand == 0)
+                    {
+                        if ( strcmp($1.type,$4.type)!=0){
+                        printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s à %s !",nbligne,nbcolonne,$4.type,$1.type);
+                        }
+                    }
+
+                    if ( Ind_Declaration==0 && Ind_Operand ==1)
+                        {
+                            printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation non permise!",nbligne,nbcolonne);
+                            Ind_Operand=0;
+                            }
+
+                    if ( Ind_Declaration==1 && Ind_Operand ==0)
+                        {
+                            printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s à %s NON DECLARER!",nbligne,nbcolonne,$4.type,$1.val);
+                            Ind_Declaration=0;
+                        }
+
+                    if ( Ind_Declaration==1 && Ind_Operand ==1)
+                        {
+                            printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation à %s NON DECLARER!",nbligne,nbcolonne,$1.val);
+                            printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation non permise!",nbligne,nbcolonne);
+                            Ind_Operand=0;
+                            Ind_Declaration=0;
+                            }        
+                        
+                    
+                }
 ;
 
 EXP1 : EXP2 '+' EXP1 
+        {
+            if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands addition %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
+            Ind_Operand=1;
+            }
+        }
      | EXP2 '-' EXP1 
-     | EXP2 
+        {
+            if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands différence %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
+            Ind_Operand=1;
+            }
+        }
+     | EXP2 {$$.val=$1.val; $$.type=$1.type;}
 ;
 
 EXP2 : EXP3 '*' EXP2 
+        {
+            if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands multiplucation %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
+            Ind_Operand=1;
+            }
+        }
      | EXP3 '/' EXP2 
-     | EXP3 
+        {
+            if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands division %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
+            Ind_Operand=1;
+            //return 0;
+            }
+        }
+     | EXP3 {$$.val=$1.val; $$.type=$1.type;}
 ;
 
-EXP3 : VAR  
-     | CST 
+EXP3 : VAR  {$$.val=$1.val; $$.type=$1.type;}
+     | CST  {$$.val=$1.val; $$.type=$1.type;} 
 ;
 
 INST_IF : mc_exec INST mc_if '(' COND ')' 
