@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include "Tab_Symbole.h"
+#include "Quadruplet.h"
 
 int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
 int Ind_Operand=0,Ind_Declaration=0;
@@ -153,7 +154,7 @@ MOREINST : INST
 
 INST_AFF: VAR {
                     if ( getNature($1.val)==1){ 
-                    printf ("\nL%2d C%2d | ERREUR SEMANTIQUE: %s est une constante\n",nbligne,nbcolonne,$1.val);
+                    printf ("\nL%2d C%2d | ERREUR SEMANTIQUE: %s est une constante",nbligne,nbcolonne,$1.val);
                     }
                 }
 
@@ -188,7 +189,7 @@ INST_AFF: VAR {
                             Ind_Operand=0;
                             Ind_Declaration=0;
                             }        
-                        
+                    Ajouter_Quad("=",$1.val,$4.val,"");
                     
                 }
 ;
@@ -198,11 +199,25 @@ EXP1 : EXP2 '+' EXP1
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands addition %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
             }
+            else{
+                    $$.type=$1.type; 
+                    char t[10]; sprintf(t,"T%d",Cpt_temp); 
+                    Cpt_temp++;
+                    Ajouter_Quad("+",$1.val,$3.val,t);
+                    $$.val=strdup(t);
+            }
         }
      | EXP2 '-' EXP1 
         {
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands différence %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
+            }
+            else{
+                    $$.type=$1.type; 
+                    char t[10]; sprintf(t,"T%d",Cpt_temp); 
+                    Cpt_temp++;
+                    Ajouter_Quad("-",$1.val,$3.val,t);
+                    $$.val=strdup(t);
             }
         }
      | EXP2 {$$.val=$1.val; $$.type=$1.type;}
@@ -213,12 +228,26 @@ EXP2 : EXP3 '*' EXP2
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands multiplucation %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
             }
+            else{
+                    $$.type=$1.type; 
+                    char t[10]; sprintf(t,"T%d",Cpt_temp); 
+                    Cpt_temp++;
+                    Ajouter_Quad("*",$1.val,$3.val,t);
+                    $$.val=strdup(t);
+            }
         }
      | EXP3 '/' EXP2 
         {
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands division %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
             //return 0;
+            }
+            else{
+                    $$.type=$1.type; 
+                    char t[10]; sprintf(t,"T%d",Cpt_temp); 
+                    Cpt_temp++;
+                    Ajouter_Quad("/",$1.val,$3.val,t);
+                    $$.val=strdup(t);
             }
         }
      | EXP3 {$$.val=$1.val; $$.type=$1.type;}
@@ -252,6 +281,7 @@ COMPARATEUR : sb_eg
 int main()
 {yyparse(); 
  AfficherTS(TS);
+ Affichage_Quad();
 }
 
 int yywrap()

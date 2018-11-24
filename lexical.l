@@ -11,7 +11,7 @@ extern YYSTYPE yylval;
 regex_idf [A-Z][A-Za-z0-9]*
 regex_entier [0-9]+
 regex_decimal [0-9]+\.[0-9]+
-regex_commentaire "//".*"//"
+regex_commentaire "//"(.*|[\r\n])*"//"
 regex_aff ":="
 regex_sp "||"
 regex_eg "=="

@@ -1,18 +1,14 @@
-// comment these #bib to check errors //
-//#CALCUL//
+
 #CALCUL
 #TAB
 #BOUCLE
 
 PROGRAMME SII {
 
-	// Declaration part //
 	INTEGER Ab || Tab[210] || Z || X ||  Tab2[20];
-	REAL K||S;
+	REAL K||S||N[1];
 	REAL CONST L;
-	Z:=K+S;
-	Z:=K-Ab;
-	M:=K+Z;
+	Z:=X+2*9;
 	
 
 }
