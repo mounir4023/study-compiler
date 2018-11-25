@@ -14,6 +14,7 @@ char*  chaine;
 int entier;
 float real;
 struct Str{char *val;char* type;}Str;
+struct Str2{char* op;char* res;}Str2;
 }
 
 %token mc_pgm mc_integer mc_real mc_const mc_if mc_while mc_exec
@@ -271,6 +272,20 @@ COND : EXP1 COMPARATEUR EXP1
         {
             if ( strcmp($1.type,$3.type)!=0){
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands lors de la comparaison %s avec %s !",nbligne,nbcolonne,$1.val,$3.val);
+            }
+            else{
+                    
+                    char[10] t; sprintf(t,"T%d",Cpt_temp);
+                    Cpt_temp++;
+                    Ajouter_Quad("-",$1.val,$3.val,t);
+                    switch($2){
+                        case "==": /* x=depiler(pile_if);*/ ajouter_Quad("BZ",,,x); break;
+                        case "!=": ajouter_Quad(); break;
+                        case "<": ajouter_Quad(); break;
+                        case "<=": ajouter_Quad(); break;
+                        case ">": ajouter_Quad(); break;
+                        case ">=": ajouter_Quad(); break;
+                    }
             }
         }
 ;
