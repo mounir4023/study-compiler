@@ -28,6 +28,7 @@ struct Str{char *val;char* type;}Str;
 %type <Str> EXP3        
 %type <Str> VAR
 %type <Str> CST
+%type <chaine> COMPARATEUR
 
 %%
 
@@ -266,15 +267,20 @@ INST_WHL : mc_while '(' COND ')' '{' INST '}'
     }
 ;
 
-COND : EXP1 COMPARATEUR EXP1
+COND : EXP1 COMPARATEUR EXP1 
+        {
+            if ( strcmp($1.type,$3.type)!=0){
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands lors de la comparaison %s avec %s !",nbligne,nbcolonne,$1.val,$3.val);
+            }
+        }
 ;
 
-COMPARATEUR : sb_eg
-	    | sb_diff
-	    | sb_inf
-	    | sb_infeg
-	    | sb_sup
-	    | sb_supeg
+COMPARATEUR : sb_eg    {$$=strdup("==");}
+	    | sb_diff      {$$=strdup("!=");}   
+	    | sb_inf       {$$=strdup("<");}
+	    | sb_infeg     {$$=strdup("<=");}
+	    | sb_sup       {$$=strdup(">");}
+	    | sb_supeg     {$$=strdup(">=");}
 ;
       
 %%
