@@ -77,3 +77,39 @@ void Affichage_Quad(){
 	}
 	printf("\n\n");
 }
+
+typedef struct Pile_If {
+	int numQc;
+	struct Pile_If * svt;
+} Pile_If;
+
+Pile_If* Tete_Pile_If=NULL; 
+
+void empiler_if( int numQuad){
+	if ( Tete_Pile_If==NULL){
+		Tete_Pile_If=(Pile_If*)malloc(sizeof(Pile_If));
+		Tete_Pile_If->numQc=numQuad;
+		Tete_Pile_If->svt=NULL;
+	}
+	else{
+		Pile_If* tmp=(Pile_If*)malloc(sizeof(Pile_If));
+		tmp->numQc=numQuad;
+		tmp->svt=Tete_Pile_If;
+		Tete_Pile_If=tmp;
+	}
+}
+
+int depiler_if(){
+	if ( Tete_Pile_If!=NULL){
+		int tmp=Tete_Pile_If->numQc;
+		if ( Tete_Pile_If->svt != NULL)
+		{
+			Tete_Pile_If=Tete_Pile_If->svt;
+		}
+		else{
+			Tete_Pile_If=NULL;
+		}
+		return tmp;
+	}
+	return -1;
+}

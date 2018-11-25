@@ -279,12 +279,12 @@ COND : EXP1 COMPARATEUR EXP1
                     Cpt_temp++;
                     Ajouter_Quad("-",$1.val,$3.val,t);
                     switch($2){
-                        case "==": /* x=depiler(pile_if);*/ ajouter_Quad("BZ",,,x); break;
-                        case "!=": ajouter_Quad(); break;
-                        case "<": ajouter_Quad(); break;
-                        case "<=": ajouter_Quad(); break;
-                        case ">": ajouter_Quad(); break;
-                        case ">=": ajouter_Quad(); break;
+                        case "==":  ajouter_Quad("BE","","","");    break;
+                        case "!=":  ajouter_Quad("BNE","","","");   break;
+                        case "<":   ajouter_Quad("BL","","","");    break;
+                        case "<=":  ajouter_Quad("BLE","","","");   break;
+                        case ">":   ajouter_Quad("BG","","","");    break;
+                        case ">=":  ajouter_Quad("BGE","","","");   break;
                     }
             }
         }

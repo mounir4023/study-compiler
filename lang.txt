@@ -8,7 +8,7 @@ PROGRAMME SII {
 	INTEGER Ab || Tab[210] || Z || X ||  Tab2[20];
 	REAL K||S||N[1];
 	REAL CONST L;
-	Z:=X+2*9+6-8*9;
+	Z:=X+2*9+6-8*9+1;
 	
 
 }
