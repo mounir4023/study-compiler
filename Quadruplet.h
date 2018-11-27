@@ -100,16 +100,31 @@ void empiler_if( int numQuad){
 }
 
 int depiler_if(){
+	printf("h11\n");
 	if ( Tete_Pile_If!=NULL){
 		int tmp=Tete_Pile_If->numQc;
+		printf("h1\n");
 		if ( Tete_Pile_If->svt != NULL)
 		{
 			Tete_Pile_If=Tete_Pile_If->svt;
+			printf("h2\n");
 		}
 		else{
 			Tete_Pile_If=NULL;
+			printf("h3\n");
 		}
+		printf("h4\n");
 		return tmp;
 	}
 	return -1;
+}
+void MAJ_quad_if( int numQuad,int adr){
+	Element_Quad* cursor=Tete_Q;
+	while(cursor!=NULL){
+		if( cursor->num==numQuad){
+			char t[10]; sprintf(t,"%d",adr);
+			cursor->opd_1=(char*) malloc(sizeof(char)*strlen(t));
+			strcpy(cursor->opd_1,t);
+		}
+	}
 }

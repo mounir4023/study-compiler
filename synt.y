@@ -29,7 +29,7 @@ struct Str2{char* op;char* res;}Str2;
 %type <Str> EXP3        
 %type <Str> VAR
 %type <Str> CST
-%type <chaine> COMPARATEUR
+%type <Str> COMPARATEUR
 
 %%
 
@@ -190,7 +190,7 @@ INST_AFF: VAR {
                             printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation non permise!",nbligne,nbcolonne);
                             Ind_Operand=0;
                             Ind_Declaration=0;
-                            }        
+                            }
                     Ajouter_Quad("=",$1.val,$4.val,"");
                     
                 }
@@ -259,7 +259,27 @@ EXP3 : VAR  {$$.val=$1.val; $$.type=$1.type;}
      | CST  {$$.val=$1.val; $$.type=$1.type;} 
 ;
 
-INST_IF : mc_exec INST mc_if '(' COND ')' 
+INST_IF : mc_exec {printf("s1\n");empiler_if(Num_Qc);printf("s2\n");} 
+          INST {        
+                            printf("hii\n");
+            Ajouter_Quad("BR","","","");
+
+                            printf("hisi\n");
+          }
+          mc_if 
+          '(' 
+          COND {
+            printf("rani fel cond");
+                int Deb_Inst=depiler_if();
+                printf("%d\n",Deb_Inst);
+                int id=Num_Qc-1;
+                MAJ_quad_if(id,Deb_Inst);
+                printf("%d\n",id);
+                id--;
+                printf("%d\n",id);
+                MAJ_quad_if(id,Num_Qc);
+          } 
+          ')' 
 ;
 
 INST_WHL : mc_while '(' COND ')' '{' INST '}'
@@ -275,27 +295,38 @@ COND : EXP1 COMPARATEUR EXP1
             }
             else{
                     
-                    char[10] t; sprintf(t,"T%d",Cpt_temp);
+                    printf("16s\n");
+                    char t[10]; sprintf(t,"T%d",Cpt_temp);
                     Cpt_temp++;
                     Ajouter_Quad("-",$1.val,$3.val,t);
-                    switch($2){
-                        case "==":  ajouter_Quad("BE","","","");    break;
-                        case "!=":  ajouter_Quad("BNE","","","");   break;
-                        case "<":   ajouter_Quad("BL","","","");    break;
-                        case "<=":  ajouter_Quad("BLE","","","");   break;
-                        case ">":   ajouter_Quad("BG","","","");    break;
-                        case ">=":  ajouter_Quad("BGE","","","");   break;
+                    if ( strcmp($2.val,"==")==0){
+                        Ajouter_Quad("BE","","","");
+                    }
+                    if ( strcmp($2.val,"!=")==0){
+                        Ajouter_Quad("BNE","","","");
+                    }
+                    if ( strcmp($2.val,"<")==0){
+                        Ajouter_Quad("BL","","","");
+                    }
+                    if ( strcmp($2.val,"<=")==0){
+                        Ajouter_Quad("BLE","","","");
+                    }
+                    if ( strcmp($2.val,">")==0){
+                        Ajouter_Quad("BG","","","");
+                    }
+                    if ( strcmp($2.val,">=")==0){
+                        Ajouter_Quad("BGE","","","");
                     }
             }
         }
 ;
 
-COMPARATEUR : sb_eg    {$$=strdup("==");}
-	    | sb_diff      {$$=strdup("!=");}   
-	    | sb_inf       {$$=strdup("<");}
-	    | sb_infeg     {$$=strdup("<=");}
-	    | sb_sup       {$$=strdup(">");}
-	    | sb_supeg     {$$=strdup(">=");}
+COMPARATEUR : sb_eg    {$$.val=strdup("==");}
+	    | sb_diff      {$$.val=strdup("!=");}   
+	    | sb_inf       {$$.val=strdup("<");}
+	    | sb_infeg     {$$.val=strdup("<=");}
+	    | sb_sup       {$$.val=strdup(">");}
+	    | sb_supeg     {$$.val=strdup(">=");}
 ;
       
 %%

@@ -80,8 +80,9 @@ char*  chaine;
 int entier;
 float real;
 struct Str{char *val;char* type;}Str;
+struct Str2{char* op;char* res;}Str2;
 
-#line 85 "synt.tab.h" /* yacc.c:1909  */
+#line 86 "synt.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

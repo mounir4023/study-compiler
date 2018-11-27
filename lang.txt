@@ -8,7 +8,9 @@ PROGRAMME SII {
 	INTEGER Ab || Tab[210] || Z || X ||  Tab2[20];
 	REAL K||S||N[1];
 	REAL CONST L;
-	Z:=X+2*9+6-8*9+1;
+	EXECUTE 
+			Ab := 5 + 5;
+		IF ( Z == Ab )
 	
 
 }
