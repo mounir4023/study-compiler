@@ -5,6 +5,7 @@
 
 int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
 int Ind_Operand=0,Ind_Declaration=0;
+int sauv_BR;
 int yylex();
 int yyerror(char *s);
 %}
@@ -262,6 +263,7 @@ EXP3 : VAR  {$$.val=$1.val; $$.type=$1.type;}
 INST_IF : mc_exec {printf("s1\n");empiler_if(Num_Qc);printf("s2\n");} 
           INST {        
                             printf("hii\n");
+                            sauv_BR=Num_Qc;
             Ajouter_Quad("BR","","","");
 
                             printf("hisi\n");
@@ -275,9 +277,9 @@ INST_IF : mc_exec {printf("s1\n");empiler_if(Num_Qc);printf("s2\n");}
                 int id=Num_Qc-1;
                 MAJ_quad_if(id,Deb_Inst);
                 printf("%d\n",id);
-                id--;
-                printf("%d\n",id);
-                MAJ_quad_if(id,Num_Qc);
+                id++;
+                printf("%d\n",sauv_BR);
+                MAJ_quad_if(sauv_BR,id);
           } 
           ')' 
 ;
@@ -299,8 +301,9 @@ COND : EXP1 COMPARATEUR EXP1
                     char t[10]; sprintf(t,"T%d",Cpt_temp);
                     Cpt_temp++;
                     Ajouter_Quad("-",$1.val,$3.val,t);
+                    //ZIIID T LES AUTRES NOUBLE PAS W MACHI F LE CHMPS RES XD
                     if ( strcmp($2.val,"==")==0){
-                        Ajouter_Quad("BE","","","");
+                        Ajouter_Quad("BE","","",t);
                     }
                     if ( strcmp($2.val,"!=")==0){
                         Ajouter_Quad("BNE","","","");

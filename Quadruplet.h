@@ -125,6 +125,8 @@ void MAJ_quad_if( int numQuad,int adr){
 			char t[10]; sprintf(t,"%d",adr);
 			cursor->opd_1=(char*) malloc(sizeof(char)*strlen(t));
 			strcpy(cursor->opd_1,t);
+			break;
 		}
+		cursor=cursor->svt;
 	}
 }

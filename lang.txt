@@ -11,6 +11,6 @@ PROGRAMME SII {
 	EXECUTE 
 			Ab := 5 + 5;
 		IF ( Z == Ab )
-	
+	Z:=X;
 
 }
