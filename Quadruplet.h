@@ -130,3 +130,23 @@ void MAJ_quad_if( int numQuad,int adr){
 		cursor=cursor->svt;
 	}
 }
+void make_condWhile_quad( char * str,char * t){
+						if ( strcmp(str,"==")==0){
+                            Ajouter_Quad("BNE","","",t);
+                        }
+                        if ( strcmp(str,"!=")==0){
+                            Ajouter_Quad("BE","","",t);
+                        }
+                        if ( strcmp(str,"<")==0){
+                            Ajouter_Quad("BGE","","",t);
+                        }
+                        if ( strcmp(str,"<=")==0){
+                            Ajouter_Quad("BG","","",t);
+                        }
+                        if ( strcmp(str,">")==0){
+                            Ajouter_Quad("BLE","","",t);
+                        }
+                        if ( strcmp(str,">=")==0){
+                            Ajouter_Quad("BL","","",t);
+                        }
+}

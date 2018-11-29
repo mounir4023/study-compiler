@@ -5,7 +5,7 @@
 
 int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
 int Ind_Operand=0,Ind_Declaration=0;
-int sauv_BR,sauv_br_to_cond;
+int sauv_BR,sauv_br_to_cond,wich_cond=0;
 int yylex();
 int yyerror(char *s);
 %}
@@ -260,12 +260,14 @@ EXP3 : VAR  {$$.val=$1.val; $$.type=$1.type;}
      | CST  {$$.val=$1.val; $$.type=$1.type;} 
 ;
 
-INST_IF : mc_exec {printf("s1\n");Ajouter_Quad("BR","","","");empiler_if(Num_Qc);printf("1: %d\n",Num_Qc);} 
+INST_IF : mc_exec {
+                    Ajouter_Quad("BR","","","");
+                    empiler_if(Num_Qc);
+                  } 
           INST {        
-                            
-                            empiler_if(Num_Qc);
-                            Ajouter_Quad("BR","","","");
-                            sauv_br_to_cond=Num_Qc;
+                    empiler_if(Num_Qc);
+                    Ajouter_Quad("BR","","","");
+                    sauv_br_to_cond=Num_Qc;
           }
           mc_if 
           '(' 
@@ -281,10 +283,19 @@ INST_IF : mc_exec {printf("s1\n");Ajouter_Quad("BR","","","");empiler_if(Num_Qc)
           ')' 
 ;
 
-INST_WHL : mc_while '(' COND ')' '{' INST '}'
-    {
-        if(!Bib_Boucle)  printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de boucle sans import de la biblioteque !",nbligne,nbcolonne);
-    }
+INST_WHL : mc_while {   wich_cond=1; }
+           '(' COND ')' 
+            {
+                empiler_if(Num_Qc-1);
+            }
+           '{' INST '}'
+            {
+                int Qc_cond_While=depiler_if();
+                printf("%d %d",Qc_cond_While,Num_Qc);
+                MAJ_quad_if(Qc_cond_While,Num_Qc);
+                if(!Bib_Boucle) { printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de boucle sans import de la biblioteque !",nbligne,nbcolonne); }
+
+            }
 ;
 
 COND : EXP1 COMPARATEUR EXP1 
@@ -298,25 +309,33 @@ COND : EXP1 COMPARATEUR EXP1
                     char t[10]; sprintf(t,"T%d",Cpt_temp);
                     Cpt_temp++;
                     Ajouter_Quad("-",$1.val,$3.val,t);
-                    //ZIIID T LES AUTRES NOUBLE PAS W MACHI F LE CHMPS RES XD
-                    if ( strcmp($2.val,"==")==0){
-                        Ajouter_Quad("BE","","",t);
+                    if ( wich_cond == 0 ){
+                        /* CAS LA CONDITION EST DECLENCHER A PARTIR DU INST IF */
+                        if ( strcmp($2.val,"==")==0){
+                            Ajouter_Quad("BE","","",t);
+                        }
+                        if ( strcmp($2.val,"!=")==0){
+                            Ajouter_Quad("BNE","","",t);
+                        }
+                        if ( strcmp($2.val,"<")==0){
+                            Ajouter_Quad("BL","","",t);
+                        }
+                        if ( strcmp($2.val,"<=")==0){
+                            Ajouter_Quad("BLE","","",t);
+                        }
+                        if ( strcmp($2.val,">")==0){
+                            Ajouter_Quad("BG","","",t);
+                        }
+                        if ( strcmp($2.val,">=")==0){
+                            Ajouter_Quad("BGE","","",t);
+                        }
                     }
-                    if ( strcmp($2.val,"!=")==0){
-                        Ajouter_Quad("BNE","","",t);
+                    else{
+                        /* CAS LA CONDITION EST DECLENCHER A PARTIR DU INST WHILE */
+                        make_condWhile_quad( $2.val,t);
                     }
-                    if ( strcmp($2.val,"<")==0){
-                        Ajouter_Quad("BL","","",t);
-                    }
-                    if ( strcmp($2.val,"<=")==0){
-                        Ajouter_Quad("BLE","","",t);
-                    }
-                    if ( strcmp($2.val,">")==0){
-                        Ajouter_Quad("BG","","",t);
-                    }
-                    if ( strcmp($2.val,">=")==0){
-                        Ajouter_Quad("BGE","","",t);
-                    }
+                    
+
             }
         }
 ;

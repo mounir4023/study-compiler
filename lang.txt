@@ -8,12 +8,13 @@ PROGRAMME SII {
 	INTEGER Ab || Tab[210] || Z || X ||  Tab2[20];
 	REAL K||S||N[1];
 	REAL CONST L;
-	EXECUTE 
-		Z:=6+9;
-			EXECUTE 
-			Ab := 5 + 5;
-		IF ( Z == Ab )
-		IF ( Z == Ab )
-	Z:=X;
-
+	WHILE ( 18 < Ab + 8 ) {
+		
+		Z:=1;
+		WHILE ( X == Z  ) {
+		
+		K:=5+6;
+	}
+	Z:=4;
+	}	
 }
