@@ -70,7 +70,7 @@
 
 int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
 int Ind_Operand=0,Ind_Declaration=0;
-int sauv_BR;
+int sauv_BR,sauv_br_to_cond;
 int yylex();
 int yyerror(char *s);
 
@@ -466,8 +466,8 @@ static const yytype_uint16 yyrline[] =
       83,    86,    87,    90,    91,    94,    97,    98,   101,   127,
      136,   139,   140,   143,   144,   149,   150,   151,   154,   155,
      158,   158,   200,   213,   226,   229,   242,   256,   259,   260,
-     263,   264,   274,   263,   289,   295,   329,   330,   331,   332,
-     333,   334
+     263,   264,   272,   263,   284,   290,   324,   325,   326,   327,
+     328,   329
 };
 #endif
 
@@ -1577,50 +1577,45 @@ yyreduce:
 
   case 40:
 #line 263 "synt.y" /* yacc.c:1646  */
-    {printf("s1\n");empiler_if(Num_Qc);printf("1: %d\n",Num_Qc);}
+    {printf("s1\n");Ajouter_Quad("BR","","","");empiler_if(Num_Qc);printf("1: %d\n",Num_Qc);}
 #line 1582 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
 #line 264 "synt.y" /* yacc.c:1646  */
     {        
-                            printf("hii\n");
+                            
                             empiler_if(Num_Qc);
-                            printf("7: %d\n",Num_Qc);
-            Ajouter_Quad("BR","","","");
-
-                            printf("hisi\n");
+                            Ajouter_Quad("BR","","","");
+                            sauv_br_to_cond=Num_Qc;
           }
-#line 1595 "synt.tab.c" /* yacc.c:1646  */
+#line 1593 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 274 "synt.y" /* yacc.c:1646  */
+#line 272 "synt.y" /* yacc.c:1646  */
     {
-            printf("rani fel cond");
                 sauv_BR=depiler_if();
                 int Deb_Inst=depiler_if();
-                printf("%d\n",Deb_Inst);
                 int id=Num_Qc-1;
                 MAJ_quad_if(id,Deb_Inst);
-                printf("%d\n",id);
+                MAJ_quad_if(Deb_Inst-1,sauv_br_to_cond);
                 id++;
-                printf("%d\n",sauv_BR);
                 MAJ_quad_if(sauv_BR,id);
           }
-#line 1612 "synt.tab.c" /* yacc.c:1646  */
+#line 1607 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 290 "synt.y" /* yacc.c:1646  */
+#line 285 "synt.y" /* yacc.c:1646  */
     {
         if(!Bib_Boucle)  printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de boucle sans import de la biblioteque !",nbligne,nbcolonne);
     }
-#line 1620 "synt.tab.c" /* yacc.c:1646  */
+#line 1615 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 296 "synt.y" /* yacc.c:1646  */
+#line 291 "synt.y" /* yacc.c:1646  */
     {
             if ( strcmp((yyvsp[-2].Str).type,(yyvsp[0].Str).type)!=0){
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands lors de la comparaison %s avec %s !",nbligne,nbcolonne,(yyvsp[-2].Str).val,(yyvsp[0].Str).val);
@@ -1652,47 +1647,47 @@ yyreduce:
                     }
             }
         }
-#line 1656 "synt.tab.c" /* yacc.c:1646  */
+#line 1651 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 329 "synt.y" /* yacc.c:1646  */
+#line 324 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=strdup("==");}
-#line 1662 "synt.tab.c" /* yacc.c:1646  */
+#line 1657 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 330 "synt.y" /* yacc.c:1646  */
+#line 325 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=strdup("!=");}
-#line 1668 "synt.tab.c" /* yacc.c:1646  */
+#line 1663 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 331 "synt.y" /* yacc.c:1646  */
+#line 326 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=strdup("<");}
-#line 1674 "synt.tab.c" /* yacc.c:1646  */
+#line 1669 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 332 "synt.y" /* yacc.c:1646  */
+#line 327 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=strdup("<=");}
-#line 1680 "synt.tab.c" /* yacc.c:1646  */
+#line 1675 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 333 "synt.y" /* yacc.c:1646  */
+#line 328 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=strdup(">");}
-#line 1686 "synt.tab.c" /* yacc.c:1646  */
+#line 1681 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 334 "synt.y" /* yacc.c:1646  */
+#line 329 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=strdup(">=");}
-#line 1692 "synt.tab.c" /* yacc.c:1646  */
+#line 1687 "synt.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1696 "synt.tab.c" /* yacc.c:1646  */
+#line 1691 "synt.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1920,7 +1915,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 337 "synt.y" /* yacc.c:1906  */
+#line 332 "synt.y" /* yacc.c:1906  */
 
 int main()
 {yyparse(); 

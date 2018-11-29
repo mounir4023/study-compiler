@@ -5,7 +5,7 @@
 
 int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
 int Ind_Operand=0,Ind_Declaration=0;
-int sauv_BR;
+int sauv_BR,sauv_br_to_cond;
 int yylex();
 int yyerror(char *s);
 %}
@@ -260,27 +260,22 @@ EXP3 : VAR  {$$.val=$1.val; $$.type=$1.type;}
      | CST  {$$.val=$1.val; $$.type=$1.type;} 
 ;
 
-INST_IF : mc_exec {printf("s1\n");empiler_if(Num_Qc);printf("1: %d\n",Num_Qc);} 
+INST_IF : mc_exec {printf("s1\n");Ajouter_Quad("BR","","","");empiler_if(Num_Qc);printf("1: %d\n",Num_Qc);} 
           INST {        
-                            printf("hii\n");
+                            
                             empiler_if(Num_Qc);
-                            printf("7: %d\n",Num_Qc);
-            Ajouter_Quad("BR","","","");
-
-                            printf("hisi\n");
+                            Ajouter_Quad("BR","","","");
+                            sauv_br_to_cond=Num_Qc;
           }
           mc_if 
           '(' 
           COND {
-            printf("rani fel cond");
                 sauv_BR=depiler_if();
                 int Deb_Inst=depiler_if();
-                printf("%d\n",Deb_Inst);
                 int id=Num_Qc-1;
                 MAJ_quad_if(id,Deb_Inst);
-                printf("%d\n",id);
+                MAJ_quad_if(Deb_Inst-1,sauv_br_to_cond);
                 id++;
-                printf("%d\n",sauv_BR);
                 MAJ_quad_if(sauv_BR,id);
           } 
           ')' 
