@@ -260,10 +260,11 @@ EXP3 : VAR  {$$.val=$1.val; $$.type=$1.type;}
      | CST  {$$.val=$1.val; $$.type=$1.type;} 
 ;
 
-INST_IF : mc_exec {printf("s1\n");empiler_if(Num_Qc);printf("s2\n");} 
+INST_IF : mc_exec {printf("s1\n");empiler_if(Num_Qc);printf("1: %d\n",Num_Qc);} 
           INST {        
                             printf("hii\n");
-                            sauv_BR=Num_Qc;
+                            empiler_if(Num_Qc);
+                            printf("7: %d\n",Num_Qc);
             Ajouter_Quad("BR","","","");
 
                             printf("hisi\n");
@@ -272,6 +273,7 @@ INST_IF : mc_exec {printf("s1\n");empiler_if(Num_Qc);printf("s2\n");}
           '(' 
           COND {
             printf("rani fel cond");
+                sauv_BR=depiler_if();
                 int Deb_Inst=depiler_if();
                 printf("%d\n",Deb_Inst);
                 int id=Num_Qc-1;
@@ -306,19 +308,19 @@ COND : EXP1 COMPARATEUR EXP1
                         Ajouter_Quad("BE","","",t);
                     }
                     if ( strcmp($2.val,"!=")==0){
-                        Ajouter_Quad("BNE","","","");
+                        Ajouter_Quad("BNE","","",t);
                     }
                     if ( strcmp($2.val,"<")==0){
-                        Ajouter_Quad("BL","","","");
+                        Ajouter_Quad("BL","","",t);
                     }
                     if ( strcmp($2.val,"<=")==0){
-                        Ajouter_Quad("BLE","","","");
+                        Ajouter_Quad("BLE","","",t);
                     }
                     if ( strcmp($2.val,">")==0){
-                        Ajouter_Quad("BG","","","");
+                        Ajouter_Quad("BG","","",t);
                     }
                     if ( strcmp($2.val,">=")==0){
-                        Ajouter_Quad("BGE","","","");
+                        Ajouter_Quad("BGE","","",t);
                     }
             }
         }

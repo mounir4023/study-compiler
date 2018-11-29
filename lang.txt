@@ -9,7 +9,10 @@ PROGRAMME SII {
 	REAL K||S||N[1];
 	REAL CONST L;
 	EXECUTE 
+		Z:=6+9;
+			EXECUTE 
 			Ab := 5 + 5;
+		IF ( Z == Ab )
 		IF ( Z == Ab )
 	Z:=X;
 
