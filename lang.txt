@@ -5,16 +5,20 @@
 
 PROGRAMME SII {
 
-	INTEGER Ab || Tab[210] || Z || X ||  Tab2[20];
-	REAL K||S||N[1];
-	REAL CONST L;
-	WHILE ( 18 < Ab + 8 ) {
-		
-		Z:=1;
-		WHILE ( X == Z  ) {
-		
-		K:=5+6;
-	}
-	Z:=4;
-	}	
+	INTEGER A;
+	
+	A := 5 * 3 + 5 * 4 + 5 * 6;
 }
+
+
+// expecting:
+5 * 3 + 5 * 4 + 5 * 6;
+EXP3 * EXP3 + 5 * 4 + 5 * 6;
+EXP2 + 5 * 4 + 5 * 6;
+EXP2 + EXP3 * EXP3 + 5 * 6;
+EXP2 + EXP2 + 5 * 6;
+EXP1 + 5 * 6;
+EXP1 + EXP3 * EXP3;
+EXP1 + EXP2;
+EXP1;
+//

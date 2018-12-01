@@ -197,7 +197,7 @@ INST_AFF: VAR {
                 }
 ;
 
-EXP1 : EXP2 '+' EXP1 
+EXP1 : EXP1 '+' EXP2 
         {
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands addition %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
@@ -210,7 +210,7 @@ EXP1 : EXP2 '+' EXP1
                     $$.val=strdup(t);
             }
         }
-     | EXP2 '-' EXP1 
+     | EXP1 '-' EXP2 
         {
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands différence %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
@@ -226,7 +226,7 @@ EXP1 : EXP2 '+' EXP1
      | EXP2 {$$.val=$1.val; $$.type=$1.type;}
 ;
 
-EXP2 : EXP3 '*' EXP2 
+EXP2 : EXP2 '*' EXP3 
         {
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands multiplucation %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
@@ -239,7 +239,7 @@ EXP2 : EXP3 '*' EXP2
                     $$.val=strdup(t);
             }
         }
-     | EXP3 '/' EXP2 
+     | EXP2 '/' EXP3 
         {
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands division %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
