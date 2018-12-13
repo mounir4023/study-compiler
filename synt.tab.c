@@ -69,12 +69,13 @@
 #include "Quadruplet.h"
 
 int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
+int Bib_InLineT=0,Bib_InLineB=0,Bib_InLineC=0;
 int Ind_Operand=0,Ind_Declaration=0;
 int sauv_BR,sauv_br_to_cond,wich_cond=0;
 int yylex();
 int yyerror(char *s);
 
-#line 78 "synt.tab.c" /* yacc.c:339  */
+#line 79 "synt.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -138,7 +139,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 13 "synt.y" /* yacc.c:355  */
+#line 14 "synt.y" /* yacc.c:355  */
 
 char*  chaine;
 int entier;
@@ -146,7 +147,7 @@ float real;
 struct Str{char *val;char* type;int declared;int Compatibilite;}Str;
 struct Str2{char* op;char* res;}Str2;
 
-#line 150 "synt.tab.c" /* yacc.c:355  */
+#line 151 "synt.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -163,7 +164,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 167 "synt.tab.c" /* yacc.c:358  */
+#line 168 "synt.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -462,12 +463,12 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    38,    38,    41,    42,    43,    44,    49,    60,    71,
-      83,    86,    87,    90,    91,    94,    97,    98,   101,   129,
-     138,   141,   142,   145,   146,   151,   152,   153,   156,   157,
-     160,   160,   213,   236,   249,   252,   265,   278,   281,   282,
-     285,   289,   296,   285,   308,   310,   308,   326,   368,   369,
-     370,   371,   372,   373
+       0,    39,    39,    42,    43,    44,    45,    50,    69,    88,
+     108,   111,   112,   115,   116,   119,   122,   123,   126,   159,
+     168,   171,   172,   175,   176,   181,   182,   183,   186,   187,
+     190,   190,   244,   267,   280,   283,   296,   309,   312,   313,
+     316,   320,   327,   316,   339,   341,   339,   357,   404,   405,
+     406,   407,   408,   409
 };
 #endif
 
@@ -1297,79 +1298,108 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 38 "synt.y" /* yacc.c:1646  */
+#line 39 "synt.y" /* yacc.c:1646  */
     { printf("\n\nLe programme est syntaxiquement correct !\n"); }
-#line 1303 "synt.tab.c" /* yacc.c:1646  */
+#line 1304 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 50 "synt.y" /* yacc.c:1646  */
+#line 51 "synt.y" /* yacc.c:1646  */
     { 
-        if (Bib_Calcule==0) { 
-            Inserer("CALCUL","mc","/",0);
-            Bib_Calcule=1; 
-        } else {
-            printf("\nBibliotheque CALCUL deja declaree");
-        } 
+        if (Bib_Calcule==0 ) { 
+            if ( (nbligne !=Bib_InLineC) && (nbligne !=Bib_InLineB) && (nbligne !=Bib_InLineT) ){
+                Inserer("CALCUL","mc","/",0);
+                Bib_Calcule=1; 
+                Bib_InLineC=nbligne;
+            }
+            else{
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque CALCUL ne peut être declarer dans cette ligne",nbligne,nbcolonne);
+            }
+        }    
+        else {
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque CALCUL deja déclaée",nbligne,nbcolonne);
+            
+        }    
     }
-#line 1316 "synt.tab.c" /* yacc.c:1646  */
+#line 1325 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 61 "synt.y" /* yacc.c:1646  */
+#line 70 "synt.y" /* yacc.c:1646  */
     { 
-        if (Bib_Tab==0) {
-            Inserer("TAB","mc","/",0);
-            Bib_Tab=1;
-        } else { 
-            printf("\nBibliotheque TAB deja déclaée");
-        }
+        if (Bib_Tab==0) { 
+            if ( (nbligne !=Bib_InLineC) && (nbligne !=Bib_InLineB) && (nbligne !=Bib_InLineT) ){
+                Inserer("TAB","mc","/",0);
+                Bib_Tab=1; 
+                Bib_InLineT=nbligne;
+            }
+            else{
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque TAB ne peut être declarer dans cette ligne",nbligne,nbcolonne);
+            }
+        }    
+        else {
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque TAB deja déclaée",nbligne,nbcolonne);
+            
+        } 
     }
-#line 1329 "synt.tab.c" /* yacc.c:1646  */
+#line 1346 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 72 "synt.y" /* yacc.c:1646  */
+#line 89 "synt.y" /* yacc.c:1646  */
     { 
         if (Bib_Boucle==0) { 
-            Inserer("BOUCLE","mc","/",0);
-            Bib_Boucle=1;
-        } else {
-            printf("\nBibliotheque BOUCLE deja declare");
-        }
+            if ( (nbligne !=Bib_InLineC) && (nbligne !=Bib_InLineB) && (nbligne !=Bib_InLineT) ){
+                Inserer("BOUCLE","mc","/",0);
+                Bib_Boucle=1; 
+                Bib_InLineB=nbligne;
+            }
+            else{
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque BOUCLE ne peut être declarer dans cette ligne",nbligne,nbcolonne);
+            }
+        }    
+        else {
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque BOUCLE deja déclaée",nbligne,nbcolonne);
+            
+        } 
     }
-#line 1342 "synt.tab.c" /* yacc.c:1646  */
+#line 1367 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 86 "synt.y" /* yacc.c:1646  */
+#line 111 "synt.y" /* yacc.c:1646  */
     { type_const=1;  }
-#line 1348 "synt.tab.c" /* yacc.c:1646  */
+#line 1373 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 87 "synt.y" /* yacc.c:1646  */
+#line 112 "synt.y" /* yacc.c:1646  */
     { type_const=0; }
-#line 1354 "synt.tab.c" /* yacc.c:1646  */
+#line 1379 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 91 "synt.y" /* yacc.c:1646  */
+#line 116 "synt.y" /* yacc.c:1646  */
     { fin_dec=1; }
-#line 1360 "synt.tab.c" /* yacc.c:1646  */
+#line 1385 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 98 "synt.y" /* yacc.c:1646  */
+#line 123 "synt.y" /* yacc.c:1646  */
     { Vider_LD(); }
-#line 1366 "synt.tab.c" /* yacc.c:1646  */
+#line 1391 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 102 "synt.y" /* yacc.c:1646  */
+#line 127 "synt.y" /* yacc.c:1646  */
     { 
         if( fin_dec == 0 ) { // partie declaration
             Inserer_LD((yyvsp[-1].chaine),index_val);
+            if ( index_val!=-1){
+                char t[10];sprintf(t,"%d",index_val-1);
+                Ajouter_Quad("BOUNDS","0",t,"");
+                Ajouter_Quad("ADEC",(yyvsp[-1].chaine),"","");
+            }
         } else { // partie instructions
             if ( Rechercher((yyvsp[-1].chaine)) == NULL ) {
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable %s non declaree !",nbligne,nbcolonne,(yyvsp[-1].chaine));	
@@ -1392,11 +1422,11 @@ yyreduce:
             //printf("wach kayen %s\n",$$.type);
         }
     }
-#line 1396 "synt.tab.c" /* yacc.c:1646  */
+#line 1426 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 130 "synt.y" /* yacc.c:1646  */
+#line 160 "synt.y" /* yacc.c:1646  */
     { 
         if(!Bib_Tab) printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de tableau sans import de la biblioteque !",nbligne,nbcolonne);
         if (!fin_dec) {
@@ -1405,51 +1435,51 @@ yyreduce:
         }
         index_val = (yyvsp[-1].entier);
     }
-#line 1409 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 20:
-#line 138 "synt.y" /* yacc.c:1646  */
-    { index_val = -1; }
-#line 1415 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 21:
-#line 141 "synt.y" /* yacc.c:1646  */
-    { type_courant = strdup("INTEGER"); }
-#line 1421 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 22:
-#line 142 "synt.y" /* yacc.c:1646  */
-    { type_courant = strdup("REAL"); }
-#line 1427 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 23:
-#line 145 "synt.y" /* yacc.c:1646  */
-    {(yyval.Str).type=strdup("INTEGER");  char t[10]; sprintf(t,"%d",(yyvsp[0].entier)); (yyval.Str).val=strdup(t);}
-#line 1433 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 24:
-#line 146 "synt.y" /* yacc.c:1646  */
-    {(yyval.Str).type=strdup("REAL");     char t[10]; sprintf(t,"%f",(yyvsp[0].real)); (yyval.Str).val=strdup(t);}
 #line 1439 "synt.tab.c" /* yacc.c:1646  */
     break;
 
+  case 20:
+#line 168 "synt.y" /* yacc.c:1646  */
+    { index_val = -1; }
+#line 1445 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 21:
+#line 171 "synt.y" /* yacc.c:1646  */
+    { type_courant = strdup("INTEGER"); }
+#line 1451 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 22:
+#line 172 "synt.y" /* yacc.c:1646  */
+    { type_courant = strdup("REAL"); }
+#line 1457 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 23:
+#line 175 "synt.y" /* yacc.c:1646  */
+    {(yyval.Str).type=strdup("INTEGER");  char t[10]; sprintf(t,"%d",(yyvsp[0].entier)); (yyval.Str).val=strdup(t);}
+#line 1463 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 176 "synt.y" /* yacc.c:1646  */
+    {(yyval.Str).type=strdup("REAL");     char t[10]; sprintf(t,"%f",(yyvsp[0].real)); (yyval.Str).val=strdup(t);}
+#line 1469 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
   case 30:
-#line 160 "synt.y" /* yacc.c:1646  */
+#line 190 "synt.y" /* yacc.c:1646  */
     {
                     if ( getNature((yyvsp[0].Str).val)==1){ 
                     printf ("\nL%2d C%2d | ERREUR SEMANTIQUE: %s est une constante",nbligne,nbcolonne,(yyvsp[0].Str).val);
                     }
                 }
-#line 1449 "synt.tab.c" /* yacc.c:1646  */
+#line 1479 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 167 "synt.y" /* yacc.c:1646  */
+#line 197 "synt.y" /* yacc.c:1646  */
     {
                     if ( ! Bib_Calcule ) {
                         printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation d'operations arithmetiques sans import de biblioteque !",nbligne,nbcolonne); 
@@ -1458,6 +1488,9 @@ yyreduce:
                     {
                         if ( strcmp((yyvsp[-4].Str).type,(yyvsp[-1].Str).type)!=0){
                         printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s à %s !",nbligne,nbcolonne,(yyvsp[-1].Str).type,(yyvsp[-4].Str).type);
+                        }
+                        else{
+                            Ajouter_Quad("=",(yyvsp[-4].Str).val,(yyvsp[-1].Str).val,"");
                         }
                     }
 
@@ -1471,11 +1504,9 @@ yyreduce:
                         {
                             if ( (yyvsp[-1].Str).declared==0){
                                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s à %s NON DECLARER!",nbligne,nbcolonne,(yyvsp[-1].Str).type,(yyvsp[-4].Str).val);
-                                printf("yo");
                             //declared=0;
                             }else{
                                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de variable non declarer à %s NON DECLARER!",nbligne,nbcolonne,(yyvsp[-4].Str).val);
-                                printf("yo1");
                             }
                         }
 
@@ -1491,14 +1522,14 @@ yyreduce:
                             printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s non declarer à %s !",nbligne,nbcolonne,(yyvsp[-1].Str).val,(yyvsp[-4].Str).val);
                             }        
 
-                    Ajouter_Quad("=",(yyvsp[-4].Str).val,(yyvsp[-1].Str).val,"");
+                    
                     
                 }
-#line 1498 "synt.tab.c" /* yacc.c:1646  */
+#line 1529 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 214 "synt.y" /* yacc.c:1646  */
+#line 245 "synt.y" /* yacc.c:1646  */
     {
             if ( ((yyvsp[-2].Str).declared==0) && ((yyvsp[0].Str).declared==0) ){
                 if ( strcmp((yyvsp[-2].Str).type,(yyvsp[0].Str).type)==0){
@@ -1521,11 +1552,11 @@ yyreduce:
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Addition non permise ",nbligne,nbcolonne);
             }
         }
-#line 1525 "synt.tab.c" /* yacc.c:1646  */
+#line 1556 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 237 "synt.y" /* yacc.c:1646  */
+#line 268 "synt.y" /* yacc.c:1646  */
     {
             if ( strcmp((yyvsp[-2].Str).type,(yyvsp[0].Str).type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands différence %s avec %s !",nbligne,nbcolonne,(yyvsp[-2].Str).type,(yyvsp[0].Str).type);
             Ind_Operand=1;
@@ -1538,17 +1569,17 @@ yyreduce:
                     (yyval.Str).val=strdup(t);
             }
         }
-#line 1542 "synt.tab.c" /* yacc.c:1646  */
+#line 1573 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 249 "synt.y" /* yacc.c:1646  */
+#line 280 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=(yyvsp[0].Str).val; (yyval.Str).type=(yyvsp[0].Str).type;}
-#line 1548 "synt.tab.c" /* yacc.c:1646  */
+#line 1579 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 253 "synt.y" /* yacc.c:1646  */
+#line 284 "synt.y" /* yacc.c:1646  */
     {
             if ( strcmp((yyvsp[-2].Str).type,(yyvsp[0].Str).type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands multiplucation %s avec %s !",nbligne,nbcolonne,(yyvsp[-2].Str).type,(yyvsp[0].Str).type);
             Ind_Operand=1;
@@ -1561,11 +1592,11 @@ yyreduce:
                     (yyval.Str).val=strdup(t);
             }
         }
-#line 1565 "synt.tab.c" /* yacc.c:1646  */
+#line 1596 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 266 "synt.y" /* yacc.c:1646  */
+#line 297 "synt.y" /* yacc.c:1646  */
     {
             if ( strcmp((yyvsp[-2].Str).type,(yyvsp[0].Str).type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands division %s avec %s !",nbligne,nbcolonne,(yyvsp[-2].Str).type,(yyvsp[0].Str).type);
             Ind_Operand=1;
@@ -1578,48 +1609,48 @@ yyreduce:
                     (yyval.Str).val=strdup(t);
             }
         }
-#line 1582 "synt.tab.c" /* yacc.c:1646  */
+#line 1613 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 278 "synt.y" /* yacc.c:1646  */
+#line 309 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=(yyvsp[0].Str).val; (yyval.Str).type=(yyvsp[0].Str).type;}
-#line 1588 "synt.tab.c" /* yacc.c:1646  */
+#line 1619 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 281 "synt.y" /* yacc.c:1646  */
+#line 312 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=(yyvsp[0].Str).val; (yyval.Str).type=(yyvsp[0].Str).type;}
-#line 1594 "synt.tab.c" /* yacc.c:1646  */
+#line 1625 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 282 "synt.y" /* yacc.c:1646  */
+#line 313 "synt.y" /* yacc.c:1646  */
     {(yyval.Str).val=(yyvsp[0].Str).val; (yyval.Str).type=(yyvsp[0].Str).type;}
-#line 1600 "synt.tab.c" /* yacc.c:1646  */
+#line 1631 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 285 "synt.y" /* yacc.c:1646  */
+#line 316 "synt.y" /* yacc.c:1646  */
     {
                     Ajouter_Quad("BR","","","");
                     empiler_if(Num_Qc);
                   }
-#line 1609 "synt.tab.c" /* yacc.c:1646  */
+#line 1640 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 289 "synt.y" /* yacc.c:1646  */
+#line 320 "synt.y" /* yacc.c:1646  */
     {        
                     empiler_if(Num_Qc);
                     Ajouter_Quad("BR","","","");
                     sauv_br_to_cond=Num_Qc;
           }
-#line 1619 "synt.tab.c" /* yacc.c:1646  */
+#line 1650 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 296 "synt.y" /* yacc.c:1646  */
+#line 327 "synt.y" /* yacc.c:1646  */
     {
                 sauv_BR=depiler_if();
                 int Deb_Inst=depiler_if();
@@ -1629,25 +1660,25 @@ yyreduce:
                 id++;
                 MAJ_quad_if(sauv_BR,id);
           }
-#line 1633 "synt.tab.c" /* yacc.c:1646  */
+#line 1664 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 308 "synt.y" /* yacc.c:1646  */
+#line 339 "synt.y" /* yacc.c:1646  */
     {   wich_cond=1; empiler_while(Num_Qc); }
-#line 1639 "synt.tab.c" /* yacc.c:1646  */
+#line 1670 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 310 "synt.y" /* yacc.c:1646  */
+#line 341 "synt.y" /* yacc.c:1646  */
     {
                 empiler_while(Num_Qc-1);
             }
-#line 1647 "synt.tab.c" /* yacc.c:1646  */
+#line 1678 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 314 "synt.y" /* yacc.c:1646  */
+#line 345 "synt.y" /* yacc.c:1646  */
     {
                 if(!Bib_Boucle) { printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de boucle sans import de la biblioteque !",nbligne,nbcolonne); }
                 int Qc_cond_While=depiler_while();
@@ -1658,18 +1689,18 @@ yyreduce:
                 MAJ_quad_if(Qc_cond_While,Num_Qc);
 
             }
-#line 1662 "synt.tab.c" /* yacc.c:1646  */
+#line 1693 "synt.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 327 "synt.y" /* yacc.c:1646  */
+#line 358 "synt.y" /* yacc.c:1646  */
     {
-            if ( strcmp((yyvsp[-2].Str).type,(yyvsp[0].Str).type)!=0){
+            if ( (yyvsp[-2].Str).declared == 0 && (yyvsp[-1].Str).declared == 0 ){
+                if ( strcmp((yyvsp[-2].Str).type,(yyvsp[0].Str).type)!=0){
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands lors de la comparaison %s avec %s !",nbligne,nbcolonne,(yyvsp[-2].Str).val,(yyvsp[0].Str).val);
-            }
-            else{
+                }
+                else{
                     
-                    printf("16s\n");
                     char t[10]; sprintf(t,"T%d",Cpt_temp);
                     Cpt_temp++;
                     Ajouter_Quad("-",(yyvsp[-2].Str).val,(yyvsp[0].Str).val,t);
@@ -1700,49 +1731,54 @@ yyreduce:
                     }
                     
 
+                }
+            }
+            else{
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité operand non déclarer!",nbligne,nbcolonne);
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Comparaison non permise!",nbligne,nbcolonne);
             }
         }
-#line 1706 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 48:
-#line 368 "synt.y" /* yacc.c:1646  */
-    {(yyval.Str).val=strdup("==");}
-#line 1712 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 49:
-#line 369 "synt.y" /* yacc.c:1646  */
-    {(yyval.Str).val=strdup("!=");}
-#line 1718 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 50:
-#line 370 "synt.y" /* yacc.c:1646  */
-    {(yyval.Str).val=strdup("<");}
-#line 1724 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 51:
-#line 371 "synt.y" /* yacc.c:1646  */
-    {(yyval.Str).val=strdup("<=");}
-#line 1730 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 52:
-#line 372 "synt.y" /* yacc.c:1646  */
-    {(yyval.Str).val=strdup(">");}
-#line 1736 "synt.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 53:
-#line 373 "synt.y" /* yacc.c:1646  */
-    {(yyval.Str).val=strdup(">=");}
 #line 1742 "synt.tab.c" /* yacc.c:1646  */
     break;
 
+  case 48:
+#line 404 "synt.y" /* yacc.c:1646  */
+    {(yyval.Str).val=strdup("==");}
+#line 1748 "synt.tab.c" /* yacc.c:1646  */
+    break;
 
-#line 1746 "synt.tab.c" /* yacc.c:1646  */
+  case 49:
+#line 405 "synt.y" /* yacc.c:1646  */
+    {(yyval.Str).val=strdup("!=");}
+#line 1754 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 50:
+#line 406 "synt.y" /* yacc.c:1646  */
+    {(yyval.Str).val=strdup("<");}
+#line 1760 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 51:
+#line 407 "synt.y" /* yacc.c:1646  */
+    {(yyval.Str).val=strdup("<=");}
+#line 1766 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 52:
+#line 408 "synt.y" /* yacc.c:1646  */
+    {(yyval.Str).val=strdup(">");}
+#line 1772 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 53:
+#line 409 "synt.y" /* yacc.c:1646  */
+    {(yyval.Str).val=strdup(">=");}
+#line 1778 "synt.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1782 "synt.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1970,7 +2006,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 376 "synt.y" /* yacc.c:1906  */
+#line 412 "synt.y" /* yacc.c:1906  */
 
 int main()
 {yyparse(); 

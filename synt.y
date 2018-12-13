@@ -4,6 +4,7 @@
 #include "Quadruplet.h"
 
 int Bib_Calcule=0,Bib_Boucle=0,Bib_Tab=0;
+int Bib_InLineT=0,Bib_InLineB=0,Bib_InLineC=0;
 int Ind_Operand=0,Ind_Declaration=0;
 int sauv_BR,sauv_br_to_cond,wich_cond=0;
 int yylex();
@@ -48,34 +49,58 @@ BIBL : CALCUL BIBL
 
 CALCUL : bib_calcul 
     { 
-        if (Bib_Calcule==0) { 
-            Inserer("CALCUL","mc","/",0);
-            Bib_Calcule=1; 
-        } else {
-            printf("\nBibliotheque CALCUL deja declaree");
-        } 
+        if (Bib_Calcule==0 ) { 
+            if ( (nbligne !=Bib_InLineC) && (nbligne !=Bib_InLineB) && (nbligne !=Bib_InLineT) ){
+                Inserer("CALCUL","mc","/",0);
+                Bib_Calcule=1; 
+                Bib_InLineC=nbligne;
+            }
+            else{
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque CALCUL ne peut être declarer dans cette ligne",nbligne,nbcolonne);
+            }
+        }    
+        else {
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque CALCUL deja déclaée",nbligne,nbcolonne);
+            
+        }    
     }
 ;
 
 TAB : bib_tab 
     { 
-        if (Bib_Tab==0) {
-            Inserer("TAB","mc","/",0);
-            Bib_Tab=1;
-        } else { 
-            printf("\nBibliotheque TAB deja déclaée");
-        }
+        if (Bib_Tab==0) { 
+            if ( (nbligne !=Bib_InLineC) && (nbligne !=Bib_InLineB) && (nbligne !=Bib_InLineT) ){
+                Inserer("TAB","mc","/",0);
+                Bib_Tab=1; 
+                Bib_InLineT=nbligne;
+            }
+            else{
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque TAB ne peut être declarer dans cette ligne",nbligne,nbcolonne);
+            }
+        }    
+        else {
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque TAB deja déclaée",nbligne,nbcolonne);
+            
+        } 
     }
 ;
 
 BOUCLE : bib_boucle 
     { 
         if (Bib_Boucle==0) { 
-            Inserer("BOUCLE","mc","/",0);
-            Bib_Boucle=1;
-        } else {
-            printf("\nBibliotheque BOUCLE deja declare");
-        }
+            if ( (nbligne !=Bib_InLineC) && (nbligne !=Bib_InLineB) && (nbligne !=Bib_InLineT) ){
+                Inserer("BOUCLE","mc","/",0);
+                Bib_Boucle=1; 
+                Bib_InLineB=nbligne;
+            }
+            else{
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque BOUCLE ne peut être declarer dans cette ligne",nbligne,nbcolonne);
+            }
+        }    
+        else {
+                printf("\nL%2d C%2d | ERREUR SYNTAXIQUE: Bibliotheque BOUCLE deja déclaée",nbligne,nbcolonne);
+            
+        } 
     }
 ;
 
@@ -102,6 +127,11 @@ VAR : id INDEX
     { 
         if( fin_dec == 0 ) { // partie declaration
             Inserer_LD($1,index_val);
+            if ( index_val!=-1){
+                char t[10];sprintf(t,"%d",index_val-1);
+                Ajouter_Quad("BOUNDS","0",t,"");
+                Ajouter_Quad("ADEC",$1,"","");
+            }
         } else { // partie instructions
             if ( Rechercher($1) == NULL ) {
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable %s non declaree !",nbligne,nbcolonne,$1);	
@@ -173,6 +203,9 @@ INST_AFF: VAR {
                         if ( strcmp($1.type,$4.type)!=0){
                         printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s à %s !",nbligne,nbcolonne,$4.type,$1.type);
                         }
+                        else{
+                            Ajouter_Quad("=",$1.val,$4.val,"");
+                        }
                     }
 
                     if ( $4.declared==0 && $4.Compatibilite ==1)
@@ -203,7 +236,7 @@ INST_AFF: VAR {
                             printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s non declarer à %s !",nbligne,nbcolonne,$4.val,$1.val);
                             }        
 
-                    Ajouter_Quad("=",$1.val,$4.val,"");
+                    
                     
                 }
 ;
@@ -323,12 +356,12 @@ INST_WHL : mc_while {   wich_cond=1; empiler_while(Num_Qc); }
 
 COND : EXP1 COMPARATEUR EXP1 
         {
-            if ( strcmp($1.type,$3.type)!=0){
+            if ( $1.declared == 0 && $2.declared == 0 ){
+                if ( strcmp($1.type,$3.type)!=0){
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands lors de la comparaison %s avec %s !",nbligne,nbcolonne,$1.val,$3.val);
-            }
-            else{
+                }
+                else{
                     
-                    printf("16s\n");
                     char t[10]; sprintf(t,"T%d",Cpt_temp);
                     Cpt_temp++;
                     Ajouter_Quad("-",$1.val,$3.val,t);
@@ -359,6 +392,11 @@ COND : EXP1 COMPARATEUR EXP1
                     }
                     
 
+                }
+            }
+            else{
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité operand non déclarer!",nbligne,nbcolonne);
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Comparaison non permise!",nbligne,nbcolonne);
             }
         }
 ;

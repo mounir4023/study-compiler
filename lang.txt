@@ -6,21 +6,12 @@
 PROGRAMME SII {
 
 	INTEGER Ab||X;
-	REAL J||N;
-	A:=X;
+	REAL J||N[5];
+	Ab:=X;
+	X:=7;
 	
 
 }
 
 
-// expecting:
-5 * 3 + 5 * 4 + 5 * 6;
-EXP3 * EXP3 + 5 * 4 + 5 * 6;
-EXP2 + 5 * 4 + 5 * 6;
-EXP2 + EXP3 * EXP3 + 5 * 6;
-EXP2 + EXP2 + 5 * 6;
-EXP1 + 5 * 6;
-EXP1 + EXP3 * EXP3;
-EXP1 + EXP2;
-EXP1;
-//
+
