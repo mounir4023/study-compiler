@@ -1,5 +1,5 @@
 
-#line 2 "lex.yy.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -516,8 +516,8 @@ void sautDeLigne( char *s ) {
 	nbligne+=j;
 }
 
-#line 519 "lex.yy.c"
 #line 520 "lex.yy.c"
+#line 521 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -736,7 +736,7 @@ YY_DECL
 	{
 #line 34 "lexical.l"
 
-#line 739 "lex.yy.c"
+#line 740 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -933,7 +933,7 @@ case 28:
 /* rule 28 can match eol */
 YY_RULE_SETUP
 #line 65 "lexical.l"
-{nbcolonne=nbcolonne+yyleng; sautDeLigne(yytext); }//for ( int i; i < strlen(yytext) ; i ++ ) { if (yytext[i]=='\n') nbligne++; }}
+{nbcolonne=nbcolonne+yyleng; sautDeLigne(yytext); }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
@@ -950,7 +950,7 @@ YY_RULE_SETUP
 #line 69 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 953 "lex.yy.c"
+#line 954 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

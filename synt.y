@@ -266,15 +266,25 @@ EXP1 : EXP1 '+' EXP2
         }
      | EXP1 '-' EXP2 
         {
-            if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands différence %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
-            Ind_Operand=1;
-            }
-            else{
+            if ( ($1.declared==0) && ($3.declared==0) ){
+                if ( strcmp($1.type,$3.type)==0){
                     $$.type=$1.type; 
                     char t[10]; sprintf(t,"T%d",Cpt_temp); 
                     Cpt_temp++;
                     Ajouter_Quad("-",$1.val,$3.val,t);
                     $$.val=strdup(t);
+                    $$.Compatibilite=0;
+                }
+                else{
+                    $$.Compatibilite=1;
+                    $$.type=$3.type; 
+                    printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands soustraction %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
+                    printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Soustraction non permise ",nbligne,nbcolonne);
+                }
+            }
+            else{
+                $$.declared=1;
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Soustraction non permise ",nbligne,nbcolonne);
             }
         }
      | EXP2 {$$.val=$1.val; $$.type=$1.type;}
@@ -282,28 +292,48 @@ EXP1 : EXP1 '+' EXP2
 
 EXP2 : EXP2 '*' EXP3 
         {
-            if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands multiplucation %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
-            Ind_Operand=1;
-            }
-            else{
+            if ( ($1.declared==0) && ($3.declared==0) ){
+                if ( strcmp($1.type,$3.type)==0){
                     $$.type=$1.type; 
                     char t[10]; sprintf(t,"T%d",Cpt_temp); 
                     Cpt_temp++;
                     Ajouter_Quad("*",$1.val,$3.val,t);
                     $$.val=strdup(t);
+                    $$.Compatibilite=0;
+                }
+                else{
+                    $$.Compatibilite=1;
+                    $$.type=$3.type; 
+                    printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands multiplication %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
+                    printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Multiplication non permise ",nbligne,nbcolonne);
+                }
+            }
+            else{
+                $$.declared=1;
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Multiplication non permise ",nbligne,nbcolonne);
             }
         }
      | EXP2 '/' EXP3 
         {
-            if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands division %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
-            Ind_Operand=1;
-            }
-            else{
+            if ( ($1.declared==0) && ($3.declared==0) ){
+                if ( strcmp($1.type,$3.type)==0){
                     $$.type=$1.type; 
                     char t[10]; sprintf(t,"T%d",Cpt_temp); 
                     Cpt_temp++;
                     Ajouter_Quad("/",$1.val,$3.val,t);
                     $$.val=strdup(t);
+                    $$.Compatibilite=0;
+                }
+                else{
+                    $$.Compatibilite=1;
+                    $$.type=$3.type; 
+                    printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands division %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
+                    printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Division non permise ",nbligne,nbcolonne);
+                }
+            }
+            else{
+                $$.declared=1;
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Division non permise ",nbligne,nbcolonne);
             }
         }
      | EXP3 {$$.val=$1.val; $$.type=$1.type;}
