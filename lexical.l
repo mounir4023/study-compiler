@@ -62,7 +62,7 @@ WHILE 		{ nbcolonne=nbcolonne+yyleng; return mc_while;}
 {regex_inf} 	{ nbcolonne=nbcolonne+yyleng; return sb_inf; }
 {regex_infeg} 	{ nbcolonne=nbcolonne+yyleng; return sb_infeg; }
 {regex_sp} 		{ nbcolonne=nbcolonne+yyleng; return sp_var; }
-{regex_commentaire} 	{nbcolonne=nbcolonne+yyleng; sautDeLigne(yytext); }//for ( int i; i < strlen(yytext) ; i ++ ) { if (yytext[i]=='\n') nbligne++; }}
+{regex_commentaire} 	{nbcolonne=nbcolonne+yyleng; sautDeLigne(yytext); }
 {regex_idf}		{ nbcolonne=nbcolonne+yyleng; yylval.chaine=strdup(yytext); return id; }
 . printf("\nERREUR LEXICALE: caractere inconnu : %s ! LIGNE : %d COLONNE : %d\n",yytext,nbligne,nbcolonne);
 
