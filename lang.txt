@@ -1,11 +1,18 @@
 
 #CALCUL
-#TAB
-#BOUCLE
+#TAB 
+#BOUCLE 
+// test com 1 ligne //
+// test comm plsr 
+l
+l
+l
+l//
 
+%
 PROGRAMME SII {
 
-	INTEGER Ab||X;
+	//INTEGER Ab||X;//
 	REAL J||N[5];
 	Ab:=X;
 	X:=7;

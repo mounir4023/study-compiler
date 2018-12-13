@@ -10,6 +10,10 @@ int index_val=-1;
 int nbligne=1;
 int nbcolonne;
 
+void maj_nb_ligne(char * com ) {
+    for ( int i; i < strlen(com) ; i ++ ) if (com[i]=='\n') nbligne++;
+}
+
 typedef struct Element_TS {
 	char * nom;
 	char * code;

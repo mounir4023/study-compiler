@@ -1,11 +1,21 @@
 %{
 #include <stdio.h>
 #include "synt.tab.h"
+
 extern YYSTYPE yylval;
 extern  int nbligne;
 int nbcolonne=1;
 extern  int nbmot;
 extern YYSTYPE yylval;
+
+void sautDeLigne( char *s ) {
+	int i,j=0;
+	for ( i=0 ; i< strlen(s) ; i++ ) {
+		j+=(s[i]=='\n');	
+	} 
+	nbligne+=j;
+}
+
 %}
 
 regex_idf [A-Z][A-Za-z0-9]*
@@ -52,7 +62,7 @@ WHILE 		{ nbcolonne=nbcolonne+yyleng; return mc_while;}
 {regex_inf} 	{ nbcolonne=nbcolonne+yyleng; return sb_inf; }
 {regex_infeg} 	{ nbcolonne=nbcolonne+yyleng; return sb_infeg; }
 {regex_sp} 		{ nbcolonne=nbcolonne+yyleng; return sp_var; }
-{regex_commentaire} 	{nbcolonne=nbcolonne+yyleng;}
+{regex_commentaire} 	{nbcolonne=nbcolonne+yyleng; sautDeLigne(yytext); }//for ( int i; i < strlen(yytext) ; i ++ ) { if (yytext[i]=='\n') nbligne++; }}
 {regex_idf}		{ nbcolonne=nbcolonne+yyleng; yylval.chaine=strdup(yytext); return id; }
 . printf("\nERREUR LEXICALE: caractere inconnu : %s ! LIGNE : %d COLONNE : %d\n",yytext,nbligne,nbcolonne);
 
