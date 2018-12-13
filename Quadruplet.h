@@ -150,3 +150,56 @@ void make_condWhile_quad( char * str,char * t){
                             Ajouter_Quad("BL","","",t);
                         }
 }
+
+typedef struct Pile_While {
+    int numQc;
+    struct Pile_While * svt;
+} Pile_While;
+
+Pile_While* Tete_Pile_While=NULL; 
+
+void empiler_while( int numQuad){
+    if ( Tete_Pile_While==NULL){
+        Tete_Pile_While=(Pile_While*)malloc(sizeof(Pile_While));
+        Tete_Pile_While->numQc=numQuad;
+        Tete_Pile_While->svt=NULL;
+    }
+    else{
+        Pile_While* tmp=(Pile_While*)malloc(sizeof(Pile_While));
+        tmp->numQc=numQuad;
+        tmp->svt=Tete_Pile_While;
+        Tete_Pile_While=tmp;
+    }
+}
+
+int depiler_while(){
+    printf("h11\n");
+    if ( Tete_Pile_While!=NULL){
+        Pile_While* current=Tete_Pile_While;
+        int tmp=current->numQc;
+        if ( current->svt != NULL)
+        {
+
+            Tete_Pile_While=current->svt;
+        }
+        else{
+
+            Tete_Pile_While=NULL;
+        }
+        free(current);
+        return tmp;
+    }
+    return -1;
+}
+void MAJ_quad_while( int numQuad,int adr){
+    Element_Quad* cursor=Tete_Q;
+    while(cursor!=NULL){
+        if( cursor->num==numQuad){
+            char t[10]; sprintf(t,"%d",adr);
+            cursor->opd_1=(char*) malloc(sizeof(char)*strlen(t));
+            strcpy(cursor->opd_1,t);
+            break;
+        }
+        cursor=cursor->svt;
+    }
+}

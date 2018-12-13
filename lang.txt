@@ -5,9 +5,11 @@
 
 PROGRAMME SII {
 
-	INTEGER A;
+	INTEGER Ab||X;
+	REAL J||N;
+	A:=X;
 	
-	A := 5 * 3 + 5 * 4 + 5 * 6;
+
 }
 
 

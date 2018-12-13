@@ -14,7 +14,7 @@ int yyerror(char *s);
 char*  chaine;
 int entier;
 float real;
-struct Str{char *val;char* type;}Str;
+struct Str{char *val;char* type;int declared;int Compatibilite;}Str;
 struct Str2{char* op;char* res;}Str2;
 }
 
@@ -105,7 +105,8 @@ VAR : id INDEX
         } else { // partie instructions
             if ( Rechercher($1) == NULL ) {
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Variable %s non declaree !",nbligne,nbcolonne,$1);	
-                Ind_Declaration=1; //faut sortir sinon yrouh ychercher 3la null donc lazem n7absso
+                //Ind_Declaration=1; faut sortir sinon yrouh ychercher 3la null donc lazem n7absso
+                $$.declared=1;
             }
             if (index_val ==-1 && get_taille($1) > 1) {
                 printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Acces a un tableau sans preciser d indice !",nbligne,nbcolonne);
@@ -118,6 +119,7 @@ VAR : id INDEX
             {
                 $$.val=strdup($1);
                 $$.type=getType($1);
+                $$.declared=0;
             }
             //printf("wach kayen %s\n",$$.type);
         }
@@ -166,32 +168,41 @@ INST_AFF: VAR {
                     if ( ! Bib_Calcule ) {
                         printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation d'operations arithmetiques sans import de biblioteque !",nbligne,nbcolonne); 
                     }
-                    if ( Ind_Declaration==0 && Ind_Operand == 0)
+                    if ( $4.declared==0 && $4.Compatibilite == 0 && $1.declared==0)
                     {
                         if ( strcmp($1.type,$4.type)!=0){
                         printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s à %s !",nbligne,nbcolonne,$4.type,$1.type);
                         }
                     }
 
-                    if ( Ind_Declaration==0 && Ind_Operand ==1)
+                    if ( $4.declared==0 && $4.Compatibilite ==1)
                         {
                             printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation non permise!",nbligne,nbcolonne);
-                            Ind_Operand=0;
+                            //Compatibilite=0;
                             }
 
-                    if ( Ind_Declaration==1 && Ind_Operand ==0)
+                    if ( $1.declared==1 && $4.Compatibilite ==0)
                         {
-                            printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s à %s NON DECLARER!",nbligne,nbcolonne,$4.type,$1.val);
-                            Ind_Declaration=0;
+                            if ( $4.declared==0){
+                                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s à %s NON DECLARER!",nbligne,nbcolonne,$4.type,$1.val);
+                            //declared=0;
+                            }else{
+                                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de variable non declarer à %s NON DECLARER!",nbligne,nbcolonne,$1.val);
+                            }
                         }
 
-                    if ( Ind_Declaration==1 && Ind_Operand ==1)
+                    if ( $1.declared==1 && $4.Compatibilite ==1)
                         {
                             printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation à %s NON DECLARER!",nbligne,nbcolonne,$1.val);
                             printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation non permise!",nbligne,nbcolonne);
-                            Ind_Operand=0;
-                            Ind_Declaration=0;
+                            //Compatibilite=0;
+                            //declared=0;
                             }
+                    if ( $4.declared==1 && $1.declared ==0)
+                        {
+                            printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité, affectation de %s non declarer à %s !",nbligne,nbcolonne,$4.val,$1.val);
+                            }        
+
                     Ajouter_Quad("=",$1.val,$4.val,"");
                     
                 }
@@ -199,15 +210,25 @@ INST_AFF: VAR {
 
 EXP1 : EXP1 '+' EXP2 
         {
-            if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands addition %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
-            Ind_Operand=1;
-            }
-            else{
+            if ( ($1.declared==0) && ($3.declared==0) ){
+                if ( strcmp($1.type,$3.type)==0){
                     $$.type=$1.type; 
                     char t[10]; sprintf(t,"T%d",Cpt_temp); 
                     Cpt_temp++;
                     Ajouter_Quad("+",$1.val,$3.val,t);
                     $$.val=strdup(t);
+                    $$.Compatibilite=0;
+                }
+                else{
+                    $$.Compatibilite=1;
+                    $$.type=$3.type; 
+                    printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands addition %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
+                    printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Addition non permise ",nbligne,nbcolonne);
+                }
+            }
+            else{
+                $$.declared=1;
+                printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Addition non permise ",nbligne,nbcolonne);
             }
         }
      | EXP1 '-' EXP2 
@@ -243,7 +264,6 @@ EXP2 : EXP2 '*' EXP3
         {
             if ( strcmp($1.type,$3.type)!=0){ printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Incompatibilité de types entre opérands division %s avec %s !",nbligne,nbcolonne,$1.type,$3.type);
             Ind_Operand=1;
-            //return 0;
             }
             else{
                     $$.type=$1.type; 
@@ -283,17 +303,20 @@ INST_IF : mc_exec {
           ')' 
 ;
 
-INST_WHL : mc_while {   wich_cond=1; }
+INST_WHL : mc_while {   wich_cond=1; empiler_while(Num_Qc); }
            '(' COND ')' 
             {
-                empiler_if(Num_Qc-1);
+                empiler_while(Num_Qc-1);
             }
            '{' INST '}'
             {
-                int Qc_cond_While=depiler_if();
-                printf("%d %d",Qc_cond_While,Num_Qc);
-                MAJ_quad_if(Qc_cond_While,Num_Qc);
                 if(!Bib_Boucle) { printf("\nL%2d C%2d | ERREUR SEMANTIQUE: Utilisation de boucle sans import de la biblioteque !",nbligne,nbcolonne); }
+                int Qc_cond_While=depiler_while();
+                //Branchement retour vers la condition
+                int BR_to_cond_While=depiler_while();
+                char b[10]; sprintf(b,"%d",BR_to_cond_While);
+                Ajouter_Quad("BR",b,"","");
+                MAJ_quad_if(Qc_cond_While,Num_Qc);
 
             }
 ;
