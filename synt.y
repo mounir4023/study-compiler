@@ -443,6 +443,8 @@ COMPARATEUR : sb_eg    {$$.val=strdup("==");}
 int main()
 {yyparse(); 
  AfficherTS(TS);
+ Affichage_Quad();
+ printf("\nAffichage Quad Optimiser ===>\n");
  Chercher_Elmt();
  Affichage_Quad();
 }

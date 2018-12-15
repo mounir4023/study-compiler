@@ -12,7 +12,9 @@ PROGRAMME SII {
 
 	INTEGER Ab||X;
 	REAL J||N[5];
-	Ab:=5*3;
+	WHILE ( 15 == 20 ) {
+				X := 5*3 ;
+			}
 
 }
 

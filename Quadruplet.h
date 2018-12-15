@@ -15,8 +15,10 @@ Element_Quad* Tete_Q=NULL;
 int Num_Qc=0;
 int Cpt_temp=0;
 int Cpt_ttemp=0;
+int I;
 
 void Traiter_Elmt(Element_Quad* cursor,Element_Quad* child,Element_Quad* parent);
+void MAJ_Qc(int i);
 
 void Ajouter_Quad(char* operateur,char* opd_1,char* opd_2,char* resultat){
 
@@ -176,7 +178,7 @@ void empiler_while( int numQuad){
 }
 
 int depiler_while(){
-    printf("h11\n");
+    //printf("h11\n");
     if ( Tete_Pile_While!=NULL){
         Pile_While* current=Tete_Pile_While;
         int tmp=current->numQc;
@@ -222,31 +224,33 @@ void Chercher_Elmt(){
 	}
 	else
 	{
+		int x;
 		cursor=Tete_Q;
 		parent=cursor; 
 		child=NULL;
-		printf("1\n");
 		while(cursor!=NULL){
-			printf("2\n");
+
 			child=cursor->svt;
 			if ( strcmp(cursor->operateur,"*") == 0 ){
-				printf("3\n");
 				Traiter_Elmt(cursor,child,parent);
-				printf("4\n");
+				if ( x>2){
+					MAJ_Qc(I);
+				}
+				
 			}
-			printf("5\n");
+			
 			parent=cursor;
 			cursor=child;
 		}
-		printf("6\n");
+		
 
 	}
 }
 
 void Traiter_Elmt(Element_Quad* cursor,Element_Quad* child,Element_Quad* parent){
-	int x,y;
+	
 	char * opd;
-
+	int x,y;
 	if ( atoi(cursor->opd_1)<atoi(cursor->opd_2)){
 		x=atoi(cursor->opd_1);
 		y=1;
@@ -287,24 +291,24 @@ void Traiter_Elmt(Element_Quad* cursor,Element_Quad* child,Element_Quad* parent)
 			Element_Quad * sauvTmp;
 			char m[10];
 			sprintf(m,"Tt%d",Cpt_ttemp);
-			printf("7\n");
+			//printf("7\n");
 			tmp=(Element_Quad*)malloc(sizeof(Element_Quad));
-			parent->svt=tmp;
+			tmp->svt=child;
 			sauvTmp=tmp;
 			tmp->operateur=(char*) malloc(sizeof(char)*strlen("+"));
 			tmp->opd_1=(char*) malloc(sizeof(char)*strlen(opd));
 			tmp->opd_2=(char*) malloc(sizeof(char)*strlen(opd));
 			tmp->resultat=(char*) malloc(sizeof(char)*strlen(m));
-			printf("8\n");
+			//printf("8\n");
 			strcpy(tmp->operateur,"+");
 			strcpy(tmp->opd_1,opd);
 			strcpy(tmp->opd_2,opd);
 			strcpy(tmp->resultat,m);
-			printf("9\n");
+			//printf("9\n");
 			Cpt_ttemp++;
 			for (int i=2;i<x;i++){
 				tmp=(Element_Quad*)malloc(sizeof(Element_Quad));
-				sauvTmp->svt=tmp;
+				tmp->svt=sauvTmp;
 				sauvTmp=tmp;
 				tmp->operateur=(char*) malloc(sizeof(char)*strlen("+"));
 				tmp->opd_1=(char*) malloc(sizeof(char)*strlen(opd));
@@ -317,24 +321,52 @@ void Traiter_Elmt(Element_Quad* cursor,Element_Quad* child,Element_Quad* parent)
 				strcpy(tmp->opd_1,opd);
 				if ( i == (x-1)){
 					strcpy(tmp->resultat,cursor->resultat);
-					tmp->svt=NULL;
+					//tmp->svt=NULL;
 				}else{
 					strcpy(tmp->resultat,m);
 				}
 			}
-			// Trans FIFO TO LIFO 
-			Element_Quad* cur;
-			Element_Quad* p=NULL;
-			Element_Quad* chi;
-			p=sauvTmp;
-			cur=sauvTmp->svt;
-			while ( cur!=NULL){
-				chi=cur->svt;
-				cur->svt=p;
-				p=cur;
-				cur=chi;
-			}
 			Cpt_ttemp++;
-			tmp->svt=child;
+			parent->svt=tmp;
+			I=x-1;
+			
 	}
+}
+void MAJ_Qc(int x){
+	Element_Quad* cursor;
+	Element_Quad* parent;
+	cursor=Tete_Q;
+	int Qc_prec;
+	while(cursor!=NULL){
+		
+			if ( cursor->num!=0){
+				cursor->num=cursor->num+x-1;
+				Qc_prec=cursor->num;
+			}else{
+				while(cursor!=NULL && cursor->num==0){
+					cursor->num=(Qc_prec-1);
+					Qc_prec=cursor->num;
+					cursor=cursor->svt;
+				}
+				break;
+			}
+
+		cursor=cursor->svt;
+			
+		}
+		cursor=Tete_Q;
+		while(cursor!=NULL){
+			if ( strcmp(cursor->operateur,"BNE")==0 || strcmp(cursor->operateur,"BE")==0 || strcmp(cursor->operateur,"BGE")==0 || strcmp(cursor->operateur,"BG")==0 || strcmp(cursor->operateur,"BLE")==0 || strcmp(cursor->operateur,"BL")==0)
+		{
+			int y=atoi(cursor->opd_1);
+			y=y+x-1;
+			char t[10];
+			sprintf(t,"%d",y);
+			strcpy(cursor->opd_1,t);
+		}
+		cursor=cursor->svt;
+		}
+		
+	
+
 }
