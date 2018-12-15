@@ -289,7 +289,7 @@ void Traiter_Elmt(Element_Quad* cursor,Element_Quad* child,Element_Quad* parent)
 			sprintf(m,"Tt%d",Cpt_ttemp);
 			printf("7\n");
 			tmp=(Element_Quad*)malloc(sizeof(Element_Quad));
-			//parent->svt=tmp;
+			parent->svt=tmp;
 			sauvTmp=tmp;
 			tmp->operateur=(char*) malloc(sizeof(char)*strlen("+"));
 			tmp->opd_1=(char*) malloc(sizeof(char)*strlen(opd));
@@ -335,7 +335,6 @@ void Traiter_Elmt(Element_Quad* cursor,Element_Quad* child,Element_Quad* parent)
 				cur=chi;
 			}
 			Cpt_ttemp++;
-			parent->svt=p;
-			sauvTmp->svt=child;
+			tmp->svt=child;
 	}
 }
