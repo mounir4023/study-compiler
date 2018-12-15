@@ -8,14 +8,11 @@ l
 l
 l
 l//
-
-%
 PROGRAMME SII {
 
 	INTEGER Ab||X;
 	REAL J||N[5];
-	Ab:=X;
-	X:=7;
+	Ab:=5*3;
 
 }
 

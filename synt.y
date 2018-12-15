@@ -443,6 +443,7 @@ COMPARATEUR : sb_eg    {$$.val=strdup("==");}
 int main()
 {yyparse(); 
  AfficherTS(TS);
+ Chercher_Elmt();
  Affichage_Quad();
 }
 

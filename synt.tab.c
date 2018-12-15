@@ -2041,6 +2041,7 @@ yyreturn:
 int main()
 {yyparse(); 
  AfficherTS(TS);
+ Chercher_Elmt();
  Affichage_Quad();
 }
 
